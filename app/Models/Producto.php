@@ -26,11 +26,13 @@ class Producto extends Model
 
     public function categoria()
     {
+        //relacion uno a uno
         return $this->belongsTo(Categoria::class);
     }
 
-    public function carritos()
+    public function pedidos()
     {
-        return $this->belongsToMany(Carrito::class);
+        //relacion muchos a muchos
+        return $this->belongsToMany(Pedido::class);
     }
 }

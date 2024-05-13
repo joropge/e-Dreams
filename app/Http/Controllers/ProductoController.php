@@ -3,41 +3,63 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Pedido;
+use App\Models\User;
+use App\Models\Direccion;
+use App\Models\Categoria;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Validated;
+use Illuminate\View\View;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class ProductoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        // Devuelve una vista con todos los productos
+        return view('productos.index', ['productos' => Producto::all()]);
     }
+    // {
+    //     // Devuelve todos los productos en formato JSON
+    //     $productos = Producto::all();
+    //     return response()->json($productos);
+    // }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        // Muestra la vista de creación de productos
+        return view('productos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Valida los datos del formulario y crea un nuevo producto
+        try {
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'categoria_id' => 'nullable|exists:categorias,id', // 'exists' valida que el valor exista en la tabla 'categorias'
+                'descripcion' => 'nullable|string|max:250',
+                'precio' => 'required|numeric',
+                'stock' => 'required|numeric',
+                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            ]);
+
+            $producto = Producto::create($validated);
+            return redirect()->route('productos.index')->with('success', 'Producto creado correctamente');
+        } catch (\Exception $e) {
+            return redirect()->route('productos.create')->withInput()->withErrors($e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Producto $producto)
     {
-        //
+        // Muestra los detalles de un producto específico
+        return view('productos.show', ['producto' => $producto]);
     }
 
     /**
@@ -45,7 +67,8 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        // Muestra la vista de edición de un producto específico
+        return view('productos.edit', ['producto' => $producto]);
     }
 
     /**
@@ -53,7 +76,21 @@ class ProductoController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        // Valida los datos del formulario y actualiza el producto
+        try {
+            $validated = $request->validate([
+                'nombre' => 'required',
+                'descripcion' => 'required',
+                'precio' => 'required|integer',
+                'stock' => 'required|integer',
+                'imagen' => 'required'
+            ]);
+
+            $producto->update($validated);
+            return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente');
+        } catch (\Exception $e) {
+            return redirect()->route('productos.edit', $producto)->withInput()->withErrors($e->getMessage());
+        }
     }
 
     /**
@@ -61,6 +98,45 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        // Elimina un producto específico de la base de datos
+        $producto->delete();
+        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente');
+    }
+
+    private function applyFilters(Request $request, Builder $query): Builder
+    {
+        if ($request->filled('search')) {
+            $query->where('estado', 'like', '%' . $request->get('search') . '%');
+        }
+
+        if ($request->filled('stock')) {
+            $query->where('stock', $request->get('stock'));
+        }
+
+        if ($request->filled('price')) {
+            $query->where('precio', $request->get('price'));
+        }
+
+        if ($request->filled('user')) {
+            $query->where('user_id', $request->get('user'));
+        }
+
+        if ($request->filled('name')) {
+            $query->where('nombre', $request->get('user'));
+        }
+
+        return $query;
+    }
+
+    public function search(Request $request)
+    {
+        $productos = $this->applyFilters($request, Producto::query())->paginate(5);
+        return view('productos.index', ['productos' => $productos]);
+    }
+
+    public function myIndex(){
+        $user = auth()->user();
+        return view('productos.myIndex',
+        ['productos' => $user->productos]);
     }
 }

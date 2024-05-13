@@ -47,23 +47,26 @@ class User extends Authenticatable
         ];
     }
 
-    public function Pagos ()
-    {
-        return $this->hasMany(Pago::class);
-    }
+    // public function Pagos ()
+    // {
+    //     return $this->hasMany(Pago::class);
+    // }
 
     public function Carritos ()
     {
-        return $this->hasMany(Carrito::class);
+        //relacion uno a uno
+        return $this->hasOne(Carrito::class);
     }
 
     public function Direcciones ()
     {
+        //
         return $this->hasOne(Direccion::class);
     }
 
     public function Pedidos ()
     {
+        //relacion uno a muchos
         return $this->hasMany(Pedido::class);
     }
 

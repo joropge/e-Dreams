@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('carritos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->on('users')->nullOnDelete();
-            $table->foreignId('producto_id')->nullable()->on('productos')->nullOnDelete();
             $table->decimal('total', 8, 2);
             $table->integer('cantidad_productos');
             $table->timestamps();
