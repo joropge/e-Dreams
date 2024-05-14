@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Direccion;
 use App\Models\Producto;
+use App\Models\Carrito;
 
 class Pedido extends Model
 {
@@ -33,5 +34,10 @@ class Pedido extends Model
     public function Producto ()
     {
         return $this->belongsToMany(Producto::class);
+    }
+
+    public function Carrito ()
+    {
+        return $this->belongsToMany(Carrito::class);
     }
 }
