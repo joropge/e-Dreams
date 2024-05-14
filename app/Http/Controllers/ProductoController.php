@@ -83,7 +83,7 @@ class ProductoController extends Controller
                 'descripcion' => 'required',
                 'precio' => 'required|integer',
                 'stock' => 'required|integer',
-                'imagen' => 'required'
+                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
             ]);
 
             $producto->update($validated);

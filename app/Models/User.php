@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'nombre',
+        'name',
         'apellidos',
         'email',
         'password',
@@ -47,26 +47,18 @@ class User extends Authenticatable
         ];
     }
 
-    // public function Pagos ()
-    // {
-    //     return $this->hasMany(Pago::class);
-    // }
-
-    public function Carritos ()
+    public function direcciones()
     {
-        //relacion uno a uno
-        return $this->hasOne(Carrito::class);
-    }
-
-    public function Direcciones ()
-    {
-        //
         return $this->hasOne(Direccion::class);
     }
 
-    public function Pedidos ()
+    public function carritos()
     {
-        //relacion uno a muchos
+        return $this->hasMany(Carrito::class);
+    }
+
+    public function pedidos()
+    {
         return $this->hasMany(Pedido::class);
     }
 

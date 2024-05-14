@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('direcciones', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->on('users')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->on('users')->nullOnDelete();
             $table->string('calle');
             $table->string('numero');
             $table->string('piso')->nullable();

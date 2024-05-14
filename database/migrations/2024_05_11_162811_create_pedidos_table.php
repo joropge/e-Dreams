@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->on('users')->nullOnDelete();
-            $table->foreignId('direccion_id')->nullable()->on('direcciones')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->on('users')->nullOnDelete();
+            $table->foreignId('direccion_id')->nullable()->constrained()->on('direcciones')->nullOnDelete();
             $table->integer('total');
             $table->enum('estado', ['pendiente', 'enviado', 'entregado', 'cancelado']);
             $table->timestamps();

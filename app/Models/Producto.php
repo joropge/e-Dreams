@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Categoria;
+use App\Models\Carrito;
+use App\Models\Pedido;
 
 class Producto extends Model
 {
@@ -17,22 +20,22 @@ class Producto extends Model
         'categoria_id',
         'imagen',
         'imagen2',
-        'imagen3',
-        'imagen4',
-        'imagen5',
         'talla',
         'color',
     ];
 
     public function categoria()
     {
-        //relacion uno a uno
         return $this->belongsTo(Categoria::class);
+    }
+
+    public function carritos()
+    {
+        return $this->belongsToMany(Carrito::class, 'producto_carrito');
     }
 
     public function pedidos()
     {
-        //relacion muchos a muchos
-        return $this->belongsToMany(Pedido::class);
+        return $this->belongsToMany(Pedido::class, 'producto_pedido');
     }
 }

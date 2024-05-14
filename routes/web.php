@@ -24,11 +24,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('carritos', CarritoController::class)->middleware('auth');
-Route::resource('categorias', CategoriasController::class)->middleware('auth');
-Route::resource('direcciones', DireccionesController::class)->middleware('auth');
-Route::resource('pedidos', PedidoController::class)->middleware('auth');
-Route::resource('productos', ProductoController::class)->middleware('auth');
-// Route::resource('users', UserController::class)->middleware('auth');
+Route::resource('carritos', CarritoController::class);
+Route::resource('categorias', CategoriasController::class);
+Route::resource('direcciones', DireccionesController::class);
+Route::resource('pedidos', PedidoController::class);
+Route::resource('productos', ProductoController::class);
+Route::resource('users', ProfileController::class);
+
 
 require __DIR__.'/auth.php';
