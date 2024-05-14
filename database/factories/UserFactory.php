@@ -25,7 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'apellidos' => fake()->surname(), // Cambia esto por el nombre de tu función de apellidos (si la tienes)
+            'apellidos' => fake()->surname(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
