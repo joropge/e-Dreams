@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UnregisteredController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\CategoriasController;
@@ -14,9 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/privacy-policy', function () {
+    return view('privacy-policy');
+})->name('privacy-policy');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard-unauthenticated', function () {
+    return view('dashboard');
+})->name('dashboard-unauthenticated');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,6 +41,15 @@ Route::resource('direcciones', DireccionesController::class);
 Route::resource('pedidos', PedidoController::class);
 Route::resource('productos', ProductoController::class);
 Route::resource('users', ProfileController::class);
+
+Route::get('/unregistered', [UnregisteredController::class, 'unregistered'])->name('unregistered');
+// ruta a discover
+Route::get('/discover', function () {
+    return view('discover');
+})->name('discover');
+//ruta a privacy-policy
+
+
 
 
 require __DIR__.'/auth.php';
