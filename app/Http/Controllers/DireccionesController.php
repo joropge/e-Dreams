@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
 
 class DireccionesController extends Controller
 {
@@ -15,7 +16,7 @@ class DireccionesController extends Controller
      */
     public function index(): View
     {
-        return view('direcciones.view', ['direcciones' => Direccion::all()]);
+        return view('/admin/direcciones.index', ['direcciones' => Direccion::all()]);
     }
 
     /**
@@ -24,7 +25,7 @@ class DireccionesController extends Controller
     public function create()
     {
         // Aquí puedes retornar la vista para crear una nueva dirección
-        return view('direcciones.create');
+        return view('/admin/direcciones.create');
     }
 
     /**
@@ -32,6 +33,8 @@ class DireccionesController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'calle' => 'required|max:255',
@@ -46,7 +49,7 @@ class DireccionesController extends Controller
 
         Direccion::create($validated);
 
-        return redirect()->route('direcciones.index')->with('success', 'Dirección creada correctamente');
+        return view('/admin/direcciones.index', ['direcciones' => Direccion::all()]);
     }
 
     /**
@@ -54,7 +57,7 @@ class DireccionesController extends Controller
      */
     public function show(Direccion $direcciones): View
     {
-        return view('direcciones.show', ['direcciones' => $direcciones]);
+        return view('/admin/direcciones.index', ['direcciones' => $direcciones]);
     }
 
     /**
@@ -62,7 +65,10 @@ class DireccionesController extends Controller
      */
     public function edit(Direccion $direcciones)
     {
-        return view('direcciones.edit', ['direcciones' => $direcciones]);
+        return view('/admin/direcciones.edit', [
+            'direcciones' => $direcciones,
+            'users' => User::all(),
+    ]);
     }
 
     /**
@@ -84,7 +90,7 @@ class DireccionesController extends Controller
 
         $direcciones->update($validated);
 
-        return redirect()->route('direcciones.index')->with('success', 'Dirección actualizada correctamente');
+        return redirect()->route('/admin/direcciones.index')->with('success', 'Dirección actualizada correctamente');
     }
 
     /**
@@ -93,7 +99,7 @@ class DireccionesController extends Controller
     public function destroy(Direccion $direcciones)
     {
         $direcciones->delete();
-        return redirect()->route('direcciones.index')->with('success', 'Dirección eliminada correctamente');
+        return redirect()->route('/admin/direcciones.index')->with('success', 'Dirección eliminada correctamente');
     }
 
     private function applyFilters(Request $request, Builder $query): Builder
@@ -118,12 +124,12 @@ class DireccionesController extends Controller
     public function search(Request $request)
     {
         $direcciones = $this->applyFilters($request, Direccion::query())->paginate(5);
-        return view('direcciones.index', ['direcciones' => $direcciones]);
+        return view('/admin/direcciones.index', ['direcciones' => $direcciones]);
     }
 
     public function myIndex(){
         $user = auth()->user();
-        return view('direciones.myIndex',
+        return view('/admin/direciones.myIndex',
         ['direciones' => $user->direcciones]);
     }
 }
