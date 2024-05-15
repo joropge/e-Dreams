@@ -12,14 +12,12 @@
                     <div class="text-2xl">
                         {{ __('Direcciones') }}
                     </div>
+                    <div class="flex items-center justify-end mt-4">
+                        <a href="{{ route('direcciones.create') }}" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
+                    </div>
                 </div>
-
-
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <div class="flex items-center justify-end mt-4">
-                        {{-- <x-jet-button>
-                            <a href="{{ route('direcciones.create') }}">{{ __('Create') }}</a>
-                        </x-jet-button> --}}
                     </div>
                     <table class="min-w-full">
                         <thead>
@@ -56,7 +54,6 @@
                                         {{-- ruta a show --}}
                                         <a href="{{ route('direcciones.show', $direccion->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Ver') }}</a>
                                         {{-- ruta a create --}}
-                                        <a href="{{ route('direcciones.create') }}" class="text-blue-400 hover:text-blue-600">{{ __('Crear') }}</a>
                                         <a href="{{ route('direcciones.edit', $direccion->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Editar') }}</a>
                                         <form action="{{ route('direcciones.destroy', $direccion->id) }}" method="POST">
                                             @csrf
@@ -65,10 +62,13 @@
                                         </form>
                                     </td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                                
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="flex items-center justify-end mt-4">
+                            <a href="{{ route('direcciones.create') }}" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
+                        </div>                </div>
             </div>
         </div>
     </div>
