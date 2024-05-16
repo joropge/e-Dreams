@@ -142,7 +142,7 @@
         </div>
         {{-- camisetas --}}
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('camisetas.index')" :active="request()->routeIs('camisetas.index')">
+            <x-responsive-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.index')">
                 {{ __('Camisetas') }}
             </x-responsive-nav-link>
         </div>

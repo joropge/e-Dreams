@@ -1,30 +1,16 @@
 {{-- recoger la informacion de una direcciones en específico por su id y visualizar los datos --}}
-
 <x-app-layout>
 <div class="container">
     <h1>Detalles de la Dirección</h1>
-    <p>Usuario Id: {{ $direcciones->user_id }}</p>
-    <p>Calle: {{ $direcciones->calle }}</p>
-    <p>Número: {{ $direcciones->numero }}</p>
-    <p>Piso: {{ $direcciones->piso }}</p>
-    <p>Puerta: {{ $direcciones->puerta }}</p>
-    <p>Código Postal: {{ $direcciones->codigo_postal }}</p>
-    <p>Ciudad: {{ $direcciones->ciudad }}</p>
-    <p>Provincia: {{ $direcciones->provincia }}</p>
-    <p>País: {{ $direcciones->pais }}</p>
-
-    <div class="flex items-center justify-end mt-4">
-        <a href="{{ route('direcciones.edit', $direcciones->id) }}" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">{{ __('Editar') }}</a>
-    </div>
-
-    <div class="flex items-center justify-end mt-4">
-        <form action="{{ route('direcciones.destroy', $direcciones->id) }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="px-4 py-2 bg-red-500 text-black rounded-md hover:bg-red-600">{{ __('Eliminar') }}</button>
-        </form>
-    </div>
-    <br>
+    <p>Usuario Id: {{ $direccion->user_id }}</p>
+    <p>Calle: {{ $direccion->calle }}</p>
+    <p>Número: {{ $direccion->numero }}</p>
+    <p>Piso: {{ $direccion->piso }}</p>
+    <p>Puerta: {{ $direccion->puerta }}</p>
+    <p>Código Postal: {{ $direccion->codigo_postal }}</p>
+    <p>Ciudad: {{ $direccion->ciudad }}</p>
+    <p>Provincia: {{ $direccion->provincia }}</p>
+    <p>País: {{ $direccion->pais }}</p>
     <a href="{{ route('direcciones.index') }}">Volver</a>
 </div>
 </x-app-layout>

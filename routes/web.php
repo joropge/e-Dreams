@@ -40,15 +40,9 @@ Route::resource('users', ProfileController::class);
 
 Route::get('/unregistered', [UnregisteredController::class, 'unregistered'])->name('unregistered');
 
-Route::get('/camisetas/index', [ProductoController::class, 'index'])->name('camisetas.index');
-// Route::get('/camisetas/create', [ProductoController::class, 'create'])->name('camisetas.create');
-// Route::post('/camisetas/create', [ProductoController::class, 'store'])->name('camisetas.store');
-// Route::get('/camisetas/{producto}', [ProductoController::class, 'show'])->name('camisetas.show');
-// Route::get('/camisetas/{producto}/edit', [ProductoController::class, 'edit'])->name('camisetas.edit');
-// Route::put('/camisetas/{producto}', [ProductoController::class, 'update'])->name('camisetas.update');
-// Route::delete('/camisetas/{producto}', [ProductoController::class, 'destroy'])->name('camisetas.destroy');
+Route::get('users/camisetas/index', [ProductoController::class, 'camisetasIndex'])->name('camisetas.index');
 
-Route::get('/users/pantalones/index', [ProductoController::class, 'index'])->name('pantalones.index');
+Route::get('/users/pantalones/index', [ProductoController::class, 'pantalonesIndex'])->name('pantalones.index');
 // sudaderas
 Route::get('/users/sudaderas/index', [ProductoController::class, 'index'])->name('sudaderas.index');
 // carrito
@@ -81,9 +75,9 @@ Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 })->name('privacy-policy');
 //ruta a camisteas
-Route::get('/index', function () {
-    return view('index');
-})->name('index');
+// Route::get('/index', function () {
+//     return view('index');
+// })->name('index');
 //ruta a pantalones
 Route::get('/pantalones', function () {
     return view('pantalones');

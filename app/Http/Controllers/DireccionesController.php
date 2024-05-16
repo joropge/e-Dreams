@@ -57,9 +57,9 @@ class DireccionesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Direccion $direcciones): View
+    public function show(Direccion $direccion): View
     {
-        return view('/admin/direcciones.show', ['direcciones' => $direcciones]);
+        return view('/admin/direcciones.show', ['direccion' => $direccion]);
     }
 
     /**

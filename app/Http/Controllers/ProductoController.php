@@ -139,4 +139,18 @@ class ProductoController extends Controller
         return view('productos.myIndex',
         ['productos' => $user->productos]);
     }
+
+    // Show only Productos with catogoria_id = 1 and send them to the view
+    public function camisetasIndex()
+    {
+        $productos = Producto::where('categoria_id', 1)->get();
+        return view('productos.camisetas.index', ['productos' => $productos]);
+    }
+
+    // Show only Productos with catogoria_id = 2
+    public function pantalonesIndex()
+    {
+        $productos = Producto::where('categoria_id', 2)->get();
+        return view('productos.pantalones.index', ['productos' => $productos]);
+    }
 }
