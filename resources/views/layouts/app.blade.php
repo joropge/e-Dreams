@@ -11,8 +11,16 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        {{-- <!-- Styles -->
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+        {{-- tailwind --}}
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+        
+
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -33,4 +41,7 @@
             </main>
         </div>
     </body>
+    @push('scripts')
+    <script src="{{ asset('/public/search.js') }}"></script>
+    @endpush
 </html>

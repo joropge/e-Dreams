@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class DireccionesController extends Controller
 {
@@ -25,7 +26,7 @@ class DireccionesController extends Controller
     public function create()
     {
         // Aquí puedes retornar la vista para crear una nueva dirección
-        return view('/admin/direcciones.create');
+        return view('/admin/direcciones.create')->with('success', 'Dirección creada correctamente');
     }
 
     /**
@@ -33,7 +34,8 @@ class DireccionesController extends Controller
      */
     public function store(Request $request)
     {
-
+        $user = auth()->user();
+        $request['user_id'] = $user->id;
 
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
@@ -57,7 +59,7 @@ class DireccionesController extends Controller
      */
     public function show(Direccion $direcciones): View
     {
-        return view('/admin/direcciones.index', ['direcciones' => $direcciones]);
+        return view('/admin/direcciones.show', ['direcciones' => $direcciones]);
     }
 
     /**
@@ -76,6 +78,7 @@ class DireccionesController extends Controller
      */
     public function update(Request $request, Direccion $direcciones)
     {
+
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'calle' => 'required|max:255',
@@ -88,6 +91,14 @@ class DireccionesController extends Controller
             'pais' => 'required|max:255',
         ]);
 
+        if ($request->hasFile('picture')) {
+            $validated['picture'] = $request->file('picture')->store('public/photos');
+
+            if ($direcciones->picture) {
+                Storage::delete($direcciones->picture);
+            }
+        }
+
         $direcciones->update($validated);
 
         return redirect()->route('/admin/direcciones.index')->with('success', 'Dirección actualizada correctamente');
@@ -99,37 +110,32 @@ class DireccionesController extends Controller
     public function destroy(Direccion $direcciones)
     {
         $direcciones->delete();
-        return redirect()->route('/admin/direcciones.index')->with('success', 'Dirección eliminada correctamente');
+        return redirect()->route('direcciones.index')->with('success', 'Dirección eliminada correctamente');
     }
 
-    private function applyFilters(Request $request, Builder $query): Builder
-    {
-        if ($request->filled('search')) {
-            $query->where('estado', 'like', '%' . $request->get('search') . '%');
-        }
+    // private function applyFilters(Request $request, Builder $query): Builder
+    // {
+    //     if ($request->filled('search')) {
+    //         $query->where('estado', 'like', '%' . $request->get('search') . '%');
+    //     }
 
-        //usuario
-        if ($request->filled('user')) {
-            $query->where('user_id', $request->get('user'));
-        }
+    //     //usuario
+    //     if ($request->filled('user')) {
+    //         $query->where('user_id', $request->get('user'));
+    //     }
 
-        //provincia
-        if ($request->filled('provincia')) {
-            $query->where('provincia', $request->get('provincia'));
-        }
+    //     //provincia
+    //     if ($request->filled('provincia')) {
+    //         $query->where('provincia', $request->get('provincia'));
+    //     }
 
-        return $query;
-    }
+    //     return $query;
+    // }
 
-    public function search(Request $request)
-    {
-        $direcciones = $this->applyFilters($request, Direccion::query())->paginate(5);
-        return view('/admin/direcciones.index', ['direcciones' => $direcciones]);
-    }
 
-    public function myIndex(){
-        $user = auth()->user();
-        return view('/admin/direciones.myIndex',
-        ['direciones' => $user->direcciones]);
-    }
+    // public function myIndex(){
+    //     $user = auth()->user();
+    //     return view('/admin/direciones.myIndex',
+    //     ['direciones' => $user->direcciones]);
+    // }
 }

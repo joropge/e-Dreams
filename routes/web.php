@@ -48,13 +48,23 @@ Route::get('/camisetas/index', [ProductoController::class, 'index'])->name('cami
 // Route::put('/camisetas/{producto}', [ProductoController::class, 'update'])->name('camisetas.update');
 // Route::delete('/camisetas/{producto}', [ProductoController::class, 'destroy'])->name('camisetas.destroy');
 
-Route::get('pantalones/index', [ProductoController::class, 'index'])->name('pantalones.index');
+Route::get('/users/pantalones/index', [ProductoController::class, 'index'])->name('pantalones.index');
 // sudaderas
-Route::get('sudaderas/index', [ProductoController::class, 'index'])->name('sudaderas.index');
+Route::get('/users/sudaderas/index', [ProductoController::class, 'index'])->name('sudaderas.index');
 // carrito
-Route::get('carrito/index', [CarritoController::class, 'index'])->name('carrito.index');
+Route::get('/users/carrito/index', [CarritoController::class, 'index'])->name('carrito.index');
+Route::get('/users/carrito/create', [CarritoController::class, 'create'])->name('carrito.create');
+Route::post('/users/carrito/create', [CarritoController::class, 'store'])->name('carrito.store');
+Route::get('/users/carrito/{carrito}', [CarritoController::class, 'show'])->name('carrito.show');
+Route::get('/users/carrito/{carrito}/edit', [CarritoController::class, 'edit'])->name('carrito.edit');
+Route::put('/users/carrito/{carrito}', [CarritoController::class, 'update'])->name('carrito.update');
+Route::delete('/users/carrito/{carrito}', [CarritoController::class, 'destroy'])->name('carrito.destroy');
 
 Route::get('/admin/direcciones/index', [DireccionesController::class, 'index'])->name('direcciones.index');
+Route::get('/admin/direcciones/create', [DireccionesController::class, 'create'])->name('direcciones.create');
+Route::post('/admin/direcciones/create', [DireccionesController::class, 'store'])->name('direcciones.store');
+Route::get('/admin/direcciones/{direccion}', [DireccionesController::class, 'show'])->name('direcciones.show');
+Route::get('/admin/direcciones/{direccion}/edit', [DireccionesController::class, 'edit'])->name('direcciones.edit');
 Route::put('/admin/direcciones/{direccion}', [DireccionesController::class, 'update'])->name('direcciones.update');
 Route::delete('/admin/direcciones/{direccion}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
 

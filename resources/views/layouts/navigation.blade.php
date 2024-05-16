@@ -6,11 +6,19 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                        <x-application-logo class="block h-6 w-auto fill-current text-gray-800" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
+
+                {{-- página principal --}}
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
+                        {{ __('Inicio') }}
+                    </x-nav-link>
+                </div> --}}
+                {{-- dashboard --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -81,7 +89,22 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Mi perfil') }}
+                        </x-dropdown-link>
+
+                        {{-- carrito --}}
+                        <x-dropdown-link :href="route('carrito.index')">
+                            {{ __('Carrito') }}
+                        </x-dropdown-link>
+
+                        {{-- Mis pedidos --}}
+                        <x-dropdown-link :href="route('pedidos.index')">
+                            {{ __('Mis pedidos') }}
+                        </x-dropdown-link>
+
+                        {{-- Mis direcciones --}}
+                        <x-dropdown-link :href="route('direcciones.index')">
+                            {{ __('Mis direcciones') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -151,6 +174,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('carrito.index')" :active="request()->routeIs('carrito.index')">
                 {{ __('Carrito') }}
+            </x-responsive-nav-link>
+        </div>
+        {{-- direcciones --}}
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('direcciones.index')" :active="request()->routeIs('direcciones.index')">
+                {{ __('Direcciones') }}
             </x-responsive-nav-link>
         </div>
 

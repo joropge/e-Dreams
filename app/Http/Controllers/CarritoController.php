@@ -6,6 +6,9 @@ use App\Models\Carrito;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class CarritoController extends Controller
 {
@@ -14,7 +17,7 @@ class CarritoController extends Controller
      */
     public function index(): View
     {
-        return view('carritos.view', ['carritos' => Carrito::all()]);
+        return view('/users/carrito.index', ['carritos' => Carrito::all()]);
     }
 
     /**
@@ -23,7 +26,7 @@ class CarritoController extends Controller
     public function create()
     {
         // Aquí puedes retornar la vista para crear un nuevo carrito
-        return view('carritos.create');
+        return view('/users/carrito.create');
     }
 
     /**
@@ -31,6 +34,10 @@ class CarritoController extends Controller
      */
     public function store(Request $request)
     {
+        $user = auth()->user();
+        $request['user_id'] = $user->id;
+
+
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'producto_id' => 'nullable|exists:productos,id',
@@ -39,7 +46,7 @@ class CarritoController extends Controller
 
         Carrito::create($validated);
 
-        return redirect()->route('carritos.index')->with('success', 'Carrito creado correctamente');
+        return redirect()->route('/users/carrito.index')->with('success', 'Carrito creado correctamente');
     }
 
     /**
@@ -47,7 +54,7 @@ class CarritoController extends Controller
      */
     public function show(Carrito $carrito): View
     {
-        return view('carritos.show', ['carrito' => $carrito]);
+        return view('/users/carrito.show', ['carrito' => $carrito]);
     }
 
     /**
@@ -55,7 +62,7 @@ class CarritoController extends Controller
      */
     public function edit(Carrito $carrito)
     {
-        return view('carritos.edit', ['carrito' => $carrito]);
+        return view('/users/carrito.edit', ['carrito' => $carrito]);
     }
 
     /**
@@ -71,7 +78,7 @@ class CarritoController extends Controller
 
         $carrito->update($validated);
 
-        return redirect()->route('carritos.index')->with('success', 'Carrito actualizado correctamente');
+        return redirect()->route('/users/carrito.index')->with('success', 'Carrito actualizado correctamente');
     }
 
     /**

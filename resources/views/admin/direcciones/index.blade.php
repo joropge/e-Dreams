@@ -12,6 +12,10 @@
                     <div class="text-2xl">
                         {{ __('Direcciones') }}
                     </div>
+                    {{-- barra de búsqueda dinámica funcional con js--}}
+                    <!-- Search input field -->
+                    <h1 class="text-xl font-semibold mb-4 dark:text-gray-300">Dynamic Search</h1>
+                    <input type="text" id="search" class="w-full border-2 border-gray-300 bg-white" placeholder="Search">                    {{-- tabla de direcciones --}}
                     <div class="flex items-center justify-end mt-4">
                         <a href="{{ route('direcciones.create') }}" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
                     </div>
@@ -23,6 +27,8 @@
                         <thead>
                             {{-- user_id','calle','numero','piso','puerta','codigo_postal','ciudad','provincia','pais', --}}
                             <tr>
+
+                                <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">{{ __('Id') }}</th>
                                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">{{ __('Usuario Id') }}</th>
                                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">{{ __('Calle') }}</th>
                                 <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">{{ __('Número') }}</th>
@@ -39,8 +45,10 @@
                             @foreach ($direcciones as $direccion)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                        <div class="text-sm leading-5 text-gray-900">{{ $direccion->user_id}}</div>
+                                        <div class="text-sm leading-5 text-blue-900">{{ $direccion->id }}</div>
+                                        {{-- <div class="text-sm leading-5 text-gray-900">{{ $direccion->user_id}}</div> --}}
                                     </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->user_id }}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->calle }}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->numero }}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->piso }}</td>
@@ -55,10 +63,10 @@
                                         <a href="{{ route('direcciones.show', $direccion->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Ver') }}</a>
                                         {{-- ruta a create --}}
                                         <a href="{{ route('direcciones.edit', $direccion->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Editar') }}</a>
-                                        <form action="{{ route('direcciones.destroy', $direccion->id) }}" method="POST">
+                                        <form action="{{ route('direcciones.destroy', $direccion->id) }}" method="POST" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-blue-400 hover:text-blue-600">{{ __('Eliminar') }}</button>
+                                            <button type="submit" class="text-red-400 hover:text-red-600">{{ __('Eliminar') }}</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -68,8 +76,11 @@
                         </table>
                         <div class="flex items-center justify-end mt-4">
                             <a href="{{ route('direcciones.create') }}" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
-                        </div>                </div>
+                        </div>                
+                    </div>
             </div>
         </div>
     </div>
+    <script src="{{ asset('public/js/dynamicSearch.js') }}"></script>
+
 </x-app-layout>
