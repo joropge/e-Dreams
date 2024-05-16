@@ -49,7 +49,7 @@
                                         {{-- <div class="text-sm leading-5 text-gray-900">{{ $direccion->user_id}}</div> --}}
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->user_id }}</td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->calle }}</td>
+                                    <td class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->calle }}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->numero }}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->piso }}</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $direccion->puerta }}</td>
@@ -81,6 +81,8 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('public/js/dynamicSearch.js') }}"></script>
+    {{-- script para la barra de búsqueda dinámica --}}
+
+    <script src="{{ asset('/js/dynamicSearch.js') }}"></script>
 
 </x-app-layout>

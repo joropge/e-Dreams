@@ -1,14 +1,14 @@
 const search = document.getElementById('search');
         search.addEventListener('keyup', function() {
             let value = search.value.toLowerCase();
+            console.log("value", value);
             let rows = document.querySelectorAll('tbody tr');
             rows.forEach(row => {
-                let nameCell = row.querySelector('#nameSearch'); // Select only the Name cell
-                let rowText = nameCell.textContent.toLowerCase(); // Get text content of the Name cell
-                if (rowText.includes(value)) {
-                    row.style.display = ''; // Show the row if the search value is found in the Name cell
-                } else {
-                    row.style.display = 'none'; // Hide the row if the search value is not found in the Name cell
+                row.style.display = 'none';
+                // only search in the 3rd column
+                let thirdCol = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+                if (thirdCol.includes(value)) {
+                    row.style.display = '';
                 }
             });
         });
