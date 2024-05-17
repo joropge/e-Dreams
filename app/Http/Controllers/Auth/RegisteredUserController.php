@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Direccion;
 
 class RegisteredUserController extends Controller
 {
@@ -34,6 +35,14 @@ class RegisteredUserController extends Controller
             'apellidos' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'calle' => ['required', 'string', 'max:255'],
+            'numero' => ['required', 'string', 'max:255'],
+            'piso' => ['nullable', 'string', 'max:255'],
+            'puerta' => ['nullable', 'string', 'max:255'],
+            'codigo_postal' => ['required', 'string', 'max:255'],
+            'ciudad' => ['required', 'string', 'max:255'],
+            'provincia' => ['required', 'string', 'max:255'],
+            'pais' => ['required', 'string', 'max:255'],
         ]);
 
         $user = User::create([
@@ -41,6 +50,18 @@ class RegisteredUserController extends Controller
             'apellidos' => $request->apellidos,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        Direccion::create([
+            'user_id' => $user->id,
+            'calle' => $request->calle,
+            'numero' => $request->numero,
+            'piso' => $request->piso,
+            'puerta' => $request->puerta,
+            'codigo_postal' => $request->codigo_postal,
+            'ciudad' => $request->ciudad,
+            'provincia' => $request->provincia,
+            'pais' => $request->pais,
         ]);
 
         event(new Registered($user));
