@@ -15,15 +15,27 @@
 
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
+                    @if (is_null($user->getAuthPassword()))
+                        @include('profile.partials.set-password-form')
+                    @else
+                        @include('profile.partials.update-password-form')
+                    @endif
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
+            @if(JoelButcher\Socialstream\Socialstream::show())
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    @include('profile.partials.connected-accounts-form')
                 </div>
-            </div>
+            @endif
+
+            @if (! is_null($user->getAuthPassword()))
+                <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                    <div class="max-w-xl">
+                        @include('profile.partials.delete-user-form')
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </x-app-layout>

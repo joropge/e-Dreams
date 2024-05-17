@@ -6,11 +6,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use JoelButcher\Socialstream\HasConnectedAccounts;
 
-class User extends Authenticatable
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+
+class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, Notifiable;
-
+    use HasFactory;
+    use HasConnectedAccounts;
+    use Notifiable;
+    
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
     /**
      * The attributes that are mass assignable.
      *
@@ -18,10 +28,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'apellidos',
         'email',
         'password',
-        'rol',
     ];
 
     /**
@@ -47,19 +55,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function direcciones()
-    {
-        return $this->hasOne(Direccion::class);
-    }
-
-    public function carritos()
-    {
-        return $this->hasMany(Carrito::class);
-    }
-
-    public function pedidos()
-    {
-        return $this->hasMany(Pedido::class);
-    }
-
+        //relacion con direccion
+        public function direccion(){
+            return $this->belongsTo(Direccion::class);
+        }
 }

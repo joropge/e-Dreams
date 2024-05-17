@@ -14,7 +14,7 @@
                     </div>
                     {{-- barra de búsqueda dinámica funcional con js--}}
                     <!-- Search input field -->
-                    <h1 class="text-xl font-semibold mb-4 dark:text-gray-300">Dynamic Search</h1>
+                    <h1 class="text-xl font-semibold mb-4">Dynamic Search</h1>
                     <input type="text" id="search" class="w-full border-2 border-gray-300 bg-white" placeholder="Search">                    {{-- tabla de direcciones --}}
                     <div class="flex items-center justify-end mt-4">
                         <a href="{{ route('direcciones.create') }}" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
