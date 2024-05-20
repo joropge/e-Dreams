@@ -4,4 +4,4 @@
 {{-- svg de trace.svg --}}
 {{-- public/storage/trace.svg --}}
 
-<img src="{{ asset('storage/E-Dreams-Logo.png') }}" alt="Logo" class="h-14 w-auto">
+<img src="{{ asset('storage/interno/E-Dreams-Logo.png') }}" alt="Logo" class="h-14 w-auto">

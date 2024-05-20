@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Auth\Events\Validated;
+use Illuminate\Support\Facades\Storage;
 
 
 class PedidoController extends Controller
@@ -20,13 +21,13 @@ class PedidoController extends Controller
         // $pedidos = Pedido::all();
         // return response()->json($pedidos);
 
-        return view('pedidos.view',
+        return view('/users/pedidos.index',
             ['pedidos' => Pedido::all()]);
     }
 
     public function create()
     {
-        return view('pedidos.create',
+        return view('/users/pedidos.create',
             ['pedidos' => Pedido::all()
         ]);
     }
@@ -43,8 +44,10 @@ class PedidoController extends Controller
             ]);
 
             $pedido = Pedido::create($validated);
-            return redirect()->route('pedidos.index')->with('success', 'Pedido creado correctamente');
-        }
+            return view('/users/pedidos.index',
+            ['pedidos' => Pedido::all()
+        ]);}
+        
         catch(\Exception $e){
             return redirect()->route('pedidos.create')->withInput()->withErrors($e->getMessage());
         }
@@ -53,14 +56,16 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido): View
     {
-        $pedido->load('user', 'direccion');
-        return view('pedidos.show',
-        ['pedido' => $pedido]);
+        return view('/users/pedidos.show',
+            ['pedido' => $pedido]);
     }
 
     public function edit(Pedido $pedido)
     {
-        return view('pedidos.edit', ['pedido' => $pedido]);
+        return view('/users/pedidos.edit', [
+            'pedido' => $pedido,
+            'pedidos' => Pedido::all()
+        ]);
     }
 
     public function update(Request $request, Pedido $pedido)
@@ -75,59 +80,29 @@ class PedidoController extends Controller
                 'estado' => 'required|in:pendiente,enviado,entregado,cancelado'
             ]);
 
+            if ($request->hasFile('picture')) {
+                $validated['picture'] = $request->file('picture')->store('public/photos');
+    
+                if ($pedido->picture) {
+                    Storage::delete($pedido->picture);
+                }
+            }
+
             $pedido->update($validated);
-            return redirect()->route('pedidos.show', $pedido)->with('success', 'Pedido actualizado correctamente');
+            return redirect()->route('/users/pedidos.show', $pedido)->with('success', 'Pedido actualizado correctamente');
 
         }
         catch(\Exception $e){
-            return redirect()->route('pedidos.edit', $pedido)->withInput()->withErrors($e->getMessage());
+            return redirect()->route('/users/pedidos.edit', $pedido)->withInput()->withErrors($e->getMessage());
         }
     }
 
     public function destroy(Pedido $pedido)
     {
         $pedido->delete();
-        return redirect()->route('pedidos.index')->with('success', 'Pedido eliminado correctamente');
+        return redirect()->route('/users/pedidos.index')->with('success', 'Pedido eliminado correctamente');
     }
-
-    private function applyFilters(Request $request, Builder $query): Builder
-    {
-        if ($request->filled('search')) {
-            $query->where('estado', 'like', '%' . $request->get('search') . '%');
-        }
-
-        if ($request->filled('filter')) {
-            $query->where('estado', $request->get('filter'));
-        }
-
-        if ($request->filled('date')) {
-            $query->whereDate('created_at', $request->get('date'));
-        }
-
-        if ($request->filled('price')) {
-            $query->where('total', $request->get('price'));
-        }
-
-        if ($request->filled('user')) {
-            $query->where('user_id', $request->get('user'));
-        }
-
-        if ($request->filled('direction')) {
-            $query->where('direccion_id', $request->get('direction'));
-        }
-
-        if ($request->filled('state')) {
-            $query->where('estado', $request->get('state'));
-        }
-
-        return $query;
-    }
-
-    public function search(Request $request)
-    {
-        $pedidos = $this->applyFilters($request, Pedido::query())->paginate(5);
-        return view('pedidos.index', ['pedidos' => $pedidos]);
-    }
+    
 
     public function myIndex(){
         $user = auth()->user();

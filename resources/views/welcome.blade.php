@@ -25,7 +25,7 @@
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
                             <a href="{{ url('/welcome') }}">
-                                <img src="{{ asset('storage/E-dreams-Logo.png') }}" alt="Logo" class="w-50 h-50" />
+                                <img src="{{ asset('storage/interno/E-dreams-Logo.png') }}" alt="Logo" class="w-50 h-50" />
                             </a>
                         </div>
                         <nav class="-mx-3 flex flex-1 justify-end">
@@ -76,10 +76,10 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                                 <div class="flex items-center ">
-                                    <img src="{{ asset('storage/DosPosando.jpg') }}" alt="Clothing Store" class="w-full h-auto">
+                                    <img src="{{ asset('storage/interno/DosPosando.jpg') }}" alt="Clothing Store" class="w-full h-auto">
                                 </div>
                                 <div class="flex items-center ">
-                                    <img src="{{ asset('storage/variasCamisetas.jpg') }}" alt="Clothing Store" class="w-full h-auto">
+                                    <img src="{{ asset('storage/interno/variasCamisetas.jpg') }}" alt="Clothing Store" class="w-full h-auto">
                                 </div>
                             </div>
                         </div>

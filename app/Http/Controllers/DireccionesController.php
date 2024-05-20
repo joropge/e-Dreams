@@ -17,7 +17,7 @@ class DireccionesController extends Controller
      */
     public function index(): View
     {
-        return view('/admin/direcciones.index', ['direcciones' => Direccion::all()]);
+        return view('/users/direcciones.index', ['direcciones' => Direccion::all()]);
     }
 
     /**
@@ -26,7 +26,7 @@ class DireccionesController extends Controller
     public function create()
     {
         // Aquí puedes retornar la vista para crear una nueva dirección
-        return view('/admin/direcciones.create')->with('success', 'Dirección creada correctamente');
+        return view('/users/direcciones.create')->with('success', 'Dirección creada correctamente');
     }
 
     /**
@@ -51,7 +51,7 @@ class DireccionesController extends Controller
 
         Direccion::create($validated);
 
-        return view('/admin/direcciones.index', ['direcciones' => Direccion::all()]);
+        return view('/users/direcciones.index', ['direcciones' => Direccion::all()]);
     }
 
     /**
@@ -59,7 +59,7 @@ class DireccionesController extends Controller
      */
     public function show(Direccion $direccion): View
     {
-        return view('/admin/direcciones.show', ['direccion' => $direccion]);
+        return view('/users/direcciones.show', ['direccion' => $direccion]);
     }
 
     /**
@@ -67,7 +67,7 @@ class DireccionesController extends Controller
      */
     public function edit(Direccion $direcciones)
     {
-        return view('/admin/direcciones.edit', [
+        return view('/users/direcciones.edit', [
             'direcciones' => $direcciones,
             'users' => User::all(),
     ]);
@@ -101,7 +101,7 @@ class DireccionesController extends Controller
 
         $direcciones->update($validated);
 
-        return redirect()->route('/admin/direcciones.index')->with('success', 'Dirección actualizada correctamente');
+        return redirect()->route('/users/direcciones.index')->with('success', 'Dirección actualizada correctamente');
     }
 
     /**

@@ -17,8 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class DireccionResource extends Resource
 {
     protected static ?string $model = Direccion::class;
+    protected static ?string $navigationGroup = 'System Managment';
+    // protected static ?string $title = 'Direcciones';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+
+    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function form(Form $form): Form
     {

@@ -26,7 +26,8 @@ class ProfileResource extends Resource
         'direccion' => Direccion::class,
     ];
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationGroup = 'Users Managment';
 
     public static function form(Form $form): Form
     {
