@@ -79,9 +79,9 @@ Route::get('/privacy-policy', function () {
 //     return view('index');
 // })->name('index');
 //ruta a pantalones
-Route::get('/pantalones', function () {
-    return view('pantalones');
-})->name('pantalones');
+// Route::get('/pantalones', function () {
+//     return view('pantalones');
+// })->name('pantalones');
 
 
 

@@ -21,7 +21,7 @@
                 {{-- dashboard --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Página Principal') }}
                     </x-nav-link>
                 </div>
                 {{-- camisetas --}}
@@ -30,18 +30,21 @@
                         {{ __('Camisetas') }}
                     </x-nav-link>
                 </div>
-                {{-- pantalones --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('pantalones.index')" :active="request()->routeIs('pantalones.index')">
-                        {{ __('Pantalones') }}
-                    </x-nav-link>
-                </div>
+                
             {{-- sudaderas --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('sudaderas.index')" :active="request()->routeIs('sudaderas.index')">
                         {{ __('Sudaderas') }}
                     </x-nav-link>
                 </div>
+
+            {{-- pantalones --}}
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <x-nav-link :href="route('pantalones.index')" :active="request()->routeIs('pantalones.index')">
+                    {{ __('Pantalones') }}
+                </x-nav-link>
+            </div>
+
                 {{-- zapatos --}}
                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('zapatos.index')" :active="request()->routeIs('zapatos.index')">
@@ -54,19 +57,20 @@
                         {{ __('Accesorios') }}
                     </x-nav-link>
                 </div> --}}
+                
                 {{-- carrito --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('carrito.index')" :active="request()->routeIs('carrito.index')">
                         {{ __('Carrito') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
 
                 {{-- direcciones --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('direcciones.index')" :active="request()->routeIs('direcciones.index')">
                         {{ __('Direcciones') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
 
                 
             </div>

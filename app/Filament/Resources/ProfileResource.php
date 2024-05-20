@@ -43,7 +43,6 @@ class ProfileResource extends Resource
                         Forms\Components\TextInput::make('name')
                             ->label('Name')
                             ->required(),
-
                         Forms\Components\TextInput::make('apellidos')
                             ->label('Apellidos')
                             ->required(),
@@ -58,6 +57,7 @@ class ProfileResource extends Resource
 
                         Forms\Components\TextInput::make('rol')
                             ->label('Rol')
+                            ->default('user')
                             ->required(),
 
                         Forms\Components\TextInput::make('created_at')
@@ -173,6 +173,7 @@ class ProfileResource extends Resource
     {
         return [
             //
+            
         ];
     }
 

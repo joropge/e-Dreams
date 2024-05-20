@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use JoelButcher\Socialstream\HasConnectedAccounts;
 
+
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 
@@ -19,7 +20,7 @@ class User extends Authenticatable implements FilamentUser
     
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return str_ends_with($this->email, 'admin@example.com') /*&& $this->hasVerifiedEmail()*/;
     }
     /**
      * The attributes that are mass assignable.
@@ -28,6 +29,7 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $fillable = [
         'name',
+        'apellidos',
         'email',
         'password',
     ];

@@ -34,31 +34,32 @@
                     </thead>
                     <tbody>
                         @foreach ($carritos as $carrito)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                    <div class="text-sm leading-5 text-blue-900">{{ $carrito->id }}</div>
-                                    {{-- <div class="text-sm leading-5 text-gray-900">{{ $carrito->user_id}}</div> --}}
-                                </td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $carrito->user_id }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $carrito->total }}</td>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                                    {{-- ruta a show --}}
-                                    <a href="{{ route('carrito.show', $carrito->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Ver') }}</a>
-                                    {{-- ruta a create --}}
-                                    <a href="{{ route('carrito.edit', $carrito->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Editar') }}</a>
-                                    <form action="{{ route('carrito.destroy', $carrito->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-400 hover:text-red-600">{{ __('Eliminar') }}</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="flex items-center justify-end mt-4"></div>                
-                </div>
+                            @if ($carrito->user_id == Auth::user()->id)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                                        <div class="text-sm leading-5 text-blue-900">{{ $carrito->id }}</div>
+                                        {{-- <div class="text-sm leading-5 text-gray-900">{{ $carrito->user_id}}</div> --}}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $carrito->user_id }}</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ $carrito->total }}</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                                        {{-- ruta a show --}}
+                                        <a href="{{ route('carrito.show', $carrito->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Ver') }}</a>
+                                        {{-- ruta a create --}}
+                                        <a href="{{ route('carrito.edit', $carrito->id) }}" class="text-blue-400 hover:text-blue-600">{{ __('Editar') }}</a>
+                                        <form action="{{ route('carrito.destroy', $carrito->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-400 hover:text-red-600">{{ __('Eliminar') }}</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+                <div class="flex items-center justify-end mt-4"></div>                
+            </div>
         </div>
     </div>
 </div>
