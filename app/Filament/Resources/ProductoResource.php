@@ -121,7 +121,7 @@ class ProductoResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('precio')
-                    ->money('EUR')
+                    ->money('eur')
                     ->numeric(decimalPlaces: 2)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('descripcion'),
@@ -139,6 +139,7 @@ class ProductoResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

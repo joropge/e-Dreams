@@ -25,15 +25,12 @@ class CategoriaResource extends Resource
             ->schema([
                 //
                 Forms\Components\TextInput::make('id')
-                    ->label('Id')
                     ->disabled()
                     ->default('Auto'),
                 Forms\Components\TextInput::make('nombre')
-                    ->label('Nombre')
                     ->required(),
 
                 Forms\Components\TextInput::make('descripcion')
-                    ->label('Descripcion')
                     ->required(),
             ]);
     }
@@ -61,6 +58,7 @@ class CategoriaResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

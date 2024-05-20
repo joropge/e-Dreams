@@ -16,6 +16,7 @@ class Pedido extends Model
         'user_id',
         'direccion_id',
         'producto_id',
+        // 'pedido_id',
         'estado',
         'total',
     ];
@@ -34,4 +35,10 @@ class Pedido extends Model
     {
         return $this->belongsToMany(Producto::class, 'producto_pedido');
     }
+
+    //relacion con carrito de compras
+    // public function Pedido ()
+    // {
+    //     return $this->belongsTo(Pedido::class);
+    // }
 }

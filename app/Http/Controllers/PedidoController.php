@@ -69,6 +69,8 @@ class PedidoController extends Controller
             $validated= $request->validate([
                 'user_id' => 'nullable|exists:users,id',
                 'direccion_id' => 'nullable|exists:direcciones,id',
+                // 'producto_id' => 'nullable|exists:productos,id',
+                // 'carrito_id' => 'nullable|exists:carritos,id',
                 'total' => 'required|numeric',
                 'estado' => 'required|in:pendiente,enviado,entregado,cancelado'
             ]);

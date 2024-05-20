@@ -103,36 +103,36 @@ class ProductoController extends Controller
         return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente');
     }
 
-    private function applyFilters(Request $request, Builder $query): Builder
-    {
-        if ($request->filled('search')) {
-            $query->where('estado', 'like', '%' . $request->get('search') . '%');
-        }
+    // private function applyFilters(Request $request, Builder $query): Builder
+    // {
+    //     if ($request->filled('search')) {
+    //         $query->where('estado', 'like', '%' . $request->get('search') . '%');
+    //     }
 
-        if ($request->filled('stock')) {
-            $query->where('stock', $request->get('stock'));
-        }
+    //     if ($request->filled('stock')) {
+    //         $query->where('stock', $request->get('stock'));
+    //     }
 
-        if ($request->filled('price')) {
-            $query->where('precio', $request->get('price'));
-        }
+    //     if ($request->filled('price')) {
+    //         $query->where('precio', $request->get('price'));
+    //     }
 
-        if ($request->filled('user')) {
-            $query->where('user_id', $request->get('user'));
-        }
+    //     if ($request->filled('user')) {
+    //         $query->where('user_id', $request->get('user'));
+    //     }
 
-        if ($request->filled('name')) {
-            $query->where('nombre', $request->get('user'));
-        }
+    //     if ($request->filled('name')) {
+    //         $query->where('nombre', $request->get('user'));
+    //     }
 
-        return $query;
-    }
+    //     return $query;
+    // }
 
-    public function search(Request $request)
-    {
-        $productos = $this->applyFilters($request, Producto::query())->paginate(5);
-        return view('productos.index', ['productos' => $productos]);
-    }
+    // public function search(Request $request)
+    // {
+    //     $productos = $this->applyFilters($request, Producto::query())->paginate(5);
+    //     return view('productos.index', ['productos' => $productos]);
+    // }
 
     public function myIndex(){
         $user = auth()->user();

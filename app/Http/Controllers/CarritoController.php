@@ -73,6 +73,7 @@ class CarritoController extends Controller
         $validated = $request->validate([
             'user_id' => 'nullable|exists:users,id',
             'producto_id' => 'nullable|exists:productos,id',
+            // 'pedido_id' => 'nullable|exists:pedidos,id', // 'exists' valida que el valor exista en la tabla 'pedidos
             'total' => 'required|numeric',
         ]);
 
