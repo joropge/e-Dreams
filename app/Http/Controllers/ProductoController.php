@@ -81,7 +81,7 @@ class ProductoController extends Controller
             $validated = $request->validate([
                 'nombre' => 'required',
                 'descripcion' => 'required',
-                'precio' => 'required|integer',
+                'precio' => 'required|decimal',
                 'stock' => 'required|integer',
                 'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
             ]);
@@ -152,5 +152,19 @@ class ProductoController extends Controller
     {
         $productos = Producto::where('categoria_id', 2)->get();
         return view('productos.pantalones.index', ['productos' => $productos]);
+    }
+
+    // Show only Productos with catogoria_id = 3
+    public function sudaderasIndex()
+    {
+        $productos = Producto::where('categoria_id', 3)->get();
+        return view('productos.sudaderas.index', ['productos' => $productos]);
+    }
+
+    // Show only Productos with catogoria_id = 4
+    public function frontIndex()
+    {
+        $productos = Producto::where('categoria_id', 4)->get();
+        return view('productos.zapatos.index', ['productos' => $productos]);
     }
 }

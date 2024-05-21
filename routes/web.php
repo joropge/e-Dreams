@@ -8,6 +8,9 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
+use App\Models\Carrito;
+use App\Http\Controllers\FrontController;
+
 // use App\Http\Controllers\UserController;
 
 
@@ -39,12 +42,19 @@ Route::resource('productos', ProductoController::class);
 Route::resource('users', ProfileController::class);
 
 Route::get('/unregistered', [UnregisteredController::class, 'unregistered'])->name('unregistered');
-
+// camisetas
 Route::get('users/camisetas/index', [ProductoController::class, 'camisetasIndex'])->name('camisetas.index');
-
+// pantalones
 Route::get('/users/pantalones/index', [ProductoController::class, 'pantalonesIndex'])->name('pantalones.index');
 // sudaderas
-Route::get('/users/sudaderas/index', [ProductoController::class, 'index'])->name('sudaderas.index');
+Route::get('/users/sudaderas/index', [ProductoController::class, 'sudaderasIndex'])->name('sudaderas.index');
+
+//fornt
+Route::get('/users/front/index', [FrontController::class, 'index'])->name('front.index');
+Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->name('dashboard');
+
+
+
 // carrito
 Route::get('/users/carrito/index', [CarritoController::class, 'index'])->name('carrito.index');
 Route::get('/users/carrito/create', [CarritoController::class, 'create'])->name('carrito.create');
@@ -64,6 +74,13 @@ Route::delete('/admin/direcciones/{direccion}', [DireccionesController::class, '
 
 Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
 
+
+
+
+Route::post('/user/carrito/add', [CarritoController::class, 'add'])->name('carrito.add');
+Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
+Route::get('/user/carrito/clear', [CarritoController::class, 'clear'])->name('carrito.clear');
+Route::post('/user/carrito/removeitem', [CarritoController::class, 'removeItem'])->name('carrito.removeitem');
 
 
 

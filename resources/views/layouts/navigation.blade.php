@@ -45,6 +45,13 @@
                 </x-nav-link>
             </div>
 
+            {{-- front --}}
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <x-nav-link :href="route('front.index')" :active="request()->routeIs('front.index')">
+                    {{ __('Front') }}
+                </x-nav-link>
+            </div>
+
                 {{-- zapatos --}}
                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('zapatos.index')" :active="request()->routeIs('zapatos.index')">
