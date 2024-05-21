@@ -57,6 +57,8 @@ class DireccionesController extends Controller
     /**
      * Display the specified resource.
      */
+
+    //NO SE USA
     public function show(Direccion $direccion): View
     {
         return view('/users/direcciones.show', ['direccion' => $direccion]);
@@ -70,7 +72,7 @@ class DireccionesController extends Controller
         return view('/users/direcciones.edit', [
             'direcciones' => $direcciones,
             'users' => User::all(),
-    ]);
+        ]);
     }
 
     /**

@@ -1,6 +1,6 @@
 {{-- editar una direcciones con un formulario --}}
 <x-app-layout>
-    {{-- editar una direcciones con un formulario, los campos son:
+    {{-- editar una direcciones con un formulario
         'user_id',
         'calle',
         'numero',

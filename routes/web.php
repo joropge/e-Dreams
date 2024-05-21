@@ -64,19 +64,24 @@ Route::get('/users/carrito/{carrito}/edit', [CarritoController::class, 'edit'])-
 Route::put('/users/carrito/{carrito}', [CarritoController::class, 'update'])->name('carrito.update');
 Route::delete('/users/carrito/{carrito}', [CarritoController::class, 'destroy'])->name('carrito.destroy');
 
-Route::get('/admin/direcciones/index', [DireccionesController::class, 'index'])->name('direcciones.index');
-Route::get('/admin/direcciones/create', [DireccionesController::class, 'create'])->name('direcciones.create');
+// Route::get('/admin/direcciones/create', [DireccionesController::class, 'create'])->name('direcciones.create');
+// Route::get('/admin/direcciones/{direccion}', [DireccionesController::class, 'show'])->name('direcciones.show');
+
 Route::post('/admin/direcciones/create', [DireccionesController::class, 'store'])->name('direcciones.store');
-Route::get('/admin/direcciones/{direccion}', [DireccionesController::class, 'show'])->name('direcciones.show');
+//mostrar direcciones
+Route::get('/admin/direcciones/index', [DireccionesController::class, 'index'])->name('direcciones.index');
+//Ruta a editar direcciones
 Route::get('/admin/direcciones/{direccion}/edit', [DireccionesController::class, 'edit'])->name('direcciones.edit');
+//Update direcciones
 Route::put('/admin/direcciones/{direccion}', [DireccionesController::class, 'update'])->name('direcciones.update');
+//Eliminar direcciones
 Route::delete('/admin/direcciones/{direccion}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
 
 // Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
 
 
 
-//
+//Mandar informacion de la compra
 Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
 
 //eliminar todo el carrito
