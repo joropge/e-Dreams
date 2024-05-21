@@ -35,28 +35,28 @@
             {{-- numero  --}}
             <div>
                 <x-input-label for="numero" :value="__('Numero')" />
-                <x-text-input id="numero" class="block mt-1 w-full" type="text" name="numero" :value="old('numero')" required autocomplete="numero" />
+                <x-text-input id="numero" class="block mt-1 w-full" type="number" name="numero" :value="old('numero')" required autocomplete="numero" />
                 <x-input-error :messages="$errors->get('numero')" class="mt-2" />
             </div>
 
             {{-- piso  --}}
             <div>
                 <x-input-label for="piso" :value="__('Piso')" />
-                <x-text-input id="piso" class="block mt-1 w-full" type="text" name="piso" :value="old('piso')" autocomplete="piso" />
+                <x-text-input id="piso" class="block mt-1 w-full" type="number" name="piso" :value="old('piso')" autocomplete="piso" />
                 <x-input-error :messages="$errors->get('piso')" class="mt-2" />
             </div>
 
             {{-- puerta  --}}
             <div>
                 <x-input-label for="puerta" :value="__('Puerta')" />
-                <x-text-input id="puerta" class="block mt-1 w-full" type="text" name="puerta" :value="old('puerta')" autocomplete="puerta" />
+                <x-text-input id="puerta" class="block mt-1 w-full" type="text" name="puerta" :value="old('puerta')" maxlength="2" autocomplete="puerta" />
                 <x-input-error :messages="$errors->get('puerta')" class="mt-2" />
             </div>
 
             {{-- codigo_postal  --}}
             <div>
                 <x-input-label for="codigo_postal" :value="__('Codigo Postal')" />
-                <x-text-input id="codigo_postal" class="block mt-1 w-full" type="text" name="codigo_postal" :value="old('codigo_postal')" required autocomplete="codigo_postal" />
+                <x-text-input id="codigo_postal" class="block mt-1 w-full" type="text" name="codigo_postal" :value="old('codigo_postal')" maxlength="5" required autocomplete="codigo_postal" />
                 <x-input-error :messages="$errors->get('codigo_postal')" class="mt-2" />
             </div>
 

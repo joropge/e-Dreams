@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProductoController extends Controller
@@ -85,6 +86,14 @@ class ProductoController extends Controller
                 'stock' => 'required|integer',
                 'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
             ]);
+
+            if ($request->hasFile('picture')) {
+                $validated['picture'] = $request->file('picture')->store('public/photos');
+    
+                if ($producto->picture) {
+                    Storage::delete($producto->picture);
+                }
+            }
 
             $producto->update($validated);
             return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente');

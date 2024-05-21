@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('categoria_id')->nullable()->constrained()->on('categorias')->nullOnDelete();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->decimal('precio');
+            $table->decimal('precio', 8, 2);
             $table->integer('stock');
             $table->string('imagen');
             $table->string('imagen2')->nullable();

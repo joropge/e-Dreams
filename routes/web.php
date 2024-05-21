@@ -49,7 +49,7 @@ Route::get('/users/pantalones/index', [ProductoController::class, 'pantalonesInd
 // sudaderas
 Route::get('/users/sudaderas/index', [ProductoController::class, 'sudaderasIndex'])->name('sudaderas.index');
 
-//fornt
+//front
 Route::get('/users/front/index', [FrontController::class, 'index'])->name('front.index');
 Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->name('dashboard');
 
@@ -72,15 +72,25 @@ Route::get('/admin/direcciones/{direccion}/edit', [DireccionesController::class,
 Route::put('/admin/direcciones/{direccion}', [DireccionesController::class, 'update'])->name('direcciones.update');
 Route::delete('/admin/direcciones/{direccion}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
 
-Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
+// Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
 
 
 
-
-Route::post('/user/carrito/add', [CarritoController::class, 'add'])->name('carrito.add');
+//
 Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
-Route::get('/user/carrito/clear', [CarritoController::class, 'clear'])->name('carrito.clear');
-Route::post('/user/carrito/removeitem', [CarritoController::class, 'removeItem'])->name('carrito.removeitem');
+
+//eliminar todo el carrito
+Route::delete('/admin/direcciones/{carrito}', [DireccionesController::class, 'destroy'])->name('carritos.destroy');
+Route::post('/user/carrito/destroy', [CarritoController::class, 'destroy'])->name('carrito.destroy');
+//eliminar un producto del carrito
+Route::delete('/user/carrito/{carrito}', [CarritoController::class, 'delete'])->name('carrito.delete');
+Route::post('/user/carrito/delete', [CarritoController::class, 'delete'])->name('carrito.delete');
+//añadir un producto al carrito
+Route::post('/user/carrito/add', [CarritoController::class, 'add'])->name('carrito.add');
+//Mostrar el carrito
+Route::get('/user/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+
+
 
 
 
@@ -93,14 +103,6 @@ Route::get('/discover', function () {
 Route::get('/privacy-policy', function () {
     return view('privacy-policy');
 })->name('privacy-policy');
-//ruta a camisteas
-// Route::get('/index', function () {
-//     return view('index');
-// })->name('index');
-//ruta a pantalones
-// Route::get('/pantalones', function () {
-//     return view('pantalones');
-// })->name('pantalones');
 
 
 

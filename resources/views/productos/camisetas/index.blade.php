@@ -1,17 +1,27 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Camisetas') }}
+        </h2>
+    </x-slot>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <h1>Camisetas</h1>
-                @foreach($productos as $camiseta)
-                    <div class="card">
-                        <img src="{{ $camiseta->imagen }}" class="card-img-top" alt="{{ $camiseta->nombre }}">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $camiseta->nombre }}</h5>
-                        </div>
-                    </div>
-                @endforeach
+
+    <div class="grid grid-cols-3 gap-4">
+        @include('productos.partials.msg')
+        @foreach($productos as $camiseta)
+            <div class="p-4 bg-white shadow-md">
+                <img src="{{ Storage::url('camisetas/' . $camiseta->imagen) }}" alt="{{ $camiseta->nombre }}" class="card-img-top">
+                <div class="card-body">
+                    <h3 class="text-lg font-semibold">{{ $camiseta->nombre }}</h3>
+                    <p class="text-gray-500">{{ $camiseta->descripcion }}</p>
+                    <p class="text-gray-500">{{ $camiseta->precio }} €</p>
+                </div>
+                <form action="{{route('carrito.add')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id" value="{{$camiseta->id}}">
+                    <input type="submit" value="Añadir al carrito" class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">
+                </form>
             </div>
-        </div>
+        @endforeach
     </div>
-</div>
+</x-app-layout>

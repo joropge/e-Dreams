@@ -6,6 +6,7 @@ use App\Models\Carrito;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,12 @@ class CarritoController extends Controller
      */
     public function index(): View
     {
-        return view('/users/carrito.index', ['carritos' => Carrito::all()]);
+        $carrito = session()->get('carrito', []);
+
+        return view('/users/carrito.index', compact('carrito'));
+
+
+        // return view('/users/carrito.index', ['carritos' => Carrito::all()]);
     }
 
     /**
@@ -88,6 +94,81 @@ class CarritoController extends Controller
     public function destroy(Carrito $carrito)
     {
         $carrito->delete();
-        return redirect()->route('carritos.index')->with('success', 'Carrito eliminado correctamente');
+        return redirect()->route('/users/carrito.index')->with('success', 'Carrito eliminado correctamente');
     }
+
+    public function delete(Request $request)
+    {
+        $productId = $request->input('id');
+
+        $carrito = session()->get('carrito');
+
+        if (isset($carrito[$productId])) {
+            unset($carrito[$productId]);
+        }
+
+        session()->put('carrito', $carrito);
+
+        return redirect()->back()->with('success', 'Producto eliminado del carrito.');
+    }   
+
+
+
+    // public function add(Request $request)
+    // {
+    //     $producto = Producto::find($request->producto_id);
+    //     if (empty($producto)) {
+    //         return redirect()->route('carrito.index')->with('error', 'Producto no encontrado');
+    //         // dd($producto);  
+    //         Carrito::add(
+    //             $producto->id, 
+    //             $producto->nombre, 
+    //             1, 
+    //             $producto->precio,
+    //             ["imagen" => $producto->imagen]
+    //         );
+
+    //         return redirect()->route('carrito.index')->with('success', 'Producto añadido al carrito correctamente' . $producto->nombre);
+    //     }
+
+    //     // $user = auth()->user();
+    //     // $request['user_id'] = $user->id;
+
+    //     // $validated = $request->validate([
+    //     //     'user_id' => 'nullable|exists:users,id',
+    //     //     'producto_id' => 'nullable|exists:productos,id',
+    //     //     'total' => 'required|numeric',
+    //     // ]);
+
+    //     // Carrito::create($validated);
+
+    //     // return redirect()->route('/users/carrito.index')->with('success', 'Producto añadido al carrito correctamente');
+    // }
+    public function add(Request $request)
+    {
+        // Obtener el ID del producto desde la solicitud
+        $productId = $request->input('id');
+
+        // Obtener el carrito de la sesión
+        $carrito = session()->get('carrito', []);
+
+        // Agregar el producto al carrito
+        if (isset($carrito[$productId])) {
+            $carrito[$productId]['cantidad']++;
+        } else {
+            $producto = \App\Models\Producto::find($productId);
+            $carrito[$productId] = [
+                'nombre' => $producto->nombre,
+                'precio' => $producto->precio,
+                'cantidad' => 1,
+                'imagen' => $producto->imagen
+            ];
+        }
+
+        // Guardar el carrito en la sesión
+        session()->put('carrito', $carrito);
+
+        return redirect()->back()->with('success', 'Producto añadido al carrito.');
+    }
+
 }
