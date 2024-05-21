@@ -62,6 +62,8 @@ Route::get('/admin/direcciones/{direccion}/edit', [DireccionesController::class,
 Route::put('/admin/direcciones/{direccion}', [DireccionesController::class, 'update'])->name('direcciones.update');
 Route::delete('/admin/direcciones/{direccion}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
 
+Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
+
 
 
 

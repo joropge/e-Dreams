@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
-use App\Models\User;
-use App\Models\Direccion;
+use App\Models\Producto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\Direccion;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Auth\Events\Validated;
-use Illuminate\Support\Facades\Storage;
 
 
 class PedidoController extends Controller
@@ -18,11 +21,31 @@ class PedidoController extends Controller
 
     public function index(): View
     {
+        $pedido = Pedido::all();
+        $producto = Producto::all();
+        return view('/users/pedidos.index', ['pedidos' => $pedido, 'productos' => $producto]);
+
+        // $userId = Auth::id();
+        // $pedidos = Pedido::where('user_id', $userId)->get();
+        // $productos = $this->getUserProducts($userId);
+        // return view('users.pedidos.index', ['pedidos' => $pedidos, 'productos' => $productos]);
+
+        
+
+        //obtener todos los pedidos del usuario especificado
+        // $userId = auth()->id();
+        // $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
+        // $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
+        
         // $pedidos = Pedido::all();
         // return response()->json($pedidos);
 
-        return view('/users/pedidos.index',
-            ['pedidos' => Pedido::all()]);
+        // $pedidos = Pedido::with('productos')->get();
+        // return view('/users/pedidos.index', ['pedidos' => $pedidos]);
+
+
+        // return view('/users/pedidos.index',
+        //     ['pedidos' => Pedido::all()]);
     }
 
     public function create()
@@ -56,8 +79,12 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido): View
     {
+        $productos = $pedido->productos;
+
         return view('/users/pedidos.show',
-            ['pedido' => $pedido]);
+            ['pedido' => $pedido,
+            'productos' => $productos,
+            ]);
     }
 
     public function edit(Pedido $pedido)
@@ -109,5 +136,44 @@ class PedidoController extends Controller
         return view('pedidos.myIndex',
         ['pedidos' => $user->pedidos]);
     }
+
+    public function getProductIdsByUser($userId)
+    {
+        // Obtengo todos los pedidos del usuario especificado
+        
+        $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
+        $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
+    
+        // Pasar los ids de productos a una vista
+        return view('users.pedidos.index', ['pedidos' => $pedidos, 'productIds' => $productIds]);
+    }
+
+    public function getUserProducts($userId)
+{
+    $userProducts = Pedido::select('user_id', 'producto_id', DB::raw('COUNT(*) as cantidad'))
+                    ->where('user_id', $userId)
+                    ->groupBy('user_id', 'producto_id')
+                    ->having('cantidad', '>', 1)
+                    ->get();
+
+    return $userProducts;
+}
+    
+
+
+//     public function getProductIdsByUser($userId)
+// {
+//     // Obtén todos los pedidos del usuario especificado
+//     $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
+
+//     // Recolecta todos los ids de productos
+//     $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
+
+//     return
+
+//     // Puedes retornar los ids como JSON, o pasarlos a una vista
+//     // return response()->json($productIds);
+// }
+
 
 }

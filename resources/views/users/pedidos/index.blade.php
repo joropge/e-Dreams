@@ -18,8 +18,13 @@
                     </div>
                     <table class="min-w-full">
                         <thead>
-                            {{-- user_id','calle','numero','piso','puerta','codigo_postal','ciudad','provincia','pais', --}}
+
                             <tr>
+                                
+                                <th
+                                    class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
+                                    {{ __('Productos') }}</th>
+                                
                                 <th
                                     class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                                     {{ __('Total') }}</th>
@@ -33,9 +38,28 @@
                             @foreach ($pedidos as $pedido)
                                 @if ($pedido->user_id == Auth::user()->id)
                                     <tr>
+                                        <td class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
+                                            
+                                            
+
+                                            {{-- @php
+                                            $productIds = app('App\Http\Controllers\PedidoController')->getProductIdsByUser(Auth::user()->id);
+                                            $productos = \App\Models\Producto::whereIn('id', $productIds)->get();
+                                            @endphp --}}
+
+                                            
+                                            
+                                            @foreach ($productos as $producto)
+                                                @if ($producto->user_id == $pedido->user_id && $producto->producto_id == $pedido->producto_id)
+                                                    <li>{{ $producto->nombre }} - ${{ $producto->precio }}</li>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        
+
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                                            {{ $pedido->total }}</td>
+                                            {{ $pedido->total }}€</td>
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                                             {{ $pedido->estado }}</td>

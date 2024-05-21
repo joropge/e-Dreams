@@ -15,7 +15,7 @@ class Pedido extends Model
     protected $fillable = [
         'user_id',
         'direccion_id',
-        'producto_id',
+        // 'producto_id',
         'carrito_id',
         'estado',
         'total',
@@ -31,7 +31,7 @@ class Pedido extends Model
         return $this->belongsTo(Direccion::class);
     }
 
-    public function Producto ()
+    public function productos ()
     {
         return $this->belongsToMany(Producto::class, 'producto_pedido');
     }
