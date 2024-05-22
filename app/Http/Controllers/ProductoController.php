@@ -170,7 +170,7 @@ class ProductoController extends Controller
         return view('productos.sudaderas.index', ['productos' => $productos]);
     }
 
-    // Show only Productos with catogoria_id = 4
+    // Show only Productos with catogoria_id = 4 -> modificarlo cuando queramos mostrar otro tipo de productos
     public function frontIndex()
     {
         $productos = Producto::where('categoria_id', 4)->get();

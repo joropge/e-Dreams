@@ -38,11 +38,11 @@
                 </div>
 
                 {{-- front --}}
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('front.index')" :active="request()->routeIs('front.index')">
                         {{ __('Front') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
@@ -125,7 +125,7 @@
         {{-- camisetas --}}
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.index')">
-                {{ __('Camisetas') }}
+                {{ __('Camisetas') }}            
             </x-responsive-nav-link>
         </div>
         {{-- pantalones --}}
