@@ -11,7 +11,10 @@
         'provincia',
         'pais', --}}
 
-    <form action="{{ route('direcciones.update', $direcciones->id) }}" method="POST" class="max-w-md mx-auto">
+    {{-- <form action="{{ route('direcciones.update', $direcciones->id) }}" method="POST" class="max-w-md mx-auto"> --}}
+        {{-- <form action="{{ route('direcciones.update', ['direccion' => $direcciones->id]) }}" method="POST" class="max-w-md mx-auto"> --}}
+            {{-- <form action="{{ route('direcciones.update') }}" method="POST" enctype="multipart/form-data" class="max-w-md mx-auto p-10"> --}}
+
         @csrf
         @method('PUT')
         <div class="mb-4">

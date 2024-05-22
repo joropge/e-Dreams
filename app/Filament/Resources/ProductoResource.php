@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -65,13 +66,33 @@ class ProductoResource extends Resource
                 Forms\Components\FileUpload::make('imagen')
                     ->label('imagen')
                     ->image()
+                    ->directory(function ($get) {
+                        // Obtener la categoría seleccionada
+                        $categoria = $get('categoria_id');
+                        // Retornar el directorio basado en la categoría
+                        if($categoria==3){
+                            return "pantalones";
+                        }
+                        else if($categoria==2){
+                            return "sudaderas";
+                        }
+                        else if($categoria==1){
+                            return "camisetas";
+                        }
+                        else{
+                            return "productos";
+                        }
+                        
+                    })
+
+                    // ->directory('productos')
                     ->required(),
 
                 //imagen2
                 Forms\Components\FileUpload::make('imagen2')
                     ->label('imagen2')
-                    ->image()
-                    ->required(),
+                    ->image(),
+                    // ->directory('productos')
 
                 //Talla
                 Forms\Components\Select::make('talla')
@@ -101,9 +122,9 @@ class ProductoResource extends Resource
                         'Naranja' => 'Naranja',
                         'Cyan' => 'Cyan',
                         'Marrón' => 'Marrón',
-                        'Multicolor'=> 'Multicolor',
+                        'Multicolor' => 'Multicolor',
                     ])
-                    
+
                     ->required(),
 
             ]);
