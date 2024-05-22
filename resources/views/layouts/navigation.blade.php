@@ -128,16 +128,16 @@
                 {{ __('Camisetas') }}            
             </x-responsive-nav-link>
         </div>
-        {{-- pantalones --}}
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('pantalones.index')" :active="request()->routeIs('pantalones.index')">
-                {{ __('Pantalones') }}
-            </x-responsive-nav-link>
-        </div>
         {{-- sudaderas --}}
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('sudaderas.index')" :active="request()->routeIs('sudaderas.index')">
                 {{ __('Sudaderas') }}
+            </x-responsive-nav-link>
+        </div>
+        {{-- pantalones --}}
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('pantalones.index')" :active="request()->routeIs('pantalones.index')">
+                {{ __('Pantalones') }}
             </x-responsive-nav-link>
         </div>
         {{-- carrito --}}

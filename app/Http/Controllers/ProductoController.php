@@ -149,26 +149,27 @@ class ProductoController extends Controller
         ['productos' => $user->productos]);
     }
 
-    // Show only Productos with catogoria_id = 1 and send them to the view
+    // Show only Productos with catogoria_id = 1
     public function camisetasIndex()
     {
         $productos = Producto::where('categoria_id', 1)->get();
         return view('productos.camisetas.index', ['productos' => $productos]);
     }
 
-    // Show only Productos with catogoria_id = 2
-    public function pantalonesIndex()
+        // Show only Productos with catogoria_id = 2
+    public function sudaderasIndex()
     {
         $productos = Producto::where('categoria_id', 2)->get();
+        return view('productos.sudaderas.index', ['productos' => $productos]);
+    }
+    // Show only Productos with catogoria_id = 3
+    public function pantalonesIndex()
+    {
+        $productos = Producto::where('categoria_id', 3)->get();
         return view('productos.pantalones.index', ['productos' => $productos]);
     }
 
-    // Show only Productos with catogoria_id = 3
-    public function sudaderasIndex()
-    {
-        $productos = Producto::where('categoria_id', 3)->get();
-        return view('productos.sudaderas.index', ['productos' => $productos]);
-    }
+    
 
     // Show only Productos with catogoria_id = 4 -> modificarlo cuando queramos mostrar otro tipo de productos
     public function frontIndex()

@@ -37,6 +37,12 @@
                         </thead>
                         <tbody>
                             @foreach ($carrito as $id => $producto)
+                                @php
+                                    // Obtener solo la parte de la ruta después de la tercera barra invertida
+                                    $rutaCompleta = $producto['imagen'];
+                                    $partes = explode('\\', $rutaCompleta);
+                                    $rutaDeseada = implode('/', array_slice($partes, 3));
+                                @endphp
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                         <div class="text-sm leading-5 text-blue-900">{{ $producto['nombre'] }}</div>
@@ -44,8 +50,10 @@
                                     {{-- imagen --}}
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
-                                        <img src="{{ Storage::url('public/' . $producto['imagen']) }}"
-                                            alt="{{ $producto['nombre'] }}" class="card-img-top">
+                                        <img src="{{ Storage::url('public/' . $rutaDeseada) }}"
+                                            alt="{{ $producto['nombre'] }}" class="w-16 h-16 object-cover">
+                                    </td>
+
 
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
                                         {{ $producto['precio'] }} €
