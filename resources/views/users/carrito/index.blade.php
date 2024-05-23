@@ -19,15 +19,12 @@
                             <tr>
                                 <th
                                     class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                                    {{ __('Nombre') }}
+                                    {{ __('Producto') }}
                                 </th>
-                                <th
-                                    class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
-                                    {{ __('Categoria') }}
-                                <th
+                                {{-- <th
                                     class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                                     {{ __('Imagen') }}
-                                </th>
+                                </th> --}}
                                 <th
                                     class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                                     {{ __('Precio') }}
@@ -59,15 +56,19 @@
                                     }
                                 @endphp
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                                    <td class="flex items-center gap-2 px-6 py-4 whitespace-no-wrap border-b border-gray-500">
+                                        <div class="w-20 h-20 overflow-hidden rounded-2xl">
+                                            <img src="{{ Storage::url('public/' . $rutaDeseada) }}"
+                                                    alt="{{ $producto['nombre'] }}" class="object-cover w-full h-full">
+                                        </div>
                                         <div class="text-sm leading-5 text-blue-900">{{ $producto['nombre'] }}</div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
+                                    {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
                                         <div class="w-16 h-16 overflow-hidden rounded-full">
                                             <img src="{{ Storage::url('public/' . $rutaDeseada) }}"
                                                 alt="{{ $producto['nombre'] }}" class="w-full h-full object-cover">
                                         </div>
-                                    </td>
+                                    </td> --}}
                                     
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
                                         {{ $producto['precio'] }} €

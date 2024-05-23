@@ -7,6 +7,8 @@
     </x-slot>
 
     <div class="py-12">
+        @include('productos.partials.msg')
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -43,7 +45,7 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{ $producto->id }}">
                                     <input type="submit" value="Añadir"
-                                        class="px-4 py-2 bg-blue-500 text-black rounded-md hover:bg-blue-600">
+                                        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer" />
                                 </form>
                                 @if ($producto->categoria_id === 1)
                                     <a href="{{ route('camisetas.index', $producto) }}" class="text-blue-500">Ver más</a>

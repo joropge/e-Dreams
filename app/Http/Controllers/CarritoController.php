@@ -145,8 +145,8 @@ class CarritoController extends Controller
     public function destroyAll(Carrito $carrito)
     {
         $carrito->delete();
-        
-        return back()->with('success', 'Carrito eliminado correctamente');
+
+        return redirect()->route('/users/carrito.index')->with('success', 'Carrito eliminado correctamente');
     }
 
     public function delete(Request $request)
