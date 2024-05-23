@@ -71,22 +71,24 @@ Route::post('/admin/direcciones/create', [DireccionesController::class, 'store']
 //mostrar direcciones
 Route::get('/admin/direcciones/index', [DireccionesController::class, 'index'])->name('direcciones.index');
 //Ruta a editar direcciones
-Route::get('/admin/direcciones/{direccion}/edit', [DireccionesController::class, 'edit'])->name('direcciones.edit');
+Route::get('/admin/direcciones/{direcciones}/edit', [DireccionesController::class, 'edit'])->name('direcciones.edit');
 //Update direcciones
-Route::put('/admin/direcciones/{direccion}', [DireccionesController::class, 'update'])->name('direcciones.update');
+Route::put('/admin/direcciones/{direcciones}', [DireccionesController::class, 'update'])->name('direcciones.update');
 //Eliminar direcciones
-Route::delete('/admin/direcciones/{direccion}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
+Route::delete('/admin/direcciones/{direcciones}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
 
 // Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
 
 
+Route::delete('/admin/direcciones/{carrito}', [DireccionesController::class, 'destroy'])->name('carritos.destroy');
+
+/*-------------------------------------------CARRITO----------------------------------------- */
 
 //Mandar informacion de la compra
-Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
-
+Route::post('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
+// Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
 //eliminar todo el carrito
-Route::delete('/admin/direcciones/{carrito}', [DireccionesController::class, 'destroy'])->name('carritos.destroy');
-Route::post('/user/carrito/destroy', [CarritoController::class, 'destroy'])->name('carrito.destroy');
+Route::get('/user/carrito/destroy', [CarritoController::class, 'destroyAll'])->name('carrito.destroy');
 //eliminar un producto del carrito
 Route::delete('/user/carrito/{carrito}', [CarritoController::class, 'delete'])->name('carrito.delete');
 Route::post('/user/carrito/delete', [CarritoController::class, 'delete'])->name('carrito.delete');

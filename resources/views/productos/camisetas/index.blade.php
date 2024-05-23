@@ -16,8 +16,6 @@
             @endphp
             <div class="p-4 bg-white shadow-md">
                 <img src="{{ Storage::url('camisetas/' . $nombreImg) }}" alt="{{ $camiseta->nombre }}" class="w-full h-auto object-cover">
-                {{-- <img src="{{ Storage::url('camisetas/camiseta3.jpg') }}" alt="{{ $camiseta->nombre }}"
-                    class="w-full h-auto object-cover"> --}}
                 <div class="card-body">
                     <h3 class="text-lg font-semibold">{{ $camiseta->nombre }}</h3>
                     <p class="text-gray-500">{{ $camiseta->descripcion }}</p>

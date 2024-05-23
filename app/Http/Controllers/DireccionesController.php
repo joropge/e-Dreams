@@ -93,17 +93,17 @@ class DireccionesController extends Controller
             'pais' => 'required|max:255',
         ]);
 
-        if ($request->hasFile('picture')) {
-            $validated['picture'] = $request->file('picture')->store('public/photos');
+        // if ($request->hasFile('picture')) {
+        //     $validated['picture'] = $request->file('picture')->store('public/photos');
 
-            if ($direcciones->picture) {
-                Storage::delete($direcciones->picture);
-            }
-        }
+        //     if ($direcciones->picture) {
+        //         Storage::delete($direcciones->picture);
+        //     }
+        // }
 
         $direcciones->update($validated);
 
-        return redirect()->route('/users/direcciones.index')->with('success', 'Dirección actualizada correctamente');
+        return back()->with('success', 'Dirección actualizada correctamente');
     }
 
     /**

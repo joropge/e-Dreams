@@ -13,7 +13,7 @@
                         {{ __('Direcciones') }}
                     </div>
                 </div>
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200  overflow-x-auto">
                     <div class="flex items-center justify-end mt-4">
                     </div>
                     <table class="min-w-full">
