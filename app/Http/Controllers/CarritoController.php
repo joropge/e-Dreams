@@ -24,18 +24,18 @@ class CarritoController extends Controller
     //     return view('/users/carrito.index', compact('carrito'));
     // }
     public function index(): View
-    {
-        $carrito = session()->get('carrito', []);
+{
+    $carrito = session()->get('carrito', []);
 
-        $total = 0;
-        foreach ($carrito as $id => $producto) {
-            $total += $producto['precio'] * $producto['cantidad'];
-        }
-
-        return view('/users/carrito.index', compact('carrito', 'total'));
+    $total = 0;
+    foreach ($carrito as $id => $producto) {
+        $total += $producto['precio'] * $producto['cantidad'];
     }
 
+    return view('/users/carrito.index', compact('carrito', 'total'));
+}
 
+    
 
     /**
      * Show the form for creating a new resource.
@@ -121,12 +121,20 @@ class CarritoController extends Controller
         foreach ($carrito as $producto) {
             Pedido::create([
                 'user_id' => $user_id,
-                'producto_id' => $producto_id,
+                'producto_id' => $producto->id,
                 'direccion_id' => $direccion_id,
-                'total' => $producto['precio'],
+                'total' => $producto->precio,
                 'estado' => 'enviado', // O el estado que desees asignar inicialmente
             ]);
         }
+        // foreach ($carrito as $producto) {
+        //     Pedido::create([
+        //         'user_id' => $user_id,
+        //         'producto_id' => $producto['id'],
+        //         'direccion_id' => $direccion_id,
+        //         'total' => $producto['precio'],
+        //         'estado' => 'enviado', // O el estado que desees asignar inicialmente
+        //     ]);
     }
 
 
@@ -137,7 +145,7 @@ class CarritoController extends Controller
     public function destroyAll(Carrito $carrito)
     {
         $carrito->delete();
-
+        
         return back()->with('success', 'Carrito eliminado correctamente');
     }
 
