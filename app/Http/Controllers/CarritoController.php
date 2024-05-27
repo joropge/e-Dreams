@@ -199,7 +199,7 @@ class CarritoController extends Controller
         $carrito = Carrito::where('user_id', $user->id)->with('producto')->get();
 
         $total = $carrito->sum(function ($item) {
-            return $item->product->precio * $item->cantidad;
+            return $item->producto->precio * $item->cantidad;
         });
 
         return view('users.carrito.index', compact('carrito', 'total'));

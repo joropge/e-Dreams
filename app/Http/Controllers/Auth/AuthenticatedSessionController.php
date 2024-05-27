@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\Carrito;
+use App\Models\Producto;
 
 
 class AuthenticatedSessionController extends Controller
@@ -48,8 +49,8 @@ class AuthenticatedSessionController extends Controller
             $carrito = [];
 
             foreach ($cartItems as $item) {
-                $carrito[$item->product_id] = [
-                    'id' => $item->product_id,
+                $carrito[$item->producto_id] = [
+                    'id' => $item->producto_id,
                     'cantidad' => $item->cantidad,
                     // Añade otros detalles del producto según sea necesario
                 ];
@@ -81,20 +82,42 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request)
     {
         $user = Auth::user();
-        $carrito = session()->get('carrito', []);
+    $carrito = session()->get('carrito', []);
 
-        foreach ($carrito as $producto) {
+    foreach ($carrito as $producto) {
+        $productoModel = Producto::find($producto['id']);
+
+        if ($productoModel) {
+            $total = $producto['cantidad'] * $productoModel->precio;
+
             Carrito::updateOrCreate(
-                ['user_id' => $user->id, 'product_id' => $producto['id']],
-                ['cantidad' => $producto['cantidad']]
+                ['user_id' => $user->id, 'producto_id' => $producto['id']],
+                ['cantidad' => $producto['cantidad'], 'total' => $total]
             );
         }
+    }
 
-        Auth::guard('web')->logout();
+    Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
 
-        return redirect('/');
+    return redirect('/');
+        // $user = Auth::user();
+        // $carrito = session()->get('carrito', []);
+
+        // foreach ($carrito as $producto) {
+        //     Carrito::updateOrCreate(
+        //         ['user_id' => $user->id, 'producto_id' => $producto['id']],
+        //         ['cantidad' => $producto['cantidad']]
+        //     );
+        // }
+
+        // Auth::guard('web')->logout();
+
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+
+        // return redirect('/');
     }
 }
