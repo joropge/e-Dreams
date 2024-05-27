@@ -13,7 +13,8 @@ class Carrito extends Model
 
     protected $fillable = [
         'user_id',
-        'pedido_id',
+        'producto_id',
+        'cantidad',
         'total',
     ];
 
@@ -22,14 +23,13 @@ class Carrito extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function productos()
-    // {
-    //     return $this->belongsToMany(Producto::class, 'producto_carrito');
-    // }
-
-    //relacion uno amuchos con pedido
     public function pedidos()
     {
         return $this->hasMany(Pedido::class);
+    }
+
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class);
     }
 }

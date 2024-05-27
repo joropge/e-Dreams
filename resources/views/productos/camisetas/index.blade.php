@@ -32,6 +32,7 @@
                         <form action="{{ route('carrito.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{ $camiseta->id }}">
+                            <input type="hidden" name="cantidad" value="1">
                             <button type="submit"
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer float-right flex items-center">
                                 <span class="mr-2">Añadir</span>

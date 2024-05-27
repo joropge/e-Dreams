@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use JoelButcher\Socialstream\HasConnectedAccounts;
 
 
+
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 
@@ -61,4 +62,8 @@ class User extends Authenticatable implements FilamentUser
         public function direccion(){
             return $this->belongsTo(Direccion::class);
         }
+
+    public function carrito(){
+        return $this->hasMany(Carrito::class);
+    }
 }
