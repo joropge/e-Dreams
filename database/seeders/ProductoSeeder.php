@@ -67,7 +67,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 3,
+            'categoria_id' => 2,
             'nombre' => 'Sudadera básica',
             'descripcion' => 'Sudadera de manga larga multicolor',
             'precio' => 22.99,
@@ -80,7 +80,7 @@ class ProductoSeeder extends Seeder
         ]);
         
         DB::table('productos')->insert([
-            'categoria_id' => 3,
+            'categoria_id' => 2,
             'nombre' => 'Sudadera básica',
             'descripcion' => 'Sudadera de manga larga gris',
             'precio' => 22.99,
@@ -93,7 +93,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 3,
+            'categoria_id' => 2,
             'nombre' => 'Sudadera básica',
             'descripcion' => 'Sudadera de manga larga gris',
             'precio' => 22.99,
@@ -106,7 +106,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 3,
+            'categoria_id' => 2,
             'nombre' => 'Sudadera básica',
             'descripcion' => 'Sudadera de manga larga azul',
             'precio' => 22.99,
@@ -119,7 +119,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 2,
+            'categoria_id' => 3,
             'nombre' => 'Pantalón básico',
             'descripcion' => 'Pantalón de tela marrón',
             'precio' => 25.99,
@@ -133,7 +133,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 2,
+            'categoria_id' => 3,
             'nombre' => 'Pantalón básico',
             'descripcion' => 'Pantalón de tela rojo',
             'precio' => 25.99,
@@ -146,7 +146,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 2,
+            'categoria_id' => 3,
             'nombre' => 'Pantalón básico',
             'descripcion' => 'Pantalón de tela marrón',
             'precio' => 25.99,
@@ -159,7 +159,7 @@ class ProductoSeeder extends Seeder
         ]);
 
         DB::table('productos')->insert([
-            'categoria_id' => 2,
+            'categoria_id' => 3,
             'nombre' => 'Pantalón básico',
             'descripcion' => 'Pantalón de tela multicolor',
             'precio' => 25.99,

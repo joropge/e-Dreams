@@ -41,6 +41,8 @@ Route::resource('pedidos', PedidoController::class);
 Route::resource('productos', ProductoController::class);
 Route::resource('users', ProfileController::class);
 
+/*-------------------------------------------PRODUCTOS----------------------------------------- */
+
 Route::get('/unregistered', [UnregisteredController::class, 'unregistered'])->name('unregistered');
 // camisetas
 Route::get('users/camisetas/index', [ProductoController::class, 'camisetasIndex'])->name('camisetas.index');
@@ -53,7 +55,7 @@ Route::get('/users/sudaderas/index', [ProductoController::class, 'sudaderasIndex
 Route::get('/users/front/index', [FrontController::class, 'index'])->name('front.index');
 Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->name('dashboard');
 
-
+/*-------------------------------------------CARRITO----------------------------------------- */
 
 // carrito
 Route::get('/users/carrito/index', [CarritoController::class, 'index'])->name('carrito.index');
@@ -63,6 +65,9 @@ Route::get('/users/carrito/{carrito}', [CarritoController::class, 'show'])->name
 Route::get('/users/carrito/{carrito}/edit', [CarritoController::class, 'edit'])->name('carrito.edit');
 Route::put('/users/carrito/{carrito}', [CarritoController::class, 'update'])->name('carrito.update');
 Route::delete('/users/carrito/{carrito}', [CarritoController::class, 'destroy'])->name('carrito.destroy');
+
+
+/*-------------------------------------------DIRECCIONES----------------------------------------- */
 
 // Route::get('/admin/direcciones/create', [DireccionesController::class, 'create'])->name('direcciones.create');
 // Route::get('/admin/direcciones/{direccion}', [DireccionesController::class, 'show'])->name('direcciones.show');
