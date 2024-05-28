@@ -15,7 +15,7 @@ class Pedido extends Model
     protected $fillable = [
         'user_id',
         'direccion_id',
-        // 'producto_id',
+        'producto_id',
         'carrito_id',
         'estado',
         'total',

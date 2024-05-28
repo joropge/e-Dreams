@@ -21,43 +21,32 @@ class PedidoController extends Controller
 
     public function index(): View
     {
-        $pedido = Pedido::all();
-        $producto = Producto::all();
-        return view('/users/pedidos.index', ['pedidos' => $pedido, 'productos' => $producto]);
+        $user = Auth::user();
+        $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
 
-        // $userId = Auth::id();
-        // $pedidos = Pedido::where('user_id', $userId)->get();
-        // $productos = $this->getUserProducts($userId);
-        // return view('users.pedidos.index', ['pedidos' => $pedidos, 'productos' => $productos]);
-
-        
-
-        //obtener todos los pedidos del usuario especificado
-        // $userId = auth()->id();
-        // $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
-        // $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
-        
-        // $pedidos = Pedido::all();
-        // return response()->json($pedidos);
-
-        // $pedidos = Pedido::with('productos')->get();
-        // return view('/users/pedidos.index', ['pedidos' => $pedidos]);
+        return view('users.pedidos.index', compact('pedidos'));
 
 
-        // return view('/users/pedidos.index',
-        //     ['pedidos' => Pedido::all()]);
+
+        // $user = Auth::user();
+        // $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
+
+        // return view('pedidos.index', compact('pedidos'));
     }
 
     public function create()
     {
-        return view('/users/pedidos.create',
-            ['pedidos' => Pedido::all()
-        ]);
+        return view(
+            '/users/pedidos.create',
+            [
+                'pedidos' => Pedido::all()
+            ]
+        );
     }
 
     public function store(Request $request)
     {
-        try{
+        try {
             $validated = $request->validate([
                 'user_id' => 'nullable|exists:users,id',
                 'direccion_id' => 'nullable|exists:direcciones,id',
@@ -67,24 +56,28 @@ class PedidoController extends Controller
             ]);
 
             $pedido = Pedido::create($validated);
-            return view('/users/pedidos.index',
-            ['pedidos' => Pedido::all()
-        ]);}
-        
-        catch(\Exception $e){
+            return view(
+                '/users/pedidos.index',
+                [
+                    'pedidos' => Pedido::all()
+                ]
+            );
+        } catch (\Exception $e) {
             return redirect()->route('pedidos.create')->withInput()->withErrors($e->getMessage());
         }
-
     }
 
     public function show(Pedido $pedido): View
     {
         $productos = $pedido->productos;
 
-        return view('/users/pedidos.show',
-            ['pedido' => $pedido,
-            'productos' => $productos,
-            ]);
+        return view(
+            '/users/pedidos.show',
+            [
+                'pedido' => $pedido,
+                'productos' => $productos,
+            ]
+        );
     }
 
     public function edit(Pedido $pedido)
@@ -97,8 +90,8 @@ class PedidoController extends Controller
 
     public function update(Request $request, Pedido $pedido)
     {
-        try{
-            $validated= $request->validate([
+        try {
+            $validated = $request->validate([
                 'user_id' => 'nullable|exists:users,id',
                 'direccion_id' => 'nullable|exists:direcciones,id',
                 'producto_id' => 'nullable|exists:productos,id',
@@ -109,7 +102,7 @@ class PedidoController extends Controller
 
             if ($request->hasFile('picture')) {
                 $validated['picture'] = $request->file('picture')->store('public/photos');
-    
+
                 if ($pedido->picture) {
                     Storage::delete($pedido->picture);
                 }
@@ -117,9 +110,7 @@ class PedidoController extends Controller
 
             $pedido->update($validated);
             return redirect()->route('/users/pedidos.show', $pedido)->with('success', 'Pedido actualizado correctamente');
-
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->route('/users/pedidos.edit', $pedido)->withInput()->withErrors($e->getMessage());
         }
     }
@@ -129,51 +120,54 @@ class PedidoController extends Controller
         $pedido->delete();
         return redirect()->route('/users/pedidos.index')->with('success', 'Pedido eliminado correctamente');
     }
-    
 
-    public function myIndex(){
+
+    public function myIndex()
+    {
         $user = auth()->user();
-        return view('pedidos.myIndex',
-        ['pedidos' => $user->pedidos]);
+        return view(
+            'pedidos.myIndex',
+            ['pedidos' => $user->pedidos]
+        );
     }
 
     public function getProductIdsByUser($userId)
     {
         // Obtengo todos los pedidos del usuario especificado
-        
+
         $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
         $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
-    
+
         // Pasar los ids de productos a una vista
         return view('users.pedidos.index', ['pedidos' => $pedidos, 'productIds' => $productIds]);
     }
 
     public function getUserProducts($userId)
-{
-    $userProducts = Pedido::select('user_id', 'producto_id', DB::raw('COUNT(*) as cantidad'))
-                    ->where('user_id', $userId)
-                    ->groupBy('user_id', 'producto_id')
-                    ->having('cantidad', '>', 1)
-                    ->get();
+    {
+        $userProducts = Pedido::select('user_id', 'producto_id', DB::raw('COUNT(*) as cantidad'))
+            ->where('user_id', $userId)
+            ->groupBy('user_id', 'producto_id')
+            ->having('cantidad', '>', 1)
+            ->get();
 
-    return $userProducts;
-}
-    
+        return $userProducts;
+    }
 
 
-//     public function getProductIdsByUser($userId)
-// {
-//     // Obtén todos los pedidos del usuario especificado
-//     $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
 
-//     // Recolecta todos los ids de productos
-//     $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
+    //     public function getProductIdsByUser($userId)
+    // {
+    //     // Obtén todos los pedidos del usuario especificado
+    //     $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
 
-//     return
+    //     // Recolecta todos los ids de productos
+    //     $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
 
-//     // Puedes retornar los ids como JSON, o pasarlos a una vista
-//     // return response()->json($productIds);
-// }
+    //     return
+
+    //     // Puedes retornar los ids como JSON, o pasarlos a una vista
+    //     // return response()->json($productIds);
+    // }
 
 
 }

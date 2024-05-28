@@ -6,6 +6,7 @@
     </x-slot>
 
     <div class="py-12">
+        @include('productos.partials.msgCheckout')
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
@@ -72,6 +73,7 @@
                                                 class="w-16 text-center appearance-none border rounded-md py-1 px-3 bg-gray-100"
                                                 oninput="this.value = Math.max(this.value, 0)"
                                                 onchange="updateCantidad({{ $carrito->id }}, this.value)">
+                                                {{-- , '{{ csrf_token() }}' --}}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-sm leading-5">
@@ -115,7 +117,7 @@
             </div>
         </div>
     </div>
-
+    {{-- <script src="/public/js/sumProductosCarrito.js"></script> --}}
     <script>
         
         function updateCantidad(id, cantidad) {
