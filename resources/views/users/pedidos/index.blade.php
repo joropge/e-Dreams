@@ -39,7 +39,11 @@
                                     <tr>
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                                            {{ $pedido->producto->nombre }}
+                                            @if ($pedido->producto)
+                                                {{ $pedido->producto->nombre }}
+                                            @else
+                                                Producto no encontrado
+                                            @endif
                                         </td>
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">

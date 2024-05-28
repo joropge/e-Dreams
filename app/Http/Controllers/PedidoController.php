@@ -18,21 +18,29 @@ use Illuminate\Auth\Events\Validated;
 
 class PedidoController extends Controller
 {
-
     public function index(): View
-    {
-        $user = Auth::user();
-        $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
+{
+    $user = Auth::user();
+    $pedidos = Pedido::where('user_id', $user->id)->with('productos')->get();
 
-        return view('users.pedidos.index', compact('pedidos'));
+    return view('users.pedidos.index', compact('pedidos'));
+}
+
+
+    // public function index(): View
+    // {
+    //     // $user = Auth::user();
+    //     // $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
+
+    //     // return view('users.pedidos.index', compact('pedidos'));
 
 
 
-        // $user = Auth::user();
-        // $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
+    //     $user = Auth::user();
+    //     $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
 
-        // return view('pedidos.index', compact('pedidos'));
-    }
+    //     return view('users.pedidos.index', compact('pedidos'));
+    // }
 
     public function create()
     {

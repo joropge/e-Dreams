@@ -106,7 +106,7 @@ class CarritoController extends Controller
                 'direccion_id' => $direccion->id,
                 'estado' => 'pendiente',
                 // 'total' => $totalCarrito,
-                'total' => $item->producto->precio * $item->cantidad,
+                'total' => $item->producto->precio,
             ]);
             // dd($pedido);
             $pedido->save();
