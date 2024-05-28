@@ -34,14 +34,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     /*-------------------------------------------CARRITO----------------------------------------- */
-Route::get('/users/carrito/index', [CarritoController::class, 'index'])->name('carrito.index');
-Route::get('/users/carrito/create', [CarritoController::class, 'create'])->name('carrito.create');
-Route::post('/users/carrito/create', [CarritoController::class, 'store'])->name('carrito.store');
-Route::get('/users/carrito/{carrito}', [CarritoController::class, 'show'])->name('carrito.show');
-Route::get('/users/carrito/{carrito}/edit', [CarritoController::class, 'edit'])->name('carrito.edit');
-Route::put('/users/carrito/{carrito}', [CarritoController::class, 'update'])->name('carrito.update');
-Route::delete('/users/carrito', [CarritoController::class, 'delete'])->name('carrito.delete');
-Route::delete('/users/carrito/{carrito}', [CarritoController::class, 'destroy'])->name('carrito.destroy');
+// Route::get('/users/carrito/index', [CarritoController::class, 'index'])->name('carrito.index');
+// Route::get('/users/carrito/create', [CarritoController::class, 'create'])->name('carrito.create');
+// Route::post('/users/carrito/create', [CarritoController::class, 'store'])->name('carrito.store');
+// Route::get('/users/carrito/{carrito}', [CarritoController::class, 'show'])->name('carrito.show');
+// Route::get('/users/carrito/{carrito}/edit', [CarritoController::class, 'edit'])->name('carrito.edit');
+// Route::put('/users/carrito/{carrito}', [CarritoController::class, 'update'])->name('carrito.update');
+// Route::delete('/users/carrito', [CarritoController::class, 'delete'])->name('carrito.delete');
+// Route::delete('/users/carrito/{carrito}', [CarritoController::class, 'destroy'])->name('carrito.destroy');
 });
 
 Route::resource('carritos', CarritoController::class);
@@ -96,7 +96,7 @@ Route::delete('/admin/direcciones/{carrito}', [DireccionesController::class, 'de
 Route::post('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
 // Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
 //eliminar todo el carrito
-Route::get('/user/carrito/destroy', [CarritoController::class, 'destroyAll'])->name('carrito.destroy');
+Route::get('/user/carrito/destroy', [CarritoController::class, 'destroy'])->name('carrito.destroy');
 //eliminar un producto del carrito
 Route::delete('/user/carrito/{carrito}', [CarritoController::class, 'delete'])->name('carrito.delete');
 Route::post('/user/carrito/delete', [CarritoController::class, 'delete'])->name('carrito.delete');
@@ -104,6 +104,8 @@ Route::post('/user/carrito/delete', [CarritoController::class, 'delete'])->name(
 Route::post('/user/carrito/add', [CarritoController::class, 'add'])->name('carrito.add');
 //Mostrar el carrito
 Route::get('/user/carrito', [CarritoController::class, 'index'])->name('carrito.index');
+//Actualizar la cantidad de un producto en el carrito
+Route::put('/user/carrito/{id}', [CarritoController::class, 'update'])->name('carrito.update');
 
 
 
