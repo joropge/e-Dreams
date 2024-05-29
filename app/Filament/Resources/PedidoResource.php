@@ -38,14 +38,13 @@ class PedidoResource extends Resource
                     ->searchable()
                     ->options(\App\Models\User::pluck('name', 'id')->toArray())
                     ->required(),
-
+                
                 //producto_id
                 Forms\Components\Select::make('producto_id')
                     ->relationship('producto', 'nombre')
                     ->searchable()
                     ->options(\App\Models\Producto::pluck('nombre', 'id')->toArray())
                     ->required(),
-
 
                 Forms\Components\Select::make('direccion_id')
                     ->relationship('direccion', 'calle')
@@ -79,7 +78,9 @@ class PedidoResource extends Resource
                     })
                     ->required(),
 
-                Forms\Components\TextInput::make('total')
+                Forms\Components\Select::make('total')
+                    ->relationship('producto', 'precio')
+                    ->options(\App\Models\Producto::pluck('precio', 'id')->toArray())
                     ->label('total')
                     ->required(),
 
@@ -120,8 +121,8 @@ class PedidoResource extends Resource
                     ->sortable(),
                 
                 //producto_id
-                Tables\Columns\TextColumn::make('producto.nombre')
-                    ->label('Producto')
+                Tables\Columns\TextColumn::make('producto_id')
+                    ->label('Producto_id')
                     ->searchable()
                     ->sortable(),
                 

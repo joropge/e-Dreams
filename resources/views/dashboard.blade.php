@@ -1,19 +1,44 @@
 <x-app-layout>
-
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Página Principal') }}
         </h2>
     </x-slot>
 
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-inner ">
+            <div class="carousel-item active">
+                <img src="{{ asset('storage/camisetas/camiseta2.jpg') }}" alt="image1" class="w-full h-80 object-cover"
+                    alt="Image 1">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/camisetas/camiseta5.jpg') }}" alt="image2" class="w-full h-80 object-cover"
+                    alt="Image 2">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('storage/pantalones/pantalon2.jpg') }}" alt="image3" class="w-full h-80 object-cover"
+                    alt="Image 3">
+            </div>
+            <!-- Añade más items según sea necesario -->
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
     <div class="py-12">
         @include('productos.partials.msg')
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
                 @php
-                $productos = App\Models\Producto::all();
+                    $productos = App\Models\Producto::all();
                     $randomProductos = $productos->random(9);
                 @endphp
 
@@ -70,9 +95,7 @@
                     </div>
                 @endforeach
             </div>
-
         </div>
     </div>
     @include('layouts.footer')
-
 </x-app-layout>

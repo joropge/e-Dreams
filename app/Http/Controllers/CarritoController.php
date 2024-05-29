@@ -131,6 +131,7 @@ class CarritoController extends Controller
 
     public function add(Request $request)
     {
+        
 
         // $request->validate([
 
@@ -142,6 +143,9 @@ class CarritoController extends Controller
 
         // Obtener el usuario autenticado
         $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('register');
+        }
         $producto = Producto::find($request->id);
         // $direccion = Direccion::find($request->id);
 
