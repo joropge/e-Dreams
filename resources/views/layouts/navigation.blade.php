@@ -124,8 +124,8 @@
         </div>
         {{-- camisetas --}}
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('productos.index')" :active="request()->routeIs('productos.index')">
-                {{ __('Camisetas') }}            
+            <x-responsive-nav-link :href="route('camisetas.index')" :active="request()->routeIs('camisetas.index')">
+                {{ __('Camisetas') }}
             </x-responsive-nav-link>
         </div>
         {{-- sudaderas --}}
@@ -134,7 +134,7 @@
                 {{ __('Sudaderas') }}
             </x-responsive-nav-link>
         </div>
-        {{-- pantalones --}}
+        {{-- Pantalones --}}
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('pantalones.index')" :active="request()->routeIs('pantalones.index')">
                 {{ __('Pantalones') }}
@@ -144,6 +144,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('carrito.index')" :active="request()->routeIs('carrito.index')">
                 {{ __('Carrito') }}
+            </x-responsive-nav-link>
+        </div>
+        {{-- pedidos --}}
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('pedidos.index')" :active="request()->routeIs('pedidos.index')">
+                {{ __('Pedidos') }}
             </x-responsive-nav-link>
         </div>
         {{-- direcciones --}}
@@ -164,7 +170,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Perfil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

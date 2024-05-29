@@ -13,14 +13,10 @@
                         {{ __('Pedidos') }}
                     </div>
                 </div>
-                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-                    <div class="flex items-center justify-end mt-4">
-                    </div>
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200 overflow-x-auto">
                     <table class="min-w-full">
                         <thead>
-
                             <tr>
-
                                 <th
                                     class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">
                                     {{ __('Productos') }}</th>
@@ -92,6 +88,6 @@
         </div>
     </div>
     {{-- script para la barra de búsqueda dinámica --}}
-    <script src="{{ asset('/js/dynamicSearch.js') }}"></script>
+    {{-- <script src="{{ asset('/js/dynamicSearch.js') }}"></script> --}}
     @include('layouts.footer')
 </x-app-layout>
