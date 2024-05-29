@@ -117,8 +117,9 @@
             </div>
         </div>
     </div>
-    {{-- <script src="/public/js/sumProductosCarrito.js"></script> --}}
-    <script>
+
+    <script src="{{ asset('/js/sumProductosCarrito.js') }}"></script>
+    {{-- <script>
         
         function updateCantidad(id, cantidad) {
             console.log(id, cantidad);
@@ -143,5 +144,5 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-    </script>
+    </script> --}}
 </x-app-layout>
