@@ -19,29 +19,14 @@ use Illuminate\Auth\Events\Validated;
 class PedidoController extends Controller
 {
     public function index(): View
-{
-    $user = Auth::user();
-    $pedidos = Pedido::where('user_id', $user->id)->with('productos')->get();
+    {
+        $user = Auth::user();
+        $pedidos = Pedido::where('user_id', $user->id)->with('productos')->get();
 
-    return view('users.pedidos.index', compact('pedidos'));
-}
+        return view('users.pedidos.index', compact('pedidos'));
+    }
 
-
-    // public function index(): View
-    // {
-    //     // $user = Auth::user();
-    //     // $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
-
-    //     // return view('users.pedidos.index', compact('pedidos'));
-
-
-
-    //     $user = Auth::user();
-    //     $pedidos = Pedido::where('user_id', $user->id)->with('producto')->get();
-
-    //     return view('users.pedidos.index', compact('pedidos'));
-    // }
-
+//No se usa
     public function create()
     {
         return view(
@@ -77,10 +62,11 @@ class PedidoController extends Controller
 
     public function show(Pedido $pedido): View
     {
-        $productos = $pedido->productos;
-
+        $pedido = Pedido::where('id', $pedido->id)->with('productos')->first();
+        $productos = Producto::where('id', $pedido->producto_id)->first();
+        
         return view(
-            '/users/pedidos.show',
+            'users.pedidos.show',
             [
                 'pedido' => $pedido,
                 'productos' => $productos,
@@ -88,6 +74,7 @@ class PedidoController extends Controller
         );
     }
 
+    //No se usa
     public function edit(Pedido $pedido)
     {
         return view('/users/pedidos.edit', [
@@ -126,10 +113,10 @@ class PedidoController extends Controller
     public function destroy(Pedido $pedido)
     {
         $pedido->delete();
-        return redirect()->route('/users/pedidos.index')->with('success', 'Pedido eliminado correctamente');
+        return redirect()->route('users.pedidos.index')->with('success', 'Pedido eliminado correctamente');
     }
 
-
+    //No se usa
     public function myIndex()
     {
         $user = auth()->user();

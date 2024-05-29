@@ -91,5 +91,6 @@
             Al utilizar E-Dreams, aceptas estar legalmente obligado por estos términos de uso. Si no estás de acuerdo con estos términos, no utilices nuestro sitio. Si tienes alguna pregunta sobre estos términos de uso, no dudes en ponerte en contacto con nosotros.
             
     </div>
-    
+    @include('layouts.footer')
+
 </x-app-layout>

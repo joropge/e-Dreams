@@ -17,6 +17,7 @@ class Pedido extends Model
         'direccion_id',
         'producto_id',
         'carrito_id',
+        'nombreProducto',
         'estado',
         'total',
     ];

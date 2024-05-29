@@ -85,14 +85,8 @@
                         </div>
                     </main>
 
-                    <footer class="py-16 text-center text-sm text-black dark:text-white/70">
-                        <p>
-                            <a href="{{ route('discover') }}" class="text-black/70 hover:text-black/80 dark:text-white/70 dark:hover:text-white/80">Descúbrenos</a>
-                            <span class="text-black/70 dark:text-white/70">|</span>
-                            <a href="{{ route('privacy-policy') }}" class="text-black/70 hover:text-black/80 dark:text-white/70 dark:hover:text-white/80">Políticas de privacidad</a>
-                        </p>
-                        <p>&copy; 2022 E-dreams. All rights reserved.</p>
-                    </footer>
+                    @include('layouts.footer')
+
                 </div>
             </div>
         </div>

@@ -115,5 +115,5 @@
     {{-- script para la barra de búsqueda dinámica --}}
 
     <script src="{{ asset('/js/dynamicSearch.js') }}"></script>
-
+    @include('layouts.footer')
 </x-app-layout>

@@ -25,35 +25,35 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="calle" class="block text-gray-700 text-sm font-bold mb-2">Calle<span class="text-red-500">*</span></label>
-                    <input type="text" name="calle" id="calle" value="{{ $direcciones->calle }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="calle" id="calle" value="{{ ucfirst(strtolower($direcciones->calle)) }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="numero" class="block text-gray-700 text-sm font-bold mb-2">Número<span class="text-red-500">*</span></label>
-                    <input type="number" name="numero" id="numero" value="{{ $direcciones->numero }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="number" name="numero" id="numero" value="{{ ucfirst(strtolower$direcciones->numero)) }}" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="piso" class="block text-gray-700 text-sm font-bold mb-2">Piso</label>
-                    <input type="number" name="piso" id="piso" value="{{ $direcciones->piso }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="number" name="piso" id="piso" value="{{ ucfirst(strtolower$direcciones->piso)) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="puerta" class="block text-gray-700 text-sm font-bold mb-2">Puerta</label>
-                    <input type="text" name="puerta" id="puerta" value="{{ $direcciones->puerta }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="this.value = this.value.slice(0, 2).toUpperCase()">
+                    <input type="text" name="puerta" id="puerta" value="{{ ucfirst(strtolower$direcciones->puerta)) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="this.value = this.value.slice(0, 2).toUpperCase()">
                 </div>
                 <div>
                     <label for="codigo_postal" class="block text-gray-700 text-sm font-bold mb-2">Código Postal<span class="text-red-500">*</span></label>
-                    <input type="text" name="codigo_postal" id="codigo_postal" value="{{ $direcciones->codigo_postal }}" required maxlength="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="codigo_postal" id="codigo_postal" value="{{ ucfirst(strtolower$direcciones->codigo_postal)) }}" required maxlength="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="ciudad" class="block text-gray-700 text-sm font-bold mb-2">Ciudad<span class="text-red-500">*</span></label>
-                    <input type="text" name="ciudad" id="ciudad" value="{{ $direcciones->ciudad }}"  required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="ciudad" id="ciudad" value="{{ ucfirst(strtolower$direcciones->ciudad)) }}"  required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="provincia" class="block text-gray-700 text-sm font-bold mb-2">Provincia<span class="text-red-500">*</span></label>
-                    <input type="text" name="provincia" id="provincia" value="{{ $direcciones->provincia }}"  required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="provincia" id="provincia" value="{{ ucfirst(strtolower$direcciones->provincia)) }}"  required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
                 <div>
                     <label for="pais" class="block text-gray-700 text-sm font-bold mb-2">País<span class="text-red-500">*</span></label>
-                    <input type="text" name="pais" id="pais" value="{{ $direcciones->pais }}"  required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input type="text" name="pais" id="pais" value="{{ ucfirst(strtolower$direcciones->pais)) }}"  required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 </div>
             </div>
             <div class="flex items-center justify-center mt-6">
@@ -70,5 +70,6 @@
         </form>
     </div>
     
-        
+    @include('layouts.footer')
+
 </x-app-layout>

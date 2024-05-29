@@ -39,18 +39,14 @@
                                     <tr>
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                                            @if ($pedido->producto)
-                                                {{ $pedido->producto->nombre }}
-                                            @else
-                                                Producto no encontrado
-                                            @endif
+                                            {{ $pedido->nombreProducto }}
                                         </td>
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                                             {{ $pedido->total }}€</td>
                                         <td
                                             class="nameSearch px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
-                                            {{ $pedido->estado }}</td>
+                                            {{ ucfirst($pedido->estado) }}</td>
                                         <td
                                             class="px-6 py-4 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">
                                             <div class="flex space-x-4">
@@ -97,5 +93,5 @@
     </div>
     {{-- script para la barra de búsqueda dinámica --}}
     <script src="{{ asset('/js/dynamicSearch.js') }}"></script>
-
+    @include('layouts.footer')
 </x-app-layout>

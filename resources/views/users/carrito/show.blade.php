@@ -6,4 +6,6 @@
         <p>Total: {{ $carrito->total }}</p>
         <a href="{{ route('carrito.index') }}">Volver</a>
     </div>
+    @include('layouts.footer')
+
 </x-app-layout>

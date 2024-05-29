@@ -17,6 +17,7 @@ return new class extends Migration
             // $table->foreignId('carrito_id')->nullable()->constrained()->on('carritos')->nullOnDelete();
             $table->foreignId('producto_id')->nullable()->constrained()->on('productos')->nullOnDelete();
             $table->foreignId('direccion_id')->nullable()->constrained()->on('direcciones')->nullOnDelete();
+            $table->string('nombreProducto');
             $table->decimal('total', 8, 2);
             $table->enum('estado', ['pendiente', 'enviado', 'entregado', 'cancelado']);
             $table->timestamps();

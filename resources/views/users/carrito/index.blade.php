@@ -119,6 +119,8 @@
     </div>
 
     <script src="{{ asset('/js/sumProductosCarrito.js') }}"></script>
+    @include('layouts.footer')
+
     {{-- <script>
         
         function updateCantidad(id, cantidad) {

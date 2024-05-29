@@ -34,4 +34,6 @@
             
             Con el tiempo, E-Dreams se convirtió en mucho más que una tienda de ropa en línea; se convirtió en un movimiento que inspiraba a las personas a expresarse a través de la moda y a apoyar a una comunidad global de diseñadores talentosos y conscientes. Y así, la historia de E-Dreams continuó, con Elena y Marcos liderando el camino hacia un mundo donde la moda era una forma de arte accesible para todos.
     </div>
+    @include('layouts.footer')
+
 </x-app-layout>

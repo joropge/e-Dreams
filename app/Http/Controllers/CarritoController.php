@@ -73,12 +73,18 @@ class CarritoController extends Controller
     {
 
         $user = Auth::user();
+
         
         $direccion = Direccion::where('user_id', $user->id)->first();
         $carrito = Carrito::where('user_id', $user->id)->with('producto')->get();
-        // $productoIds = $carrito->pluck('producto_id')->toArray();
-        // dd($productoIds);
-        
+        $productoIds = $carrito->pluck('producto_id')->toArray();
+
+        $productos = Producto::whereIn('id', $productoIds)->get();
+        $productoNombres = [];
+        foreach ($productos as $producto) {
+            $productoNombres[$producto->id] = $producto->nombre;
+        }
+        // dd($productoNombres);
 
 
         // Verificar si el usuario tiene una dirección
@@ -102,7 +108,8 @@ class CarritoController extends Controller
             $pedido = new Pedido([
                 'user_id' => $user->id,
                 'producto_id' => $item->producto_id,
-                // dd($item->producto_id),
+                'nombreProducto' => $productoNombres[$item->producto_id],
+                // dd($productoNombres),
                 'direccion_id' => $direccion->id,
                 'estado' => 'pendiente',
                 // 'total' => $totalCarrito,
