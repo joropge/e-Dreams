@@ -29,10 +29,28 @@ class CarritoResource extends Resource
                     ->searchable()
                     ->preload()
                     ->required(),
-                Forms\Components\TextInput::make('total')
-                    ->label('Total'),
-                
-                
+                Forms\Components\Select::make('producto_id')
+                    ->relationship('producto', 'id')
+                    ->options(\App\Models\Producto::pluck('id', 'id')->toArray())
+                    ->afterStateUpdated(fn (callable $set ) => $set ('total', null))
+                    ->reactive()
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                Forms\Components\TextInput::make('cantidad')
+                    ->label('Cantidad')
+                    ->required(),
+                Forms\Components\Select::make('total')
+                    ->label('Total€')
+                    ->options(function (callable $get) {
+                        $producto_id = $get('producto_id');
+                        $cantidad = $get('cantidad');
+                        $producto = \App\Models\Producto::find($producto_id);
+                        return $producto ? [$producto->precio * $cantidad => $producto->precio * $cantidad] : [];
+                    })
+                    ->required()
+                    ->reactive(),
+                    // ->disabled(),
             ]);
     }
 
@@ -45,6 +63,13 @@ class CarritoResource extends Resource
                 Tables\Columns\TextColumn::make('user.id')
                     ->label('Id_Usuario')
                     ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('Producto.id')
+                    ->label('Id_Producto')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('cantidad')
+                    ->label('Cantidad')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total')
                     ->label('Total')

@@ -32,25 +32,40 @@ class PedidoResource extends Resource
                     ->searchable()
                     ->disabled()
                     ->default('Auto'),
-                                    
+
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->searchable()
                     ->options(\App\Models\User::pluck('name', 'id')->toArray())
+                    ->reactive()
                     ->required(),
-                
+                // ->afterStateUpdated(function (callable $get, callable $set) {
+                //     $user = \App\Models\Direccion::find($get('user_id'));
+                //     if ($user) {
+                //         $set('direccion', $user->calle);
+                //     }
+                // }),
+
                 //producto_id
                 Forms\Components\Select::make('producto_id')
-                    ->relationship('producto', 'nombre')
+                    ->relationship('producto', 'id')
+                    ->options(\App\Models\Producto::pluck('id', 'id')->toArray())
                     ->searchable()
-                    ->options(\App\Models\Producto::pluck('nombre', 'id')->toArray())
-                    ->required(),
+                    ->reactive()
+                    ->required()
+                    ->afterStateUpdated(function (callable $get, callable $set) {
+                        $producto = \App\Models\Producto::find($get('producto_id'));
+                        if ($producto) {
+                            $set('total', $producto->precio);
+                            $set('nombreProducto', $producto->nombre);
+                        }
+                    }),
 
                 Forms\Components\Select::make('direccion_id')
                     ->relationship('direccion', 'calle')
                     ->searchable()
                     ->options(\App\Models\Direccion::pluck('calle', 'id')->toArray())
-                    ->createOptionForm(function () {      
+                    ->createOptionForm(function () {
                         return [
                             Forms\Components\TextInput::make('calle')
                                 ->label('Calle')
@@ -62,13 +77,13 @@ class PedidoResource extends Resource
                                 ->label('Piso'),
                             Forms\Components\TextInput::make('puerta')
                                 ->label('Puerta'),
-                            Forms\Components\TextInput::make('codigo_postal') 
+                            Forms\Components\TextInput::make('codigo_postal')
                                 ->label('Código Postal')
                                 ->required(),
                             Forms\Components\TextInput::make('ciudad')
                                 ->label('Ciudad')
                                 ->required(),
-                            Forms\Components\TextInput::make('provincia') 
+                            Forms\Components\TextInput::make('provincia')
                                 ->label('Provincia')
                                 ->required(),
                             Forms\Components\TextInput::make('pais')
@@ -78,11 +93,40 @@ class PedidoResource extends Resource
                     })
                     ->required(),
 
-                Forms\Components\Select::make('total')
-                    ->relationship('producto', 'precio')
-                    ->options(\App\Models\Producto::pluck('precio', 'id')->toArray())
-                    ->label('total')
+                Forms\Components\TextInput::make('nombreProducto')
+                    ->label('Nombre Producto')
+                    ->disabled()
                     ->required(),
+
+                Forms\Components\TextInput::make('total')
+                    ->label('Total')
+                    ->disabled()
+                    ->required(),
+
+
+                // Forms\Components\Select::make('total')
+                //     ->relationship('producto', 'precio')
+                //     ->options(function (callable $get) {
+                //         $producto_id = $get('producto_id');
+                //         $cantidad = 1;
+                //         $producto = \App\Models\Producto::find($producto_id);
+                //         return $producto ? [$producto->precio * $cantidad => $producto->precio * $cantidad] : [];
+                //     })
+                //     ->reactive()
+                //     ->label('total')
+                //     ->required(),
+
+                // Forms\Components\Select::make('nombreProducto')
+                //     ->label('Nombre Producto')
+                //     ->options(function (callable $get) {
+                //         $producto_id = $get('producto_id');
+                //         // $nombre = $get('nombreProducto');
+                //         $producto = \App\Models\Producto::find($producto_id);
+                //         return $producto ? [$producto->nombre => $producto->nombre] : [];
+                //     })
+                //     ->default('Auto')
+                //     ->disabled(),
+
 
                 Forms\Components\Select::make('estado')
                     ->options([
@@ -92,7 +136,7 @@ class PedidoResource extends Resource
                         'cancelado' => 'Cancelado',
                     ])
                     ->required(),
-                
+
                 Forms\Components\Select::make('created_at')
                     ->label('Fecha de creacion')
                     ->disabled()
@@ -102,8 +146,7 @@ class PedidoResource extends Resource
                     ->label('Fecha de actualizacion')
                     ->disabled()
                     ->default('Auto'),
-                ]);
-
+            ]);
     }
 
     public static function table(Table $table): Table
@@ -114,24 +157,28 @@ class PedidoResource extends Resource
                 Tables\Columns\TextColumn::make('id')
                     ->label('Id')
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('user.id')
                     ->label('Id_Usuario')
                     ->searchable()
                     ->sortable(),
-                
+
                 //producto_id
                 Tables\Columns\TextColumn::make('producto_id')
                     ->label('Producto_id')
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Usuario')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('direccion.calle')
                     ->label('Direccion')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('nombreProducto')
+                    ->label('Nombre Producto')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total')
                     ->label('Total')
@@ -140,7 +187,7 @@ class PedidoResource extends Resource
                     ->label('Estado')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at') 
+                Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha de creacion')
                     ->searchable()
                     ->sortable(),

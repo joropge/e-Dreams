@@ -34,15 +34,19 @@ class CarritoController extends Controller
 
     public function update(Request $request, $id)
     {
+        $prueba = 'aqui estoy';
 
         try {
             $carrito = Carrito::findOrFail($id);
             $carrito->cantidad = $request->cantidad;
-            $carrito->total = $carrito->cantidad * $carrito->producto->precio;
+            
+            
             if ($carrito->cantidad == 0) {
+                // dd($prueba);
                 $carrito->delete();
             } else {
-                $carrito->save();
+                $carrito->total = $carrito->cantidad * $carrito->producto->precio;
+                
             }
             $carrito->save();
 

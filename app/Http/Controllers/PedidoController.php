@@ -26,16 +26,22 @@ class PedidoController extends Controller
         return view('users.pedidos.index', compact('pedidos'));
     }
 
-//No se usa
-    public function create()
-    {
-        return view(
-            '/users/pedidos.create',
-            [
-                'pedidos' => Pedido::all()
-            ]
-        );
-    }
+public function create(Request $request)
+{
+    $validatedData = $request->validate([
+        'user_id' => 'required|integer',
+        'producto_id' => 'required|integer',
+        'direccion_id' => 'required|integer',
+        'cantidad' => 'required|integer',
+        'total' => 'required|numeric',
+        'estado' => 'required|string',
+        'nombreProducto' => 'required|string',
+    ]);
+
+    Pedido::create($validatedData);
+
+    return redirect()->route('pedidos.index')->with('success', 'Pedido creado correctamente');
+}
 
     public function store(Request $request)
     {
@@ -109,6 +115,7 @@ class PedidoController extends Controller
             return redirect()->route('/users/pedidos.edit', $pedido)->withInput()->withErrors($e->getMessage());
         }
     }
+    
 
     public function destroy(Pedido $pedido)
     {
