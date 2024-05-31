@@ -13,23 +13,22 @@
                 $rutaCompleta = $pantalon->imagen;
                 $nombreImg = basename(str_replace('\\', '/', $rutaCompleta));
             @endphp
-            <div class="w-full p-4 bg-white shadow-md flex flex-col">
+            <div class="w-full p-3 bg-white shadow-md flex flex-col h-full">
                 <div>
                     <img src="{{ Storage::url('pantalones/' . $nombreImg) }}" alt="{{ $pantalon->nombre }}"
                         class="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover">
                 </div>
-                <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-5">
-                    <div class="card-body w-full sm:w-1/2">
+                <div class="flex flex-col flex-grow items-start justify-between gap-3 pt-3">
+                    <div class="card-body w-full">
                         <h3 class="text-lg font-semibold">{{ $pantalon->nombre }}</h3>
                         <p class="text-gray-500">{{ $pantalon->descripcion }}</p>
                         <p class="text-gray-500">{{ $pantalon->precio }} €</p>
                     </div>
-                    <div class="w-full sm:w-1/2 flex justify-end">
+                    <div class="w-full flex justify-start">
                         <form action="{{ route('carrito.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{ $pantalon->id }}">
                             <input type="hidden" name="cantidad" value="1">
-                            <input type="hidden" name="precio" value="{{ $pantalon->precio }}">
                             <button type="submit"
                                 class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer flex items-center">
                                 <span class="mr-2">Añadir</span>
@@ -46,5 +45,4 @@
         @endforeach
     </div>
     @include('layouts.footer')
-
 </x-app-layout>

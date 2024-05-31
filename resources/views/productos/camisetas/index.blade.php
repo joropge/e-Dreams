@@ -13,18 +13,18 @@
                 $rutaCompleta = $camiseta->imagen;
                 $nombreImg = basename(str_replace('\\', '/', $rutaCompleta));
             @endphp
-            <div class="w-full p-4 bg-white shadow-md flex flex-col">
+            <div class="w-full p-3 bg-white shadow-md flex flex-col h-full">
                 <div>
                     <img src="{{ Storage::url('camisetas/' . $nombreImg) }}" alt="{{ $camiseta->nombre }}"
                         class="w-full h-48 sm:h-64 md:h-80 lg:h-96 object-cover">
                 </div>
-                <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-5">
-                    <div class="card-body w-full sm:w-1/2">
+                <div class="flex flex-col flex-grow items-start justify-between gap-3 pt-3">
+                    <div class="card-body w-full">
                         <h3 class="text-lg font-semibold">{{ $camiseta->nombre }}</h3>
                         <p class="text-gray-500">{{ $camiseta->descripcion }}</p>
                         <p class="text-gray-500">{{ $camiseta->precio }} €</p>
                     </div>
-                    <div class="w-full sm:w-1/2 flex justify-end">
+                    <div class="w-full flex justify-start">
                         <form action="{{ route('carrito.add') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="{{ $camiseta->id }}">
