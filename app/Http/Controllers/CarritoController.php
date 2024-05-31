@@ -34,7 +34,6 @@ class CarritoController extends Controller
 
     public function update(Request $request, $id)
     {
-        $prueba = 'aqui estoy';
 
         try {
             $carrito = Carrito::findOrFail($id);
@@ -42,7 +41,6 @@ class CarritoController extends Controller
             
             
             if ($carrito->cantidad == 0) {
-                // dd($prueba);
                 $carrito->delete();
             } else {
                 $carrito->total = $carrito->cantidad * $carrito->producto->precio;
@@ -75,59 +73,48 @@ class CarritoController extends Controller
 
     public function checkout(Request $request)
     {
-
-        $user = Auth::user();
-
         
-        $direccion = Direccion::where('user_id', $user->id)->first();
-        $carrito = Carrito::where('user_id', $user->id)->with('producto')->get();
-        $productoIds = $carrito->pluck('producto_id')->toArray();
-
-        $productos = Producto::whereIn('id', $productoIds)->get();
-        $productoNombres = [];
-        foreach ($productos as $producto) {
-            $productoNombres[$producto->id] = $producto->nombre;
-        }
-        // dd($productoNombres);
 
 
-        // Verificar si el usuario tiene una dirección
-        if (!$direccion) {
-            return back()->with('error', 'Por favor, añade una dirección antes de realizar la compra.');
-        }
+        // $user = Auth::user();
+        // $direccion = Direccion::where('user_id', $user->id)->first();
+        // $carrito = Carrito::where('user_id', $user->id)->with('producto')->get();
+        // $productoIds = $carrito->pluck('producto_id')->toArray();
 
-        // Verificar si el carrito está vacío
-        if ($carrito->isEmpty()) {
-            return back()->with('error', 'El carrito está vacío.');
-        }
+        // $productos = Producto::whereIn('id', $productoIds)->get();
+        // $productoNombres = [];
+        // foreach ($productos as $producto) {
+        //     $productoNombres[$producto->id] = $producto->nombre;
+        // }
+        // // Verificar si el usuario tiene una dirección
+        // if (!$direccion) {
+        //     return back()->with('error', 'Por favor, añade una dirección antes de realizar la compra.');
+        // }
+        // // Verificar si el carrito está vacío
+        // if ($carrito->isEmpty()) {
+        //     return back()->with('error', 'El carrito está vacío.');
+        // }
+        // $totalCarrito = 0;
+        // foreach ($carrito as $item) {
+        //     $totalCarrito += $item->producto->precio * $item->cantidad;
+        // }
+        // // Pasar los elementos del carrito a la tabla de pedidos
+        // foreach ($carrito as $item) {
+        //     $pedido = new Pedido([
+        //         'user_id' => $user->id,
+        //         'producto_id' => $item->producto_id,
+        //         'nombreProducto' => $productoNombres[$item->producto_id],
+        //         'direccion_id' => $direccion->id,
+        //         'estado' => 'pendiente',
+        //         'total' => $item->producto->precio,
+        //     ]);
+        //     $pedido->save();
+        // }
 
-        $totalCarrito = 0;
-        foreach ($carrito as $item) {
-            $totalCarrito += $item->producto->precio * $item->cantidad;
-        }
-
-        // Pasar los elementos del carrito a la tabla de pedidos
-        foreach ($carrito as $item) {
-            // dd($item->producto_id);
-            $pedido = new Pedido([
-                'user_id' => $user->id,
-                'producto_id' => $item->producto_id,
-                'nombreProducto' => $productoNombres[$item->producto_id],
-                // dd($productoNombres),
-                'direccion_id' => $direccion->id,
-                'estado' => 'pendiente',
-                // 'total' => $totalCarrito,
-                'total' => $item->producto->precio,
-            ]);
-            // dd($pedido);
-            $pedido->save();
-
-        }
-
-        // Después del checkout, vaciar el carrito
-        Carrito::where('user_id', $user->id)->delete();
-        //elimar el carrito de la base de datos
-        // $carrito->delete();
+        // // Después del checkout, vaciar el carrito
+        // Carrito::where('user_id', $user->id)->delete();
+        // //elimar el carrito de la base de datos
+        // // $carrito->delete();
 
 
         return back()->with('success', 'Compra realizada con éxito.');
