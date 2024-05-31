@@ -26,8 +26,9 @@ class UltimosProductos extends BaseWidget
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('precio')
-                    ->money('eur')
+                    ->money('EUR')
                     ->numeric(decimalPlaces: 2)
+                    ->suffix(' €')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('stock')
                     ->numeric(),

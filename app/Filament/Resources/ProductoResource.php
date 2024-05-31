@@ -144,6 +144,7 @@ class ProductoResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('precio')
                     ->money('eur')
+                    ->suffix(' €')
                     ->numeric(decimalPlaces: 2)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('descripcion'),

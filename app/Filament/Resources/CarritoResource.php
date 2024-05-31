@@ -24,15 +24,27 @@ class CarritoResource extends Resource
     {
         return $form
             ->schema([
-                    Forms\Components\Select::make('user_id')
+                Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->searchable()
                     ->preload()
                     ->required(),
                 Forms\Components\Select::make('producto_id')
+                    ->label('Producto')
                     ->relationship('producto', 'id')
-                    ->options(\App\Models\Producto::pluck('id', 'id')->toArray())
-                    ->afterStateUpdated(fn (callable $set ) => $set ('total', null))
+                    // ->options(\App\Models\Producto::pluck('id', 'id' , 'nombre')->toArray())
+                    ->options(
+                        \App\Models\Producto::all()
+                            ->map(function ($producto) {
+                                return [
+                                    'value' => $producto->id,
+                                    'label' => $producto->id . ' - ' . $producto->nombre,
+                                ];
+                            })
+                            ->pluck('label', 'value')
+                            ->toArray()
+                    )
+                    ->afterStateUpdated(fn (callable $set) => $set('total', null))
                     ->reactive()
                     ->searchable()
                     ->preload()
@@ -50,7 +62,7 @@ class CarritoResource extends Resource
                     })
                     ->required()
                     ->reactive(),
-                    // ->disabled(),
+                // ->disabled(),
             ]);
     }
 
@@ -73,6 +85,8 @@ class CarritoResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total')
                     ->label('Total')
+                    ->suffix(' €')
+                    ->numeric(decimalPlaces: 2)
                     ->sortable(),
             ])
             ->filters([

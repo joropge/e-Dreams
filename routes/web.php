@@ -81,7 +81,10 @@ Route::delete('/admin/direcciones/{direcciones}', [DireccionesController::class,
 Route::delete('/admin/direcciones/{carrito}', [DireccionesController::class, 'destroy'])->name('carritos.destroy');
 
 /*-------------------------------------------CARRITO----------------------------------------- */
+Route::get('/user/carrito/success', [CarritoController::class, 'success'])->name('carrito.success');
+Route::get('/user/carrito/cancel', [CarritoController::class, 'cancel'])->name('carrito.cancel');
 
+Route::post('/user/carrito/webhook', [CarritoController::class, 'webhook'])->name('carrito.webhook');
 //Mandar informacion de la compra
 Route::post('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
 // Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
