@@ -78,7 +78,6 @@ class CarritoController extends Controller
         \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
 
         $user = Auth::user();
-
         // Obtener los productos del carrito
         $carritos = Carrito::where('user_id', $user->id)->get();
         // $productoIds = $carritos->pluck('producto_id')->toArray();
@@ -95,7 +94,7 @@ class CarritoController extends Controller
                     'currency' => 'eur',
                     'product_data' => [
                         'name' => $carrito->producto->nombre,
-                        
+
                         // 'images' => [$carrito->imagen]
                     ],
                     'unit_amount' => $carrito->total * 100,
@@ -115,6 +114,7 @@ class CarritoController extends Controller
         // $order->total = $totalPrice;
         // $order->user_id = Auth::id();
         // $order->producto_id = $carrito->producto_id;
+        // $order->nombre = $carrito->producto->nombre;
         // $order->direccion_id = $carrito->direccion_id;
         // $order->updated_at = now();
         // $order->created_at = now();
@@ -127,8 +127,6 @@ class CarritoController extends Controller
 
     public function success(Request $request)
     {
-        
-        return view('users.carrito.success');
         $user = Auth::user();
         $direccion = Direccion::where('user_id', $user->id)->first();
         $carrito = Carrito::where('user_id', $user->id)->with('producto')->get();
@@ -168,15 +166,17 @@ class CarritoController extends Controller
         Carrito::where('user_id', $user->id)->delete();
         \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
         $sessionId = $request->get('session_id');
-        
+
         try {
+
             $session = \Stripe\Checkout\Session::retrieve($sessionId);
+            $customerDetails = $session->customer_details;
+            $customer = ($customerDetails->name);
             if (!$session) {
                 throw new NotFoundHttpException;
             }
-            $customer = \Stripe\Customer::retrieve($session->customer);
-
             $order = Pedido::where('user_id', Auth::id())->first();
+            // dd($order);
             if (!$order) {
                 throw new NotFoundHttpException();
             }
@@ -189,55 +189,53 @@ class CarritoController extends Controller
         } catch (\Exception $e) {
             throw new NotFoundHttpException();
         }
-
     }
 
     public function cancel()
     {
         return view('users.carrito.cancel');
-
     }
 
-//     public function webhook()
-//     {
-//         // This is your Stripe CLI webhook secret for testing your endpoint locally.
-//         $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
+        // public function webhook()
+        // {
+        //     // This is your Stripe CLI webhook secret for testing your endpoint locally.
+        //     $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
 
-//         $payload = @file_get_contents('php://input');
-//         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
-//         $event = null;
+        //     $payload = @file_get_contents('php://input');
+        //     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        //     $event = null;
 
-//         try {
-//             $event = \Stripe\Webhook::constructEvent(
-//                 $payload, $sig_header, $endpoint_secret
-//             );
-//         } catch (\UnexpectedValueException $e) {
-//             // Invalid payload
-//             return response('', 400);
-//         } catch (\Stripe\Exception\SignatureVerificationException $e) {
-//             // Invalid signature
-//             return response('', 400);
-//         }
+        //     try {
+        //         $event = \Stripe\Webhook::constructEvent(
+        //             $payload, $sig_header, $endpoint_secret
+        //         );
+        //     } catch (\UnexpectedValueException $e) {
+        //         // Invalid payload
+        //         return response('', 400);
+        //     } catch (\Stripe\Exception\SignatureVerificationException $e) {
+        //         // Invalid signature
+        //         return response('', 400);
+        //     }
 
-// // Handle the event
-//         switch ($event->type) {
-//             case 'checkout.session.completed':
-//                 $session = $event->data->object;
+        //     // Handle the event
+        //     switch ($event->type) {
+        //         case 'checkout.session.completed':
+        //             $session = $event->data->object;
 
-//                 $order = Pedido::where('session_id', $session->id)->first();
-//                 if ($order && $order->status === 'unpaid') {
-//                     $order->status = 'paid';
-//                     $order->save();
-//                     // Send email to customer
-//                 }
+        //             $order = Pedido::where('session_id', $session->id)->first();
+        //             if ($order && $order->status === 'unpaid') {
+        //                 $order->status = 'paid';
+        //                 $order->save();
+        //                 // Send email to customer
+        //             }
 
-//             // ... handle other event types
-//             default:
-//                 echo 'Received unknown event type ' . $event->type;
-//         }
+        //         // ... handle other event types
+        //         default:
+        //             echo 'Received unknown event type ' . $event->type;
+        //     }
 
-//         return response('');
-//     }
+        //     return response('');
+        // }
 
     public function add(Request $request)
     {
@@ -276,7 +274,6 @@ class CarritoController extends Controller
             $carritoItem->total = $carritoItem->cantidad * $producto->precio;
             $carritoItem->save();
         } else {
-            // dd($producto->id, $request->cantidad, $producto->precio);
             // Si el producto no está en el carrito, crear uno nuevo
             $carritoItem = new Carrito([
                 'user_id' => $user->id,
