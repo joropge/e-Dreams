@@ -105,15 +105,14 @@
                         </tbody>
                     </table>
                     <div class="flex items-center justify-end mt-4">
-                        <a href="{{ route('direcciones.create') }}"
-                            class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
+                        @if ($direcciones->isEmpty())
+                            <a href="{{ route('direcciones.create') }}"
+                                class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">{{ __('Crear') }}</a>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    {{-- script para la barra de búsqueda dinámica --}}
-
-    <script src="{{ asset('/js/dynamicSearch.js') }}"></script>
     @include('layouts.footer')
 </x-app-layout>

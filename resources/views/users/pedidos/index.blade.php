@@ -58,9 +58,7 @@
                                                             d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                                     </svg>
                                                 </a>
-                                                {{-- ruta a create --}}
-                                                {{-- <a href="{{ route('pedidos.edit', $pedido->id) }}"
-                                                class="text-blue-400 hover:text-blue-600">{{ __('Editar') }}</a> --}}
+                                                
                                                 @if ($pedido->estado == 'cancelado' || $pedido->estado == 'entregado')
                                                     <form action="{{ route('pedidos.destroy', $pedido->id) }}"
                                                         method="POST" class="inline">
@@ -87,7 +85,5 @@
             </div>
         </div>
     </div>
-    {{-- script para la barra de búsqueda dinámica --}}
-    {{-- <script src="{{ asset('/js/dynamicSearch.js') }}"></script> --}}
     @include('layouts.footer')
 </x-app-layout>

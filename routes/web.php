@@ -8,10 +8,7 @@ use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
-use App\Models\Carrito;
 use App\Http\Controllers\FrontController;
-
-// use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -61,10 +58,7 @@ Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->n
 
 
 /*-------------------------------------------DIRECCIONES----------------------------------------- */
-
-// Route::get('/admin/direcciones/create', [DireccionesController::class, 'create'])->name('direcciones.create');
-// Route::get('/admin/direcciones/{direccion}', [DireccionesController::class, 'show'])->name('direcciones.show');
-
+//Crear direcciones
 Route::post('/admin/direcciones/create', [DireccionesController::class, 'store'])->name('direcciones.store');
 //mostrar direcciones
 Route::get('/admin/direcciones/index', [DireccionesController::class, 'index'])->name('direcciones.index');
@@ -75,19 +69,17 @@ Route::put('/admin/direcciones/{direcciones}', [DireccionesController::class, 'u
 //Eliminar direcciones
 Route::delete('/admin/direcciones/{direcciones}', [DireccionesController::class, 'destroy'])->name('direcciones.destroy');
 
-// Route::get('/user/{id}/pedidos', [PedidoController::class, 'getProductIdsByUser'])->name('user.pedidos');
-
-
 Route::delete('/admin/direcciones/{carrito}', [DireccionesController::class, 'destroy'])->name('carritos.destroy');
 
 /*-------------------------------------------CARRITO----------------------------------------- */
+/*Pago confirmado */
 Route::get('/user/carrito/success', [CarritoController::class, 'success'])->name('carrito.success')->middleware('auth');
+/*Pago cancelado */
 Route::get('/user/carrito/cancel', [CarritoController::class, 'cancel'])->name('carrito.cancel');
-
+/*No se usa */
 Route::post('/user/carrito/webhook', [CarritoController::class, 'webhook'])->name('carrito.webhook');
 //Mandar informacion de la compra
 Route::post('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
-// Route::get('/user/carrito/checkout', [CarritoController::class, 'checkout'])->name('carrito.checkout');
 //eliminar todo el carrito
 Route::get('/user/carrito/destroy', [CarritoController::class, 'destroy'])->name('carrito.destroy');
 //eliminar un producto del carrito
