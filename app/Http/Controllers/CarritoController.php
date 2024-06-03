@@ -180,8 +180,8 @@ class CarritoController extends Controller
             if (!$order) {
                 throw new NotFoundHttpException();
             }
-            if ($order->estado === 'cancelado') {
-                $order->estado = 'pendiente';
+            if ($order->estado === 'pendiente') {
+                $order->estado = 'enviado';
                 $order->save();
             }
 
