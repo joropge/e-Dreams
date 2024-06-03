@@ -97,6 +97,9 @@ class CarritoController extends Controller
                 'quantity' => $carrito->cantidad,
             ];
         }
+        if (empty($lineItems)) {
+            return redirect()->back()->with('error', 'El carrito está vacío.');
+        }
         $session = \Stripe\Checkout\Session::create([
             'line_items' => $lineItems,
             'mode' => 'payment',

@@ -24,7 +24,7 @@
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
-                            <a href="{{ url('/welcome') }}">
+                            {{-- <a href="{{ url('/welcome') }}"> --}}
                                 <img src="{{ asset('storage/interno/E-dreams-Logo.png') }}" alt="Logo" class="w-50 h-50" />
                             </a>
                         </div>

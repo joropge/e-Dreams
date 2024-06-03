@@ -94,8 +94,10 @@ class DireccionesController extends Controller
         ]);
 
         $direcciones->update($validated);
+        return redirect()->route('direcciones.index')->with('success', 'Dirección actualizada correctamente');
 
-        return back()->with('success', 'Dirección actualizada correctamente');
+
+        // return back()->with('success', 'Dirección actualizada correctamente');
     }
 
     /**

@@ -23,9 +23,9 @@
             <div class="">
                 <h4 class="text-xl font-semibold mb-4 text-blanch-almond border-b-2 border-orange-500 pb-2">Síguenos
                 </h4>
-                <div class="flex flex-wrap">
-                    <div class="w-1/2">
-                        <a href="#facebook" target="_blank" class="mx-2"><svg xmlns="http://www.w3.org/2000/svg"
+                <div class="flex flex-wrap ">
+                    <div class="w-1/2 mt-1 ">
+                        <a class="mt-1" href="#facebook" target="_blank" class="mx-2"><svg xmlns="http://www.w3.org/2000/svg"
                                 x="0px" y="0px" width="35" height="35" viewBox="0 0 48 48">
                                 <linearGradient id="awSgIinfw5_FS5MLHI~A9a_yGcWL8copNNQ_gr1" x1="6.228"
                                     x2="42.077" y1="4.896" y2="43.432" gradientUnits="userSpaceOnUse">
@@ -52,8 +52,8 @@
                                 </path>
                             </svg></a>
                     </div>
-                    <div class="w-1/2">
-                        <a href="#instagram" target="_blank" class="mx-2"><svg xmlns="http://www.w3.org/2000/svg"
+                    <div class="w-1/2 mt-1">
+                        <a class="mt-1" href="#instagram" target="_blank" class="mx-2"><svg xmlns="http://www.w3.org/2000/svg"
                                 x="0px" y="0px" width="35" height="35" viewBox="0 0 40 40">
                                 <path fill="#8585cc"
                                     d="M30.5,38.5c4.418,0,8-3.582,8-8v-21c0-4.418-3.582-8-8-8h-21c-4.418,0-8,3.582-8,8v21 c0,4.418,3.582,8,8,8H30.5z">
