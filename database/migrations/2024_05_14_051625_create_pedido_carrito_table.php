@@ -20,15 +20,6 @@ return new class extends Migration
             $table->unsignedBigInteger('pedido_id');
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');
         });
-
-
-        // Schema::table('pedidos', function (Blueprint $table) {
-        //     $table->foreignId('carrito_id')->nullable()->constrained('carritos')->nullOnDelete();
-        // });
-
-        // Schema::table('carritos', function (Blueprint $table) {
-        //     $table->foreignId('pedido')->nullable()->constrained('pedidos')->nullOnDelete();
-        // });
     }
 
     /**
@@ -38,15 +29,5 @@ return new class extends Migration
     {
 
         Schema::dropIfesxists('pedidos_carritos');
-
-        // Schema::table('pedidos', function (Blueprint $table) {
-        //     $table->dropForeign(['carrito_id']);
-        //     $table->dropColumn('carrito_id');
-        // });
-
-        // Schema::table('carritos', function (Blueprint $table) {
-        //     $table->dropForeign(['pedido']);
-        //     $table->dropColumn('pedido');
-        // });
     }
 };

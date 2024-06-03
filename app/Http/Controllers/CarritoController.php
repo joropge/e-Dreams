@@ -80,11 +80,6 @@ class CarritoController extends Controller
         $user = Auth::user();
         // Obtener los productos del carrito
         $carritos = Carrito::where('user_id', $user->id)->get();
-        // $productoIds = $carritos->pluck('producto_id')->toArray();
-        // $productos = Producto::whereIn('id', $productoIds)->get();
-
-
-        // $carritos = Carrito::all();
         $lineItems = [];
         $totalPrice = 0;
         foreach ($carritos as $carrito) {
@@ -109,20 +104,7 @@ class CarritoController extends Controller
             'cancel_url' => route('carrito.cancel', [], true),
         ]);
 
-        // $order = new Pedido();
-        // $order->estado = 'pendiente';
-        // $order->total = $totalPrice;
-        // $order->user_id = Auth::id();
-        // $order->producto_id = $carrito->producto_id;
-        // $order->nombre = $carrito->producto->nombre;
-        // $order->direccion_id = $carrito->direccion_id;
-        // $order->updated_at = now();
-        // $order->created_at = now();
-        // $order->save();
-
         return redirect($session->url);
-        // Return Inertia::location($checkout_session->url);
-        // return back()->with('success', 'Compra realizada con éxito.');
     }
 
     public function success(Request $request)
@@ -239,16 +221,6 @@ class CarritoController extends Controller
 
     public function add(Request $request)
     {
-
-
-        // $request->validate([
-
-        //     'producto_id' => 'required|exists:id',
-        //     'cantidad' => 'required|integer|min:1',
-
-        // ]);
-        // dd($request->all());
-
         // Obtener el usuario autenticado
         $user = Auth::user();
         if (!$user) {

@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    <div class="py-4 flex justify-center">
+        <input id="search" type="text" placeholder="Buscar productos..." class="p-2 border border-gray-300 rounded-md w-1/2">
+    </div>
+
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -51,7 +55,7 @@
                             $rutaDeseada = 'pantalones/' . $nombreArchivo;
                         }
                     @endphp
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg h-full flex flex-col">
+                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg h-full flex flex-col product-card" data-name="{{ $producto->nombre }}">
                         <img src="{{ Storage::url('public/' . $rutaDeseada) }}" alt="{{ $producto->nombre }}" class="w-full h-48 object-cover">
                         <div class="p-4 flex flex-col justify-between flex-grow">
                             <div>
@@ -87,4 +91,5 @@
         </div>
     </div>
     @include('layouts.footer')
+    <script src="{{ asset('/js/dynamicSearch.js') }}"></script>
 </x-app-layout>

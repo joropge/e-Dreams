@@ -93,14 +93,6 @@ class DireccionesController extends Controller
             'pais' => 'required|max:255',
         ]);
 
-        // if ($request->hasFile('picture')) {
-        //     $validated['picture'] = $request->file('picture')->store('public/photos');
-
-        //     if ($direcciones->picture) {
-        //         Storage::delete($direcciones->picture);
-        //     }
-        // }
-
         $direcciones->update($validated);
 
         return back()->with('success', 'Dirección actualizada correctamente');
@@ -114,30 +106,4 @@ class DireccionesController extends Controller
         $direcciones->delete();
         return redirect()->route('direcciones.index')->with('success', 'Dirección eliminada correctamente');
     }
-
-    // private function applyFilters(Request $request, Builder $query): Builder
-    // {
-    //     if ($request->filled('search')) {
-    //         $query->where('estado', 'like', '%' . $request->get('search') . '%');
-    //     }
-
-    //     //usuario
-    //     if ($request->filled('user')) {
-    //         $query->where('user_id', $request->get('user'));
-    //     }
-
-    //     //provincia
-    //     if ($request->filled('provincia')) {
-    //         $query->where('provincia', $request->get('provincia'));
-    //     }
-
-    //     return $query;
-    // }
-
-
-    // public function myIndex(){
-    //     $user = auth()->user();
-    //     return view('/admin/direciones.myIndex',
-    //     ['direciones' => $user->direcciones]);
-    // }
 }

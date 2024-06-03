@@ -155,21 +155,4 @@ public function create(Request $request)
         return $userProducts;
     }
 
-
-
-    //     public function getProductIdsByUser($userId)
-    // {
-    //     // Obtén todos los pedidos del usuario especificado
-    //     $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
-
-    //     // Recolecta todos los ids de productos
-    //     $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
-
-    //     return
-
-    //     // Puedes retornar los ids como JSON, o pasarlos a una vista
-    //     // return response()->json($productIds);
-    // }
-
-
 }

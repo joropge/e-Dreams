@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->on('users')->nullOnDelete();
-            // $table->foreignId('carrito_id')->nullable()->constrained()->on('carritos')->nullOnDelete();
             $table->foreignId('producto_id')->nullable()->constrained()->on('productos')->nullOnDelete();
             $table->foreignId('direccion_id')->nullable()->constrained()->on('direcciones')->nullOnDelete();
             $table->string('nombreProducto')->nullable();

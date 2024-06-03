@@ -29,11 +29,6 @@ class Producto extends Model
         return $this->belongsTo(Categoria::class);
     }
 
-    // public function carritos()
-    // {
-    //     return $this->belongsToMany(Carrito::class, 'producto_carrito');
-    // }
-
     public function pedidos()
     {
         return $this->belongsToMany(Pedido::class, 'producto_pedido');

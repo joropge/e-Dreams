@@ -18,7 +18,7 @@ class User extends Authenticatable implements FilamentUser
     use HasFactory;
     use HasConnectedAccounts;
     use Notifiable;
-    
+
     public function canAccessPanel(Panel $panel): bool
     {
         return str_ends_with($this->email, 'admin@example.com') /*&& $this->hasVerifiedEmail()*/;
@@ -58,12 +58,14 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-        //relacion con direccion
-        public function direccion(){
-            return $this->belongsTo(Direccion::class);
-        }
+    //relacion con direccion
+    public function direccion()
+    {
+        return $this->belongsTo(Direccion::class);
+    }
 
-    public function carrito(){
+    public function carrito()
+    {
         return $this->hasMany(Carrito::class);
     }
 }
