@@ -56,6 +56,7 @@ class PedidoResource extends Resource
 
                 Forms\Components\Select::make('direccion_id')
                     ->relationship('direccion', 'calle')
+                    ->searchable()
                     ->options(\App\Models\Direccion::pluck(DB::raw("CONCAT(calle, ' Nº', numero, ', ', piso, ' ' , puerta , ' ' , codigo_postal, '-> ' , ciudad)"), 'id')->toArray())
                     ->createOptionForm(function () {
                         return [
