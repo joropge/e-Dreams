@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->on('users')->nullOnDelete();
             $table->foreignId('producto_id')->nullable()->constrained()->on('productos')->nullOnDelete();
             $table->foreignId('direccion_id')->nullable()->constrained()->on('direcciones')->nullOnDelete();
-            $table->string('nombreProducto')->nullable();
-            $table->decimal('total', 8, 2)->nullable();
-            $table->enum('estado', ['pendiente', 'enviado', 'entregado', 'cancelado']);
+            $table->string('nombreProducto');
+            $table->decimal('total', 8, 2);
+            $table->enum('estado', ['pendiente', 'enviado', 'entregado', 'cancelado'])->default('pendiente');
             $table->timestamps();
         });
     }

@@ -98,15 +98,15 @@ class PedidoResource extends Resource
 
                     Forms\Components\Select::make('estado')
                     ->label('Estado')
-                    ->disabled()
-                    ->default('Auto'),
-                    // ->options([
-                    //     'enviado' => 'Enviado',
-                    //     'pendiente' => 'Pendiente',
-                    //     'pagado' => 'Pagado',
-                    //     'cancelado' => 'Cancelado',
-                    // ])
-                    // ->required(),
+                    // ->disabled()
+                    ->default('Auto')
+                    ->options([
+                        'enviado' => 'Enviado',
+                        'pendiente' => 'Pendiente',
+                        'pagado' => 'Pagado',
+                        'cancelado' => 'Cancelado',
+                    ])
+                    ->required(),
 
                 Forms\Components\Select::make('created_at')
                     ->label('Fecha de creacion')
