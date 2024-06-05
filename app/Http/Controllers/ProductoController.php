@@ -26,85 +26,11 @@ class ProductoController extends Controller
         return view('productos.index', ['productos' => Producto::all()]);
     }
 
-    public function create()
-    {
-        // Muestra la vista de creación de productos
-        return view('productos.create');
-    }
-
-    public function store(Request $request)
-    {
-        // Valida los datos del formulario y crea un nuevo producto
-        try {
-            $validated = $request->validate([
-                'nombre' => 'required',
-                'categoria_id' => 'nullable|exists:categorias,id', // 'exists' valida que el valor exista en la tabla 'categorias'
-                'descripcion' => 'nullable|string|max:250',
-                'precio' => 'required|numeric',
-                'stock' => 'required|numeric',
-                'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            ]);
-
-            $producto = Producto::create($validated);
-            return redirect()->route('productos.index')->with('success', 'Producto creado correctamente');
-        } catch (\Exception $e) {
-            return redirect()->route('productos.create')->withInput()->withErrors($e->getMessage());
-        }
-    }
-
+    //No se usa
     public function show(Producto $producto)
     {
         // Muestra los detalles de un producto específico
         return view('productos.show', ['producto' => $producto]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Producto $producto)
-    {
-        // Muestra la vista de edición de un producto específico
-        return view('productos.edit', ['producto' => $producto]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Producto $producto)
-    {
-        // Valida los datos del formulario y actualiza el producto
-        try {
-            $validated = $request->validate([
-                'nombre' => 'required',
-                'descripcion' => 'required',
-                'precio' => 'required|decimal',
-                'stock' => 'required|integer',
-                'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048'
-            ]);
-
-            if ($request->hasFile('picture')) {
-                $validated['picture'] = $request->file('picture')->store('public/photos');
-
-                if ($producto->picture) {
-                    Storage::delete($producto->picture);
-                }
-            }
-
-            $producto->update($validated);
-            return redirect()->route('productos.index')->with('success', 'Producto actualizado correctamente');
-        } catch (\Exception $e) {
-            return redirect()->route('productos.edit', $producto)->withInput()->withErrors($e->getMessage());
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Producto $producto)
-    {
-        // Elimina un producto específico de la base de datos
-        $producto->delete();
-        return redirect()->route('productos.index')->with('success', 'Producto eliminado correctamente');
     }
 
     //Productos with catogoria_id = 1

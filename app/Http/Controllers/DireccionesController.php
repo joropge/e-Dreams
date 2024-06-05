@@ -6,9 +6,7 @@ use App\Models\Direccion;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
-use Illuminate\Support\Facades\Storage;
 
 class DireccionesController extends Controller
 {
@@ -20,9 +18,7 @@ class DireccionesController extends Controller
         return view('/users/direcciones.index', ['direcciones' => Direccion::all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
         // Aquí puedes retornar la vista para crear una nueva dirección
@@ -100,9 +96,7 @@ class DireccionesController extends Controller
         // return back()->with('success', 'Dirección actualizada correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+//NO SE USA
     public function destroy(Direccion $direcciones)
     {
         $direcciones->delete();

@@ -43,28 +43,6 @@ public function create(Request $request)
     return redirect()->route('pedidos.index')->with('success', 'Pedido creado correctamente');
 }
 
-    public function store(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'user_id' => 'nullable|exists:users,id',
-                'direccion_id' => 'nullable|exists:direcciones,id',
-                'total' => 'required|numeric',
-                'estado' => 'required|in:pendiente,enviado,entregado,cancelado'
-
-            ]);
-
-            $pedido = Pedido::create($validated);
-            return view(
-                '/users/pedidos.index',
-                [
-                    'pedidos' => Pedido::all()
-                ]
-            );
-        } catch (\Exception $e) {
-            return redirect()->route('pedidos.create')->withInput()->withErrors($e->getMessage());
-        }
-    }
 
     public function show(Pedido $pedido): View
     {
@@ -79,58 +57,12 @@ public function create(Request $request)
             ]
         );
     }
-
-    //No se usa
-    public function edit(Pedido $pedido)
-    {
-        return view('/users/pedidos.edit', [
-            'pedido' => $pedido,
-            'pedidos' => Pedido::all()
-        ]);
-    }
-
-    public function update(Request $request, Pedido $pedido)
-    {
-        try {
-            $validated = $request->validate([
-                'user_id' => 'nullable|exists:users,id',
-                'direccion_id' => 'nullable|exists:direcciones,id',
-                'producto_id' => 'nullable|exists:productos,id',
-                'carrito_id' => 'nullable|exists:carritos,id',
-                'total' => 'required|numeric',
-                'estado' => 'required|in:pendiente,enviado,entregado,cancelado'
-            ]);
-
-            if ($request->hasFile('picture')) {
-                $validated['picture'] = $request->file('picture')->store('public/photos');
-
-                if ($pedido->picture) {
-                    Storage::delete($pedido->picture);
-                }
-            }
-
-            $pedido->update($validated);
-            return redirect()->route('/users/pedidos.show', $pedido)->with('success', 'Pedido actualizado correctamente');
-        } catch (\Exception $e) {
-            return redirect()->route('/users/pedidos.edit', $pedido)->withInput()->withErrors($e->getMessage());
-        }
-    }
     
-
+//no se usa
     public function destroy(Pedido $pedido)
     {
         $pedido->delete();
         return redirect()->route('users.pedidos.index')->with('success', 'Pedido eliminado correctamente');
-    }
-
-    //No se usa
-    public function myIndex()
-    {
-        $user = auth()->user();
-        return view(
-            'pedidos.myIndex',
-            ['pedidos' => $user->pedidos]
-        );
     }
 
     public function getProductIdsByUser($userId)

@@ -69,8 +69,6 @@ class CarritoController extends Controller
         $user = Auth::user();
         Carrito::where('user_id', $user->id)->delete();
         return back();
-
-        // return redirect()->route('users.carrito.index');
     }
 
     public function checkout(Request $request)
@@ -141,7 +139,7 @@ class CarritoController extends Controller
                 'producto_id' => $item->producto_id,
                 'nombreProducto' => $productoNombres[$item->producto_id],
                 'direccion_id' => $direccion->id,
-                'estado' => 'pendiente',
+                'estado' => 'enviado',
                 'total' => $item->producto->precio,
             ]);
             $pedido->save();

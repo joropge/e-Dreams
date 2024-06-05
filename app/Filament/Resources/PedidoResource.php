@@ -3,19 +3,19 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PedidoResource\Pages;
-use App\Filament\Resources\PedidoResource\RelationManagers;
 use App\Models\Pedido;
-use App\Models\Producto;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
+use App\Filament\Resources\PedidoResource\RelationManagers;
+use App\Models\Producto;
 use Filament\Forms\Components\Actions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use SebastianBergmann\CodeCoverage\Report\Xml\Totals;
-use Illuminate\Support\Facades\DB;
 
 class PedidoResource extends Resource
 {
