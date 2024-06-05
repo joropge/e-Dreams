@@ -20,35 +20,42 @@ class PedidoController extends Controller
 {
     public function index(): View
     {
-        $user = Auth::user();
-        $pedidos = Pedido::where('user_id', $user->id)->with('productos')->get();
+        try {
+            $user = Auth::user();
+            if (!$user) {
+                return redirect()->route('login');
+            }
+            $pedidos = Pedido::where('user_id', $user->id)->with('productos')->get();
 
-        return view('users.pedidos.index', compact('pedidos'));
+            return view('users.pedidos.index', compact('pedidos'));
+        } catch (\Exception $e) {
+            return redirect()->route('login')->with('error', 'Ha ocurrido un error. Por favor, intente nuevamente.');
+        }
     }
 
-public function create(Request $request)
-{
-    $validatedData = $request->validate([
-        'user_id' => 'required|integer',
-        'producto_id' => 'required|integer',
-        'direccion_id' => 'required|integer',
-        'cantidad' => 'required|integer',
-        'total' => 'required|numeric',
-        'estado' => 'required|string',
-        'nombreProducto' => 'required|string',
-    ]);
+    public function create(Request $request)
+    {
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'producto_id' => 'required|integer',
+            'direccion_id' => 'required|integer',
+            'cantidad' => 'required|integer',
+            'total' => 'required|numeric',
+            'estado' => 'required|string',
+            'nombreProducto' => 'required|string',
+        ]);
 
-    Pedido::create($validatedData);
+        Pedido::create($validatedData);
 
-    return redirect()->route('pedidos.index')->with('success', 'Pedido creado correctamente');
-}
+        return redirect()->route('pedidos.index')->with('success', 'Pedido creado correctamente');
+    }
 
 
     public function show(Pedido $pedido): View
     {
         $pedido = Pedido::where('id', $pedido->id)->with('productos')->first();
         $productos = Producto::where('id', $pedido->producto_id)->first();
-        
+
         return view(
             'users.pedidos.show',
             [
@@ -57,8 +64,8 @@ public function create(Request $request)
             ]
         );
     }
-    
-//no se usa
+
+    //no se usa
     public function destroy(Pedido $pedido)
     {
         $pedido->delete();
@@ -86,5 +93,4 @@ public function create(Request $request)
 
         return $userProducts;
     }
-
 }

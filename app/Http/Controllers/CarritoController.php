@@ -9,30 +9,29 @@ use App\Models\Producto;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Models\Pedido;
-use Stripe\Stripe;
-use Illuminate\View\View;
 use App\Models\Direccion;
-use Illuminate\Database\Eloquent\Builder;
-use App\Models\User;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
-use Illuminate\Support\Facades\Storage;
-use Stripe\Climate\Order as ClimateOrder;
+
 
 class CarritoController extends Controller
 {
     public function index()
     {
-        $carritos = \App\Models\Carrito::with('producto')->get();
-        $user = Auth::user();
-        $carritos = Carrito::where('user_id', $user->id)->with('producto')->get();
+        try {
+            $user = Auth::user();
+            if (!$user) {
+                return redirect()->route('login')->with('error', 'Por favor, inicie sesión para acceder a su carrito.');
+            }
 
+            $carritos = Carrito::where('user_id', $user->id)->with('producto')->get();
+            $total = 0;
+            foreach ($carritos as $carrito) {
+                $total += $carrito->producto->precio * $carrito->cantidad;
+            }
 
-        $total = 0;
-        foreach ($carritos as $carrito) {
-            $total += $carrito->producto->precio * $carrito->cantidad;
+            return view('users.carrito.index', compact('carritos', 'total'));
+        } catch (\Exception $e) {
+            return redirect()->route('login')->with('error', 'Ha ocurrido un error. Por favor, intente nuevamente.');
         }
-
-        return view('users.carrito.index', compact('carritos', 'total'));
     }
 
     public function update(Request $request, $id)
@@ -179,46 +178,46 @@ class CarritoController extends Controller
         return view('users.carrito.cancel');
     }
 
-        // public function webhook()
-        // {
-        //     // This is your Stripe CLI webhook secret for testing your endpoint locally.
-        //     $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
+    // public function webhook()
+    // {
+    //     // This is your Stripe CLI webhook secret for testing your endpoint locally.
+    //     $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
 
-        //     $payload = @file_get_contents('php://input');
-        //     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
-        //     $event = null;
+    //     $payload = @file_get_contents('php://input');
+    //     $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+    //     $event = null;
 
-        //     try {
-        //         $event = \Stripe\Webhook::constructEvent(
-        //             $payload, $sig_header, $endpoint_secret
-        //         );
-        //     } catch (\UnexpectedValueException $e) {
-        //         // Invalid payload
-        //         return response('', 400);
-        //     } catch (\Stripe\Exception\SignatureVerificationException $e) {
-        //         // Invalid signature
-        //         return response('', 400);
-        //     }
+    //     try {
+    //         $event = \Stripe\Webhook::constructEvent(
+    //             $payload, $sig_header, $endpoint_secret
+    //         );
+    //     } catch (\UnexpectedValueException $e) {
+    //         // Invalid payload
+    //         return response('', 400);
+    //     } catch (\Stripe\Exception\SignatureVerificationException $e) {
+    //         // Invalid signature
+    //         return response('', 400);
+    //     }
 
-        //     // Handle the event
-        //     switch ($event->type) {
-        //         case 'checkout.session.completed':
-        //             $session = $event->data->object;
+    //     // Handle the event
+    //     switch ($event->type) {
+    //         case 'checkout.session.completed':
+    //             $session = $event->data->object;
 
-        //             $order = Pedido::where('session_id', $session->id)->first();
-        //             if ($order && $order->status === 'unpaid') {
-        //                 $order->status = 'paid';
-        //                 $order->save();
-        //                 // Send email to customer
-        //             }
+    //             $order = Pedido::where('session_id', $session->id)->first();
+    //             if ($order && $order->status === 'unpaid') {
+    //                 $order->status = 'paid';
+    //                 $order->save();
+    //                 // Send email to customer
+    //             }
 
-        //         // ... handle other event types
-        //         default:
-        //             echo 'Received unknown event type ' . $event->type;
-        //     }
+    //         // ... handle other event types
+    //         default:
+    //             echo 'Received unknown event type ' . $event->type;
+    //     }
 
-        //     return response('');
-        // }
+    //     return response('');
+    // }
 
     public function add(Request $request)
     {
