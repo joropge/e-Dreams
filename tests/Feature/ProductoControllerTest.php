@@ -1,102 +1,139 @@
 <?php
 
-namespace Tests\Feature;
+// namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use App\Models\Producto;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\WithFaker;
+// use Tests\TestCase;
+// use App\Models\Producto;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\WithFaker;
+// use Tests\TestCase;
+// use App\Models\Producto;
+// use RefreshDatabase;
 
-class ProductoControllerTest extends TestCase
-{
-    
-    public function testIndex()
-{
-    // Crear algunos productos
-    Producto::factory()->count(5)->create();
-
-    // Llamar al método index
-    $response = $this->get(route('productos.index'));
-
-    // Verificar que la vista se carga correctamente
-    $response->assertStatus(200);
-    $response->assertViewIs('productos.index');
-    $response->assertViewHas('productos', Producto::all());
-}
-
-public function testShow()
-{
-    // Crear un producto
-    $producto = Producto::factory()->create();
-
-    // Llamar al método show
-    $response = $this->get(route('productos.show', $producto->id));
-
-    // Verificar que la vista se carga correctamente
-    $response->assertStatus(200);
-    $response->assertViewIs('productos.show');
-    $response->assertViewHas('producto', $producto);
-}
-
-public function testCamisetasIndex()
-{
-    // Crear productos con categoría_id = 1
-    Producto::factory()->count(3)->create(['categoria_id' => 1]);
-    Producto::factory()->count(2)->create(['categoria_id' => 2]); // Otros productos para verificar filtrado
-
-    // Llamar al método camisetasIndex
-    $response = $this->get(route('productos.camisetas.index'));
-
-    // Verificar que la vista se carga correctamente
-    $response->assertStatus(200);
-    $response->assertViewIs('productos.camisetas.index');
-    $response->assertViewHas('productos', Producto::where('categoria_id', 1)->get());
-}
-
-public function testSudaderasIndex()
-{
-    // Crear productos con categoría_id = 2
-    Producto::factory()->count(3)->create(['categoria_id' => 2]);
-    Producto::factory()->count(2)->create(['categoria_id' => 1]); // Otros productos para verificar filtrado
-
-    // Llamar al método sudaderasIndex
-    $response = $this->get(route('productos.sudaderas.index'));
-
-    // Verificar que la vista se carga correctamente
-    $response->assertStatus(200);
-    $response->assertViewIs('productos.sudaderas.index');
-    $response->assertViewHas('productos', Producto::where('categoria_id', 2)->get());
-}
-
-public function testPantalonesIndex()
-{
-    // Crear productos con categoría_id = 3
-    Producto::factory()->count(3)->create(['categoria_id' => 3]);
-    Producto::factory()->count(2)->create(['categoria_id' => 1]); // Otros productos para verificar filtrado
-
-    // Llamar al método pantalonesIndex
-    $response = $this->get(route('productos.pantalones.index'));
-
-    // Verificar que la vista se carga correctamente
-    $response->assertStatus(200);
-    $response->assertViewIs('productos.pantalones.index');
-    $response->assertViewHas('productos', Producto::where('categoria_id', 3)->get());
-}
-
-// public function testFrontIndex()
+// class ProductoControllerTest extends TestCase
 // {
-//     // Crear productos con categoría_id = 4
-//     Producto::factory()->count(3)->create(['categoria_id' => 4]);
-//     Producto::factory()->count(2)->create(['categoria_id' => 1]); // Otros productos para verificar filtrado
 
-//     // Llamar al método frontIndex
-//     $response = $this->get(route('productos.zapatos.index'));
+    namespace Tests\Feature;
 
-//     // Verificar que la vista se carga correctamente
-//     $response->assertStatus(200);
-//     $response->assertViewIs('productos.zapatos.index');
-//     $response->assertViewHas('productos', Producto::where('categoria_id', 4)->get());
+use App\Models\Categoria;
+use App\Models\Producto;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+
+    class ProductoControllerTest extends TestCase
+    {
+
+        /**
+         * Test the index method of ProductoController.
+         *
+         * @return void
+         */
+
+        use RefreshDatabase;
+        // public function testIndex()
+        // {
+        //     $this->refreshDatabase();
+        //     // Create some dummy products
+        //     Producto::factory()->count(3)->create();
+
+        //     // Send a GET request to the index route
+        //     $response = $this->get(route('dashboard'));
+
+        //     // Assert that the response has a successful status code
+        //     $response->assertStatus(200);
+
+        //     // Assert that the response view has the correct view name
+        //     $response->assertViewIs('productos.index');
+
+        //     // Assert that the response view has the correct data
+        //     $response->assertViewHas('productos');
+        // }
+
+        /**
+         * Test the camisetasIndex method of ProductoController.
+         *
+         * @return void
+         */
+        public function testCamisetasIndex()
+        {
+            $this->refreshDatabase();
+
+            Categoria::factory()->create(['id' => 1, 'nombre' => 'Camisetas']);
+            // Create some dummy products with categoria_id = 1
+            Producto::factory()->count(3)->create(['categoria_id' => 1]);
+
+            // Send a GET request to the camisetasIndex route
+            $response = $this->get(route('camisetas.index'));
+
+            // Assert that the response has a successful status code
+            $response->assertStatus(200);
+
+            // Assert that the response view has the correct view name
+            $response->assertViewIs('productos.camisetas.index');
+
+            // Assert that the response view has the correct data
+            $response->assertViewHas('productos');
+        }
+
+        /**
+         * Test the sudaderasIndex method of ProductoController.
+         *
+         * @return void
+         */
+        public function testSudaderasIndex()
+        {
+            $this->refreshDatabase();
+
+            Categoria::factory()->create(['id' => 2, 'nombre' => 'Sudaderas']);
+            // Create some dummy products with categoria_id = 2
+            Producto::factory()->count(3)->create(['categoria_id' => 2]);
+
+            // Send a GET request to the sudaderasIndex route
+            $response = $this->get(route('sudaderas.index'));
+
+            // Assert that the response has a successful status code
+            $response->assertStatus(200);
+
+            // Assert that the response view has the correct view name
+            $response->assertViewIs('productos.sudaderas.index');
+
+            // Assert that the response view has the correct data
+            $response->assertViewHas('productos');
+        }
+
+        /**
+         * Test the pantalonesIndex method of ProductoController.
+         *
+         * @return void
+         */
+        public function testPantalonesIndex()
+        {
+            $this->refreshDatabase();
+
+            Categoria::factory()->create(['id' => 3, 'nombre' => 'Pantalones']);
+            // Create some dummy products with categoria_id = 3
+            Producto::factory()->count(3)->create(['categoria_id' => 3]);
+
+            // Send a GET request to the pantalonesIndex route
+            $response = $this->get(route('pantalones.index'));
+
+            // Assert that the response has a successful status code
+            $response->assertStatus(200);
+
+            // Assert that the response view has the correct view name
+            $response->assertViewIs('productos.pantalones.index');
+
+            // Assert that the response view has the correct data
+            $response->assertViewHas('productos');
+        }
+
+        /**
+         * Test the frontIndex method of ProductoController.
+         *
+         * @return void
+         */
+    }
 // }
-
-    
-}

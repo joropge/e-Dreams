@@ -47,9 +47,9 @@ Route::get('users/camisetas/index', [ProductoController::class, 'camisetasIndex'
 Route::get('/users/pantalones/index', [ProductoController::class, 'pantalonesIndex'])->name('pantalones.index');
 // sudaderas
 Route::get('/users/sudaderas/index', [ProductoController::class, 'sudaderasIndex'])->name('sudaderas.index');
-
 //front
 Route::get('/users/front/index', [FrontController::class, 'index'])->name('front.index');
+//dashboard
 Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->name('dashboard');
 
 
@@ -91,6 +91,14 @@ Route::post('/user/carrito/add', [CarritoController::class, 'add'])->name('carri
 Route::get('/user/carrito', [CarritoController::class, 'index'])->name('carrito.index');
 //Actualizar la cantidad de un producto en el carrito
 Route::put('/user/carrito/{id}', [CarritoController::class, 'update'])->name('carrito.update');
+
+/*-------------------------------------------PEDIDOS----------------------------------------- */
+//Mostrar pedidos
+Route::get('/user/pedidos', [PedidoController::class, 'index'])->name('pedidos.index');
+//Crear pedidos
+Route::post('/user/pedidos/create', [PedidoController::class, 'create'])->name('pedidos.create');
+//Mostrar un pedido
+Route::get('/user/pedidos/{pedido}', [PedidoController::class, 'show'])->name('pedidos.show');
 
 
 

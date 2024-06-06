@@ -39,7 +39,7 @@ class PedidoController extends Controller
             'user_id' => 'required|integer',
             'producto_id' => 'required|integer',
             'direccion_id' => 'required|integer',
-            'cantidad' => 'required|integer',
+            // 'cantidad' => 'required|integer',
             'total' => 'required|numeric',
             'estado' => 'required|string',
             'nombreProducto' => 'required|string',
@@ -65,32 +65,25 @@ class PedidoController extends Controller
         );
     }
 
-    //no se usa
-    public function destroy(Pedido $pedido)
-    {
-        $pedido->delete();
-        return redirect()->route('users.pedidos.index')->with('success', 'Pedido eliminado correctamente');
-    }
+    // public function getProductIdsByUser($userId)
+    // {
+    //     // Obtengo todos los pedidos del usuario especificado
 
-    public function getProductIdsByUser($userId)
-    {
-        // Obtengo todos los pedidos del usuario especificado
+    //     $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
+    //     $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
 
-        $pedidos = Pedido::where('user_id', $userId)->with('productos')->get();
-        $productIds = $pedidos->pluck('productos.*.id')->flatten()->unique();
+    //     // Pasar los ids de productos a una vista
+    //     return view('users.pedidos.index', ['pedidos' => $pedidos, 'productIds' => $productIds]);
+    // }
 
-        // Pasar los ids de productos a una vista
-        return view('users.pedidos.index', ['pedidos' => $pedidos, 'productIds' => $productIds]);
-    }
+    // public function getUserProducts($userId)
+    // {
+    //     $userProducts = Pedido::select('user_id', 'producto_id', DB::raw('COUNT(*) as cantidad'))
+    //         ->where('user_id', $userId)
+    //         ->groupBy('user_id', 'producto_id')
+    //         ->having('cantidad', '>', 1)
+    //         ->get();
 
-    public function getUserProducts($userId)
-    {
-        $userProducts = Pedido::select('user_id', 'producto_id', DB::raw('COUNT(*) as cantidad'))
-            ->where('user_id', $userId)
-            ->groupBy('user_id', 'producto_id')
-            ->having('cantidad', '>', 1)
-            ->get();
-
-        return $userProducts;
-    }
+    //     return $userProducts;
+    // }
 }

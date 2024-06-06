@@ -16,7 +16,7 @@ class Pedido extends Model
         'user_id',
         'direccion_id',
         'producto_id',
-        'carrito_id',
+        // 'carrito_id',
         'nombreProducto',
         'estado',
         'total',

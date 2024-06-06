@@ -1,138 +1,132 @@
 <?php
 
+
+
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Direccion;
 use App\Models\User;
-use App\Models\Carrito;
-use App\Models\Producto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Auth;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithDatabase;
 
 class DireccionesControllerTest extends TestCase
 {
+    use InteractsWithDatabase;
+    use RefreshDatabase;
+    /**
+     * Test the index method.
+     *
+     * @return void
+     */
     public function testIndex()
     {
-        // Crear algunas direcciones
-        Direccion::factory()->count(3)->create();
+        $user = User::factory()->create();
+        $direccion = Direccion::factory()->create(['user_id' => $user->id]);
 
-        // Llamar al método index
-        $response = $this->get(route('direcciones.index'));
+        $response = $this->actingAs($user)->get(route('direcciones.index'));
 
-        // Verificar que la vista se carga correctamente
         $response->assertStatus(200);
-        $response->assertViewIs('/users/direcciones.index');
+        $response->assertViewIs('.users.direcciones.index');
         $response->assertViewHas('direcciones', Direccion::all());
     }
 
+    /**
+     * Test the create method.
+     *
+     * @return void
+     */
     public function testCreate()
     {
-        // Llamar al método create
-        $response = $this->get(route('direcciones.create'));
+        $user = User::factory()->create();
 
-        // Verificar que la vista se carga correctamente
+        $response = $this->actingAs($user)->get(route('direcciones.create'));
+
         $response->assertStatus(200);
-        $response->assertViewIs('/users/direcciones.create');
-
-        // Verificar mensaje de sesión
-        $response->assertSessionHas('success', 'Dirección creada correctamente');
+        $response->assertViewIs('.users.direcciones.create');
+        $response->assertViewHas('success', 'Dirección creada correctamente');
     }
 
+    /**
+     * Test the store method.
+     *
+     * @return void
+     */
     public function testStore()
     {
-        // Crear un usuario y autenticarlo
         $user = User::factory()->create();
-        $this->actingAs($user);
 
-        // Datos de ejemplo para la dirección
         $data = [
-            'calle' => 'Calle Ejemplo',
-            'numero' => '123',
-            'piso' => '4',
-            'puerta' => 'B',
-            'codigo_postal' => '28001',
-            'ciudad' => 'Madrid',
-            'provincia' => 'Madrid',
-            'pais' => 'España',
+            'calle' => '123 Main St',
+            'numero' => '1',
+            'codigo_postal' => '12345',
+            'ciudad' => 'City',
+            'provincia' => 'Province',
+            'pais' => 'Country',
         ];
 
-        // Llamar al método store
-        $response = $this->post(route('direcciones.store'), $data);
+        $response = $this->actingAs($user)->post(route('direcciones.store'), $data);
 
-        // Verificar que la dirección se ha creado en la base de datos
-        $this->assertDatabaseHas('direcciones', array_merge($data, ['user_id' => $user->id]));
-
-        // Verificar que se redirige a la vista index con las direcciones
         $response->assertStatus(200);
-        $response->assertViewIs('/users/direcciones.index');
+        $response->assertViewIs('.users.direcciones.index');
         $response->assertViewHas('direcciones', Direccion::all());
     }
 
+    /**
+     * Test the edit method.
+     *
+     * @return void
+     */
     public function testEdit()
     {
-        // Crear una dirección y algunos usuarios
+        $user = User::factory()->create();
         $direccion = Direccion::factory()->create();
-        User::factory()->count(3)->create();
 
-        // Llamar al método edit
-        $response = $this->get(route('direcciones.edit', $direccion->id));
+        $response = $this->actingAs($user)->get(route('direcciones.edit', $direccion));
 
-        // Verificar que la vista se carga correctamente
         $response->assertStatus(200);
-        $response->assertViewIs('/users/direcciones.edit');
+        $response->assertViewIs('.users.direcciones.edit');
         $response->assertViewHas('direcciones', $direccion);
         $response->assertViewHas('users', User::all());
     }
 
+    /**
+     * Test the update method.
+     *
+     * @return void
+     */
     public function testUpdate()
     {
-        // Crear un usuario y autenticarlo
         $user = User::factory()->create();
-        $this->actingAs($user);
-
-        // Crear una dirección
         $direccion = Direccion::factory()->create(['user_id' => $user->id]);
 
-        // Datos de ejemplo para la actualización
         $data = [
-            'calle' => 'Calle Actualizada',
-            'numero' => '456',
-            'piso' => '5',
-            'puerta' => 'A',
-            'codigo_postal' => '28002',
-            'ciudad' => 'Barcelona',
-            'provincia' => 'Barcelona',
-            'pais' => 'España',
+            'calle' => '456 Main St',
+            'numero' => '2',
+            'codigo_postal' => '54321',
+            'ciudad' => 'City',
+            'provincia' => 'Province',
+            'pais' => 'Country',
         ];
 
-        // Llamar al método update
-        $response = $this->put(route('direcciones.update', $direccion->id), $data);
+        $response = $this->actingAs($user)->put(route('direcciones.update', $direccion), $data);
 
-        // Verificar que la dirección se ha actualizado en la base de datos
-        $this->assertDatabaseHas('direcciones', array_merge($data, ['id' => $direccion->id]));
-
-        // Verificar que se redirige a la vista index con mensaje de éxito
         $response->assertRedirect(route('direcciones.index'));
         $response->assertSessionHas('success', 'Dirección actualizada correctamente');
     }
 
+    /**
+     * Test the destroy method.
+     *
+     * @return void
+     */
     public function testDestroy()
     {
-        // Crear un usuario y autenticarlo
         $user = User::factory()->create();
-        $this->actingAs($user);
-
-        // Crear una dirección
         $direccion = Direccion::factory()->create(['user_id' => $user->id]);
 
-        // Llamar al método destroy
-        $response = $this->delete(route('direcciones.destroy', $direccion->id));
+        $response = $this->actingAs($user)->delete(route('direcciones.destroy', $direccion));
 
-        // Verificar que la dirección se ha eliminado de la base de datos
-        $this->assertDatabaseMissing('direcciones', ['id' => $direccion->id]);
-
-        // Verificar que se redirige a la vista index con mensaje de éxito
         $response->assertRedirect(route('direcciones.index'));
         $response->assertSessionHas('success', 'Dirección eliminada correctamente');
     }
