@@ -3,18 +3,18 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProfileResource\Pages;
-use App\Filament\Resources\ProfileResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Models\User;
 use App\Models\Direccion;
-use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Section;
+use App\Filament\Resources\ProfileResource\RelationManagers;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\TextInput;
 
 
@@ -62,10 +62,12 @@ class ProfileResource extends Resource
                             ->required(),
 
                         Forms\Components\TextInput::make('created_at')
-                            ->label('Created At'),
+                            ->label('Created At')
+                            ->disabled(),
 
                         Forms\Components\TextInput::make('updated_at')
-                            ->label('Updated At'),
+                            ->label('Updated At')
+                            ->disabled(),
                     ]),
 
                 Section::make('Direcciones del Usuario')

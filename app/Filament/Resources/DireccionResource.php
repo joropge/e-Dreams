@@ -3,13 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DireccionResource\Pages;
-use App\Filament\Resources\DireccionResource\RelationManagers;
 use App\Models\Direccion;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use App\Filament\Resources\DireccionResource\RelationManagers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -90,6 +90,7 @@ class DireccionResource extends Resource
 
             ]);
     }
+    
 
     public static function table(Table $table): Table
     {
