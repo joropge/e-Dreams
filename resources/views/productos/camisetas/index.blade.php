@@ -21,6 +21,7 @@
                 <div class="flex flex-col flex-grow items-start justify-between gap-3 pt-3">
                     <div class="card-body w-full">
                         <h3 class="text-lg font-semibold">{{ $camiseta->nombre }}</h3>
+                        <h2 class="text-black-500">Talla: {{ $camiseta->talla }}</h2>
                         <p class="text-gray-500">{{ $camiseta->descripcion }}</p>
                         <p class="text-gray-500">{{ $camiseta->precio }} €</p>
                     </div>

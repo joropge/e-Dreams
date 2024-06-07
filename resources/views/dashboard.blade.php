@@ -70,6 +70,7 @@
                         <div class="p-4 flex flex-col justify-between flex-grow">
                             <div>
                                 <h2 class="text-xl font-bold">{{ $producto->nombre }}</h2>
+                                <h2 class="text-black-500">Talla: {{ $producto->talla }}</h2>
                                 <p class="text-gray-500">{{ $producto->descripcion }}</p>
                                 <p class="text-gray-500">{{ $producto->precio }} €</p>
                             </div>
