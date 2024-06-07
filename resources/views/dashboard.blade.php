@@ -66,7 +66,7 @@
                     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg h-full flex flex-col product-card"
                         data-name="{{ $producto->nombre }}">
                         <img src="{{ Storage::url('public/' . $rutaDeseada) }}" alt="{{ $producto->nombre }}"
-                            class="w-full h-48 object-cover">
+                            class="w-full h-48 object-cover transform transition duration-300 ease-in-out hover:scale-110 hover:shadow-lg">
                         <div class="p-4 flex flex-col justify-between flex-grow">
                             <div>
                                 <h2 class="text-xl font-bold">{{ $producto->nombre }}</h2>
