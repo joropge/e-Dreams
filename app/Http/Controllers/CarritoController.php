@@ -75,7 +75,13 @@ class CarritoController extends Controller
         \Stripe\Stripe::setApiKey(env('STRIPE_SK'));
 
         $user = Auth::user();
-        // Obtener los productos del carrito
+        // Obtener la dirección del usuario
+        $direccion = Direccion::where('user_id', $user->id)->first();
+
+        // Verificar si el usuario tiene una dirección y si está vacía
+        if (!$direccion) {
+            return back()->with('error', 'Por favor, añade una dirección antes de realizar la compra.');
+        }
         $carritos = Carrito::where('user_id', $user->id)->get();
         $lineItems = [];
         $totalPrice = 0;
@@ -94,6 +100,7 @@ class CarritoController extends Controller
                 'quantity' => $carrito->cantidad,
             ];
         }
+
         if (empty($lineItems)) {
             return redirect()->back()->with('error', 'El carrito está vacío.');
         }
@@ -114,19 +121,13 @@ class CarritoController extends Controller
         $carrito = Carrito::where('user_id', $user->id)->with('producto')->get();
         $productoIds = $carrito->pluck('producto_id')->toArray();
 
+
         $productos = Producto::whereIn('id', $productoIds)->get();
         $productoNombres = [];
         foreach ($productos as $producto) {
             $productoNombres[$producto->id] = $producto->nombre;
         }
-        // Verificar si el usuario tiene una dirección
-        if (!$direccion) {
-            return back()->with('error', 'Por favor, añade una dirección antes de realizar la compra.');
-        }
-        // Verificar si el carrito está vacío
-        if ($carrito->isEmpty()) {
-            return back()->with('error', 'El carrito está vacío.');
-        }
+
         $totalCarrito = 0;
         foreach ($carrito as $item) {
             $totalCarrito += $item->producto->precio * $item->cantidad;

@@ -15,8 +15,6 @@
                 </div>
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
                     <div class="text-xl font-semibold">
-                        {{-- {{ __('Muchas Gracias, su compra se ha realizado con éxito') }} --}}
-
                         {{ __('Muchas Gracias '.  $customer .  ', su compra se ha realizado con éxito') }}
                     </div>
                     <div class="mt-4">

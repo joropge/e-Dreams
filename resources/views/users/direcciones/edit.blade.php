@@ -1,16 +1,4 @@
-{{-- editar una direcciones con un formulario --}}
 <x-app-layout>
-    {{-- editar una direcciones con un formulario
-        'user_id',
-        'calle',
-        'numero',
-        'piso',
-        'puerta',
-        'codigo_postal',
-        'ciudad',
-        'provincia',
-        'pais', --}}
-    
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Editar Dirección') }}
@@ -18,7 +6,7 @@
     </x-slot>
 
     <div class="mt-12">
-        @include('productos.partials.msgDir')
+        @include('productos.partials.msg')
         <form action="{{ route('direcciones.update', $direcciones->id) }}" method="POST" class="max-w-md mx-auto">
             @csrf
             @method('PUT')

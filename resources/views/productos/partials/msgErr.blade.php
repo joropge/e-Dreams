@@ -1,11 +1,11 @@
-@if (\Session::get('success'))
-    <div id="success-msg"
-        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded fixed top-5 right-5 w-92 shadow-lg transform transition-transform translate-x-full"
+@if (\Session::get('error'))
+    <div id="error-msg"
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded fixed top-5 right-5 w-92 shadow-lg transform transition-transform translate-x-full"
         role="alert">
         <div class="flex items-start">
-            <span class="block sm:inline mr-4">{{ \Session::get('success') }}</span>
+            <span class="block sm:inline mr-4">{{ \Session::get('error') }}</span>
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg"
+                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20" onclick="hideMsg()">
                     <title>Close</title>
                     <path
@@ -16,7 +16,7 @@
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            var msg = document.getElementById("success-msg");
+            var msg = document.getElementById("error-msg");
             msg.classList.remove("translate-x-full");
             msg.classList.add("translate-x-0");
 
@@ -26,7 +26,7 @@
         });
 
         function hideMsg() {
-            var msg = document.getElementById("success-msg");
+            var msg = document.getElementById("error-msg");
             msg.classList.remove("translate-x-0");
             msg.classList.add("translate-x-full");
             setTimeout(function() {
