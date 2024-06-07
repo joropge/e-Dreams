@@ -9,6 +9,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\PasswordInput;
 use App\Filament\Resources\DireccionResource\RelationManagers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -70,8 +71,19 @@ class DireccionResource extends Resource
                     ->searchable()
                     ->preload()
                     ->createOptionForm([
+
+                        Forms\Components\TextInput::make('id')
+                            ->label('Id')
+                            ->disabled()
+                            ->default('Auto'),
+
                         Forms\Components\TextInput::make('name')
                             ->label('Name')
+                            ->maxLength(255)
+                            ->required(),
+
+                        Forms\Components\TextInput::make('apellidos')
+                            ->label('Apellidos')
                             ->maxLength(255)
                             ->required(),
 
@@ -81,9 +93,18 @@ class DireccionResource extends Resource
                             ->maxLength(255)
                             ->required(),
 
-                        // Forms\Components\PasswordInput::make('password')
-                        //     ->label('Password')
-                        //     ->required(),
+                        Forms\Components\TextInput::make('password')
+                            ->label('Password')
+                            ->password()
+                            ->required(),
+                        
+                        Forms\Components\Select::make('rol')
+                            ->label('Rol')
+                            ->options([
+                                'admin' => 'Admin',
+                                'user' => 'User',
+                            ])
+                            ->required(),
 
                     ])
                     ->required(),

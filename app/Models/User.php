@@ -61,7 +61,7 @@ class User extends Authenticatable implements FilamentUser
     //relacion con direccion
     public function direccion()
     {
-        return $this->belongsTo(Direccion::class);
+        return $this->hasMany(Direccion::class);
     }
 
     public function carrito()

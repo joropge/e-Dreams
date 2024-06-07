@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use App\Models\User;
 use App\Models\Direccion;
 use Filament\Forms\Components\Section;
+use App\Filament\Resources\ProfileResource\RelationManagers\DireccionesRelationManager;
 use App\Filament\Resources\ProfileResource\RelationManagers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -70,41 +71,41 @@ class ProfileResource extends Resource
                             ->disabled(),
                     ]),
 
-                Section::make('Direcciones del Usuario')
-                    ->columns(3)
-                    ->schema([
-                        Forms\Components\TextInput::make('calle')
-                            ->label('Calle')
-                            ->required(),
+                // Section::make('Direcciones del Usuario')
+                //     ->columns(3)
+                //     ->schema([
+                //         Forms\Components\TextInput::make('calle')
+                //             ->label('Calle')
+                //             ->required(),
 
-                        Forms\Components\TextInput::make('numero')
-                            ->label('Numero')
-                            ->required(),
+                //         Forms\Components\TextInput::make('numero')
+                //             ->label('Numero')
+                //             ->required(),
 
-                        Forms\Components\TextInput::make('piso')
-                            ->label('Piso'),
+                //         Forms\Components\TextInput::make('piso')
+                //             ->label('Piso'),
 
-                        Forms\Components\TextInput::make('puerta')
-                            ->label('Puerta'),
+                //         Forms\Components\TextInput::make('puerta')
+                //             ->label('Puerta'),
 
-                        Forms\Components\TextInput::make('codigo_postal')
-                            ->label('Codigo Postal')
-                            ->required(),
+                //         Forms\Components\TextInput::make('codigo_postal')
+                //             ->label('Codigo Postal')
+                //             ->required(),
 
-                        Forms\Components\TextInput::make('ciudad')
-                            ->label('Ciudad')
-                            ->required(),
+                //         Forms\Components\TextInput::make('ciudad')
+                //             ->label('Ciudad')
+                //             ->required(),
 
-                        Forms\Components\TextInput::make('provincia')
-                            ->label('Provincia')
-                            ->required(),
+                //         Forms\Components\TextInput::make('provincia')
+                //             ->label('Provincia')
+                //             ->required(),
 
-                        Forms\Components\TextInput::make('pais')
-                            ->label('Pais')
-                            ->required(),
+                //         Forms\Components\TextInput::make('pais')
+                //             ->label('Pais')
+                //             ->required(),
 
 
-                    ]),
+                //     ]),
 
             ]);
     }
@@ -175,8 +176,7 @@ class ProfileResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
-            
+            DireccionesRelationManager::class,
         ];
     }
 
