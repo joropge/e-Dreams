@@ -12,11 +12,7 @@ use App\Models\User;
 use App\Models\Direccion;
 use Filament\Forms\Components\Section;
 use App\Filament\Resources\ProfileResource\RelationManagers\DireccionesRelationManager;
-use App\Filament\Resources\ProfileResource\RelationManagers;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\Actions\Action;
-use Filament\Forms\Components\TextInput;
+
 
 
 class ProfileResource extends Resource

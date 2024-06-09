@@ -10,12 +10,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\DB;
-use App\Filament\Resources\PedidoResource\RelationManagers;
-use App\Models\Producto;
-use Filament\Forms\Components\Actions;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use SebastianBergmann\CodeCoverage\Report\Xml\Totals;
+
 
 class PedidoResource extends Resource
 {
@@ -182,8 +177,8 @@ class PedidoResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                // Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -203,8 +198,8 @@ class PedidoResource extends Resource
     {
         return [
             'index' => Pages\ListPedidos::route('/'),
-            'create' => Pages\CreatePedido::route('/create'),
-            'edit' => Pages\EditPedido::route('/{record}/edit'),
+            // 'create' => Pages\CreatePedido::route('/create'),
+            // 'edit' => Pages\EditPedido::route('/{record}/edit'),
         ];
     }
 }

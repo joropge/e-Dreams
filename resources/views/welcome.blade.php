@@ -69,8 +69,8 @@
                     </header>
                     <main class="mt-6">
                         <div class="text-center pb-8">
-                            <h1 class="text-4xl font-extrabold text-gray-450 mb-6">Welcome to Our Clothing Store!</h1>
-                            <p class="text-lg text-gray-500 mb-8">Explore our latest collection of trendy clothes and accessories.</p>
+                            <h1 class="text-4xl font-extrabold text-gray-450 mb-6">Bienvenido a nuestra Tienda!</h1>
+                            <p class="text-lg text-gray-500 mb-8">Explora nuestra última colección de ropa.</p>
                             <a href="{{ route('login') }}" class="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 to-red-500 text-white font-semibold rounded-md shadow-md hover:shadow-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-red-600 transition duration-300">Shop Now</a>
                         </div>
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6"></div>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\PasswordResetLinkController as AuthPasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UnregisteredController;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +11,7 @@ use App\Http\Controllers\DireccionesController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PasswordResetLinkController;
 
 
 Route::get('/', function () {
@@ -30,6 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email');
+
 
 Route::resource('carritos', CarritoController::class);
 Route::resource('categorias', CategoriasController::class);
@@ -100,8 +106,23 @@ Route::post('/user/pedidos/create', [PedidoController::class, 'create'])->name('
 //Mostrar un pedido
 Route::get('/user/pedidos/{pedido}', [PedidoController::class, 'show'])->name('pedidos.show');
 
+/*-------------------------------------------Recuperar Contraseña----------------------------------------- */
 
+Route::get('/forgot-password',[AuthPasswordResetLinkController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.request');
 
+Route::post('/forgot-password',[AuthPasswordResetLinkController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.email');
+
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+    ->middleware('guest')
+    ->name('password.reset');
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.update');
 
 
 
