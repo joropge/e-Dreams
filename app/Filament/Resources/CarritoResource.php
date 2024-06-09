@@ -51,17 +51,31 @@ class CarritoResource extends Resource
                 Forms\Components\TextInput::make('cantidad')
                     ->label('Cantidad')
                     ->required(),
+
+                // Forms\Components\TextInput::make('precio')
+                //     ->label('Precio')
+                //     ->default(function (callable $get) {
+                //         $producto_id = $get('producto_id');
+                //         $producto = \App\Models\Producto::find($producto_id);
+                //         return $producto ? $producto->precio : null;
+                //     })
+                //     ->required(),
                 Forms\Components\Select::make('total')
                     ->label('Total€')
                     ->options(function (callable $get) {
                         $producto_id = $get('producto_id');
                         $cantidad = $get('cantidad');
                         $producto = \App\Models\Producto::find($producto_id);
-                        return $producto ? [$producto->precio * $cantidad => $producto->precio * $cantidad] : [];
+                        if ($producto) {
+                            $total = $producto->precio * $cantidad;
+                            $formattedTotal = number_format($total, 2);
+                            return [$total => $formattedTotal];
+                        }
+                        return [];
+                        // return $producto ? [$producto->precio * $cantidad => $producto->precio * $cantidad] : [];
                     })
                     ->required()
                     ->reactive(),
-                // ->disabled(),
             ]);
     }
 

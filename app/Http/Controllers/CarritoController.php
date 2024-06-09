@@ -95,7 +95,7 @@ class CarritoController extends Controller
 
                         // 'images' => [$carrito->imagen]
                     ],
-                    'unit_amount' => $carrito->total * 100,
+                    'unit_amount' => ($carrito->total/$carrito->cantidad) * 100,
                 ],
                 'quantity' => $carrito->cantidad,
             ];
