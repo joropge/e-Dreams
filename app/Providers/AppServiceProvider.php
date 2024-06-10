@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\User;
+use App\Models\Pedido;
+use App\Models\Direccion;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        
+        // User::deleting(function ($user) {
+            
+        //     Pedido::where('user_id', $user->id)->delete();
+            
+        //     Direccion::where('user_id', $user->id)->delete();
+        // });
     }
 }
