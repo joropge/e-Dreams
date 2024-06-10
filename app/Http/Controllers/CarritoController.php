@@ -134,15 +134,17 @@ class CarritoController extends Controller
         }
         // Pasar los elementos del carrito a la tabla de pedidos
         foreach ($carrito as $item) {
-            $pedido = new Pedido([
-                'user_id' => $user->id,
-                'producto_id' => $item->producto_id,
-                'nombreProducto' => $productoNombres[$item->producto_id],
-                'direccion_id' => $direccion->id,
-                'estado' => 'enviado',
-                'total' => $item->producto->precio,
-            ]);
-            $pedido->save();
+            for ($i = 0; $i < $item->cantidad; $i++) {
+                $pedido = new Pedido([
+                    'user_id' => $user->id,
+                    'producto_id' => $item->producto_id,
+                    'nombreProducto' => $productoNombres[$item->producto_id],
+                    'direccion_id' => $direccion->id,
+                    'estado' => 'enviado',
+                    'total' => $item->producto->precio,
+                ]);
+                $pedido->save();
+            }
         }
 
         // Después del checkout, vaciar el carrito
