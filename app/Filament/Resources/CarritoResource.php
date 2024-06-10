@@ -51,17 +51,8 @@ class CarritoResource extends Resource
                 Forms\Components\TextInput::make('cantidad')
                     ->label('Cantidad')
                     ->required(),
-
-                // Forms\Components\TextInput::make('precio')
-                //     ->label('Precio')
-                //     ->default(function (callable $get) {
-                //         $producto_id = $get('producto_id');
-                //         $producto = \App\Models\Producto::find($producto_id);
-                //         return $producto ? $producto->precio : null;
-                //     })
-                //     ->required(),
-                Forms\Components\Select::make('total')
-                    ->label('Total€')
+                Forms\Components\Select::make('totalAmount')
+                    ->label('Total a colocar')
                     ->options(function (callable $get) {
                         $producto_id = $get('producto_id');
                         $cantidad = $get('cantidad');
@@ -72,10 +63,12 @@ class CarritoResource extends Resource
                             return [$total => $formattedTotal];
                         }
                         return [];
-                        // return $producto ? [$producto->precio * $cantidad => $producto->precio * $cantidad] : [];
                     })
-                    ->required()
                     ->reactive(),
+
+                Forms\Components\TextInput::make('total')
+                    ->label('Total')
+                    ->required(),
             ]);
     }
 
