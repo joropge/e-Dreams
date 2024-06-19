@@ -35,7 +35,7 @@ class PedidoResource extends Resource
                     ->reactive()
                     ->required(),
 
-                    Forms\Components\Select::make('producto_id')
+                Forms\Components\Select::make('producto_id')
                     ->relationship('producto', 'nombre')
                     ->options(\App\Models\Producto::pluck('id', 'id')->toArray())
                     ->searchable()
@@ -91,7 +91,7 @@ class PedidoResource extends Resource
                     // ->disabled()
                     ->required(),
 
-                    Forms\Components\Select::make('estado')
+                Forms\Components\Select::make('estado')
                     ->label('Estado')
                     // ->disabled()
                     ->default('Auto')
@@ -133,7 +133,7 @@ class PedidoResource extends Resource
                     ->label('Id_Producto')
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Usuario')
                     ->searchable()
@@ -142,26 +142,32 @@ class PedidoResource extends Resource
                 Tables\Columns\TextColumn::make('direccion_completa')
                     ->label('Direccion')
                     ->getStateUsing(function ($record) {
-                        return $record->direccion->calle . ',  Nº' . $record->direccion->numero . ', ' . $record->direccion->piso . '' . $record->direccion->puerta . ' ' . $record->direccion->codigo_postal . ' ' . $record->direccion->ciudad;
+                        $direccion = $record->direccion;
+
+                        if (is_null($direccion) || is_null($direccion->calle)) {
+                            return null;
+                        }
+
+                        return $direccion->calle . ', Nº' . $direccion->numero . ', ' . $direccion->piso . '' . $direccion->puerta . ' ' . $direccion->codigo_postal . ' ' . $direccion->ciudad;
                     })
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('nombreProducto')
                     ->label('Nombre Producto')
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('total')
                     ->label('Total')
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('estado')
                     ->label('Estado')
                     ->searchable()
                     ->sortable(),
-                
+
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha Creacion')
                     ->searchable()

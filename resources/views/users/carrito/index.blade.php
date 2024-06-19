@@ -43,7 +43,7 @@
                                     $producto = $carrito->producto;
 
                                     $rutaCompleta = $producto->imagen;
-                                    $nombreArchivo = basename($rutaCompleta);
+                                    $nombreArchivo = basename(str_replace('\\', '/', $rutaCompleta));
                                     $rutaDeseada = '';
 
                                     if ($producto->categoria_id == 1) {

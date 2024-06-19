@@ -1,5 +1,5 @@
 <x-app-layout>
-    <form action="{{ route('direcciones.store') }}" method="POST" enctype="multipart/form-data"
+    <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data"
         class="max-w-md mx-auto p-10">
         @csrf
         <div class="mb-4">

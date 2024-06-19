@@ -65,7 +65,7 @@ class DireccionesControllerTest extends TestCase
             'pais' => 'Country',
         ];
 
-        $response = $this->actingAs($user)->post(route('direcciones.store'), $data);
+        $response = $this->actingAs($user)->post(route('admin.store'), $data);
 
         $response->assertStatus(200);
         $response->assertViewIs('.users.direcciones.index');

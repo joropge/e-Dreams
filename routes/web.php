@@ -56,7 +56,7 @@ Route::get('/users/sudaderas/index', [ProductoController::class, 'sudaderasIndex
 //front
 Route::get('/users/front/index', [FrontController::class, 'index'])->name('front.index');
 //dashboard
-Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->name('dashboard');
+// Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->name('dashboard');
 
 
 
@@ -65,7 +65,7 @@ Route::get('/users/paginaPrincipal/index', [FrontController::class, 'index'])->n
 
 /*-------------------------------------------DIRECCIONES----------------------------------------- */
 //Crear direcciones
-Route::post('/admin/direcciones/create', [DireccionesController::class, 'store'])->name('direcciones.store');
+Route::post('/admin/store', [DireccionesController::class, 'store'])->name('admin.store');
 //mostrar direcciones
 Route::get('/admin/direcciones/index', [DireccionesController::class, 'index'])->name('direcciones.index');
 //Ruta a editar direcciones

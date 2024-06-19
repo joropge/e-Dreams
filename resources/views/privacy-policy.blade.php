@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-4">Privacy Policy</h1>
         <p class="mb-4">This is the privacy policy page content.</p>
-        <p class="mb-4">Por supuesto, aquí tienes un ejemplo de políticas de privacidad para E-Dreams:
+        
 
             ---
             

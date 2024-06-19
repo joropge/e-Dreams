@@ -6,7 +6,7 @@
     </x-slot>
     @php
         $rutaCompleta = $productos->imagen;
-        $nombreArchivo = basename($rutaCompleta);
+        $nombreArchivo = basename(str_replace('\\', '/', $rutaCompleta));
         $rutaDeseada = '';
 
         if ($productos->categoria_id == 1) {

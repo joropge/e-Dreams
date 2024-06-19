@@ -2,7 +2,6 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-4">Trabaja con nosotros</h1>
         <p class="mb-4">This is the privacy policy page content.</p>
-        <p class="mb-4">Claro, aquí tienes una versión de la historia para el apartado "Trabaja con nosotros":
 
             ¡Únete al equipo de E-Dreams y sé parte de nuestra emocionante historia de éxito en la industria de la moda!
             
